@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { adjustWallet } from "@/app/admin/actions";
+import { adjustWallet } from "@/app/admin/wallet.actions";
 import { AdminToast } from "@/components/admin/AdminToast";
 import { Button } from "@/components/ui/Button";
 import { CircuitCard } from "@/components/ui/CircuitCard";

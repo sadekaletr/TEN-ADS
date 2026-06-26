@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { LiveSparkFlow } from "@/components/command/LiveSparkFlow";
+import { LiveSparkFlow } from "@/components/dashboard/LiveSparkFlow";
 import { CreatorProgressBar } from "@/components/dashboard/CreatorProgressBar";
 import { InsightsCard } from "@/components/dashboard/InsightsCard";
 import { SparkRecommendation } from "@/components/dashboard/SparkRecommendation";
@@ -22,7 +22,10 @@ import { useLocale } from "@/lib/i18n";
 import { CAMPAIGN_STATUS_KEYS } from "@/lib/campaign-labels";
 import { StatusBadge, type StatusBadgeVariant } from "@/components/ui/StatusBadge";
 import type { CreatorInsights } from "@/lib/intelligence/graph";
+import type { CampaignRecommendation } from "@/lib/intelligence/recommendations";
+import type { CampaignTemplate } from "@/lib/network/recommendations";
 import { formatNumber, percent, spark } from "@/lib/format";
+import { trackProductEvent } from "@/lib/analytics/product-events";
 import { TYPICAL_CAMPAIGN_COST_DEFAULT } from "@/lib/wallet/topup-packages";
 
 type CampaignRow = {
@@ -48,6 +51,9 @@ interface BusinessDashboardProps {
   };
   insights: CreatorInsights;
   campaigns: CampaignRow[];
+  sparkRecommendation?: CampaignRecommendation | null;
+  recommendedSponsors?: { id: string; name: string; logoUrl: string | null; city: string | null }[];
+  bestTemplate?: CampaignTemplate | null;
 }
 
 const CAMPAIGN_STATUS_BADGE: Record<string, StatusBadgeVariant> = {
@@ -66,6 +72,9 @@ export function BusinessDashboard({
   analytics,
   insights,
   campaigns,
+  sparkRecommendation,
+  recommendedSponsors,
+  bestTemplate,
 }: BusinessDashboardProps) {
   const { t } = useLocale();
   const [intelOpen, setIntelOpen] = useState(false);
@@ -109,16 +118,24 @@ export function BusinessDashboard({
           {
             label: t("dashboard.home.activeCampaigns"),
             value: formatNumber(analytics.activeCampaigns),
+            trend: t("dashboard.home.updatedToday"),
           },
           {
             label: t("dashboard.home.conversionRate"),
             value: convPct,
+            trend: views > 0 ? `${formatNumber(views)} مشاهدة` : undefined,
           },
         ]}
         primaryAction={{
           href: needsTopUp ? "/dashboard/wallet/topup" : "/dashboard/campaigns/new",
           label: needsTopUp ? t("nav.topUp") : t("dashboard.campaigns.newCampaign"),
           icon: <Icon name={needsTopUp ? "wallet" : "rocket"} size={16} />,
+          onClick: () =>
+            trackProductEvent("dashboard_primary_cta_click", {
+              section: "dashboard_atf",
+              ctaLabel: needsTopUp ? t("nav.topUp") : t("dashboard.campaigns.newCampaign"),
+              metadata: { needsTopUp, walletBalance },
+            }),
         }}
         secondaryAction={{
           href: needsTopUp ? "/dashboard/campaigns/new" : "/dashboard/wallet/topup",
@@ -156,10 +173,19 @@ export function BusinessDashboard({
                 title={t("dashboard.home.smartSuggestion")}
                 description={t("dashboard.home.smartSuggestionDesc")}
               />
-              <SparkRecommendation creatorId={creatorId} />
+              <SparkRecommendation
+                creatorId={creatorId}
+                initialRecommendation={sparkRecommendation}
+              />
             </GlassCard>
-            <RecommendedSponsorsCard creatorId={creatorId} />
-            <BestTemplateCard creatorId={creatorId} />
+            <RecommendedSponsorsCard
+              creatorId={creatorId}
+              initialSponsors={recommendedSponsors}
+            />
+            <BestTemplateCard
+              creatorId={creatorId}
+              initialTemplate={bestTemplate}
+            />
             <GlassCard innerClassName="py-4 px-6">
               <InsightsCard insights={insights} />
             </GlassCard>
@@ -179,11 +205,17 @@ export function BusinessDashboard({
         />
         {activeCampaigns.length === 0 ? (
           <EmptyState
+            variant="premium"
             title={t("dashboard.home.noCampaigns")}
             description={t("dashboard.home.noCampaignsDesc")}
             illustration={<EmptyCampaignsIllustration className="h-full w-full" />}
             action={
-              <Button href="/dashboard/campaigns/new" icon={<Icon name="rocket" size={16} />}>
+              <Button
+                href="/dashboard/campaigns/new"
+                glow
+                icon={<Icon name="rocket" size={16} />}
+                className="min-h-12"
+              >
                 {t("dashboard.home.createCampaign")}
               </Button>
             }

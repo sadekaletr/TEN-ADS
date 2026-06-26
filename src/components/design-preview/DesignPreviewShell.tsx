@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { TOKENS } from "@/styles/tokens";
 
 const TABS = [
+  { id: "ui40", label: "UI 4.0" },
   { id: "tokens", label: "Tokens" },
   { id: "components", label: "Components" },
   { id: "motion", label: "Motion" },
@@ -19,6 +20,7 @@ const TABS = [
 type TabId = (typeof TABS)[number]["id"];
 
 export function DesignPreviewShell({
+  ui40,
   tokens,
   components,
   motion,
@@ -29,6 +31,7 @@ export function DesignPreviewShell({
   creators,
   admin,
 }: {
+  ui40: ReactNode;
   tokens: ReactNode;
   components: ReactNode;
   motion: ReactNode;
@@ -39,9 +42,10 @@ export function DesignPreviewShell({
   creators: ReactNode;
   admin: ReactNode;
 }) {
-  const [tab, setTab] = useState<TabId>("tokens");
+  const [tab, setTab] = useState<TabId>("ui40");
 
   const panels: Record<TabId, ReactNode> = {
+    ui40,
     tokens,
     components,
     motion,
@@ -63,7 +67,7 @@ export function DesignPreviewShell({
           Design System — Governance Center
         </h1>
         <p className={`${TOKENS.type.body} mt-2 text-text-secondary`}>
-          UI Masterplan v2 + Black Gold 2.0 signature components
+          Global UI 4.0 + Black Gold 2.0 governance center
         </p>
       </div>
 

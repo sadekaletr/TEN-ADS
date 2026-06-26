@@ -140,7 +140,7 @@ function CreatorsPageContent({ spotlight, grid, stats }: CreatorsPageClientProps
           </motion.div>
         ) : isFiltering ? (
           <motion.div key="loading" {...creatorsListPresence} className="mx-auto max-w-6xl px-4 py-10 md:px-6">
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {Array.from({ length: 6 }).map((_, i) => (
                 <CreatorCardSkeleton key={i} />
               ))}
@@ -150,11 +150,11 @@ function CreatorsPageContent({ spotlight, grid, stats }: CreatorsPageClientProps
           <motion.div key="content" {...creatorsListPresence}>
             {filteredSpotlight.length > 0 && (
               <LandingScrollReveal>
-                <section className="mx-auto max-w-6xl px-4 py-10 md:px-6">
-                  <h2 className="mb-6 text-xl font-semibold text-warm-white">
+                <section className="mx-auto max-w-6xl px-4 py-12 md:px-6">
+                  <h2 className="mb-8 text-xl font-semibold tracking-tight text-text-primary md:text-2xl">
                     {t("creators.spotlight.title")}
                   </h2>
-                  <div className="grid gap-5 md:grid-cols-3">
+                  <div className="grid gap-6 md:grid-cols-3">
                     {filteredSpotlight.map((creator) => (
                       <CreatorSpotlightCard
                         key={creator.id}

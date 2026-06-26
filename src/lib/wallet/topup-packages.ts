@@ -3,6 +3,14 @@ import { sparkToSyp } from "@/lib/spark";
 import { sparkPackageUsd } from "@/lib/spark-pricing";
 import { tierCostPerRedemption } from "@/lib/campaign-tiers";
 
+export const TOP_UP_PACKAGE_AMOUNTS = [5, 15, 30] as const;
+
+export type TopUpPackAmount = (typeof TOP_UP_PACKAGE_AMOUNTS)[number];
+
+export function isValidTopUpAmount(amount: number): amount is TopUpPackAmount {
+  return (TOP_UP_PACKAGE_AMOUNTS as readonly number[]).includes(amount);
+}
+
 export const TYPICAL_CAMPAIGN_COST_DEFAULT = 10;
 
 export type TopUpPackage = {
@@ -37,25 +45,21 @@ export function buildTopUpPackages(
     };
   }
 
-  return [
-    {
-      amount: 5,
-      priceSYP: sparkToSyp(5, sparkUnit),
-      ...usdFields(5),
-      resultText: `كافٍ لحوالي ${formatNumber(basicCampaigns(5))} حملات أساسية`,
-    },
-    {
-      amount: 15,
-      priceSYP: sparkToSyp(15, sparkUnit),
-      ...usdFields(15),
-      resultText: `كافٍ لحوالي ${formatNumber(proCampaigns(15))} حملات محترفة أو ${formatNumber(basicCampaigns(15))} أساسية`,
-      featured: true,
-    },
-    {
-      amount: 30,
-      priceSYP: sparkToSyp(30, sparkUnit),
-      ...usdFields(30),
-      resultText: `كافٍ لحوالي ${formatNumber(basicCampaigns(30))}+ حملة أو ${formatNumber(proCampaigns(30))} إمبراطورية`,
-    },
-  ];
+  return TOP_UP_PACKAGE_AMOUNTS.map((amount, index) => {
+    const featured = amount === 15;
+    const basic = basicCampaigns(amount);
+    const pro = proCampaigns(amount);
+    const resultTexts = [
+      `كافٍ لحوالي ${formatNumber(basic)} حملات أساسية`,
+      `كافٍ لحوالي ${formatNumber(pro)} حملات محترفة أو ${formatNumber(basic)} أساسية`,
+      `كافٍ لحوالي ${formatNumber(basic)}+ حملة أو ${formatNumber(pro)} إمبراطورية`,
+    ];
+    return {
+      amount,
+      priceSYP: sparkToSyp(amount, sparkUnit),
+      ...usdFields(amount),
+      resultText: resultTexts[index]!,
+      featured,
+    };
+  });
 }

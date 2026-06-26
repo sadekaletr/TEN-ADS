@@ -31,6 +31,7 @@ export function LandingFinalCta() {
               href="/login"
               size="lg"
               variant="primary"
+              glow
               className="min-h-12"
               icon={<Icon name="rocket" size={20} />}
               onClick={() =>

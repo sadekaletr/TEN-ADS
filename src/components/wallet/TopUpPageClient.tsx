@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import {
   requestTopUp,
   uploadTopUpProof,
@@ -19,6 +19,7 @@ import { WalletTopUpStepper, type TopUpStepKey } from "@/components/wallet/Walle
 import { ProofConfidencePanel } from "@/components/wallet/ProofConfidencePanel";
 import { WalletConfidenceStrip } from "@/components/ui/WalletConfidenceStrip";
 import { TrustProofUploader } from "@/components/ui/TrustProofUploader";
+import { FormField } from "@/components/ui/FormField";
 import {
   StickyActionBar,
   StickyActionBarButton,
@@ -28,9 +29,10 @@ import { SparkAmount } from "@/components/ui/SparkAmount";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Input } from "@/components/ui/Input";
-import { Label } from "@/components/ui/Label";
 import { Checkbox } from "@/components/ui/Checkbox";
+import { Icon } from "@/components/ui/Icon";
 import { cn } from "@/lib/utils";
+import { trackProductEvent } from "@/lib/analytics/product-events";
 import type { TopUpRequest } from "@prisma/client";
 import type { TopUpPackage } from "@/lib/wallet/topup-packages";
 import type { TopUpSocialProofData } from "@/lib/wallet/social-proof";
@@ -48,6 +50,41 @@ interface TopUpPageClientProps {
   draft?: { title: string; sparkNeeded: number } | null;
   sparkPricing: SparkPricing;
   partner?: { discountCode: string; creatorName: string } | null;
+}
+
+function TopUpSummary({
+  amount,
+  transferUsd,
+  listUsd,
+  isPartner,
+}: {
+  amount: number;
+  transferUsd: number;
+  listUsd?: number;
+  isPartner: boolean;
+}) {
+  return (
+    <div className="rounded-xl border border-strong bg-bg-elevated/80 p-4">
+      <div className="flex items-center justify-between gap-4 border-b border-subtle pb-3">
+        <span className="text-sm text-text-secondary">مبلغ الشحن</span>
+        <SparkAmount amount={amount} size="md" />
+      </div>
+      <div className="flex items-center justify-between gap-4 pt-3">
+        <span className="text-sm font-medium text-text-primary">الإجمالي المطلوب</span>
+        <div className="text-end">
+          <p className="font-mono text-xl font-semibold tabular-nums text-gold-accent">
+            {formatUsd(transferUsd)}
+          </p>
+          {isPartner && listUsd != null && listUsd !== transferUsd && (
+            <p className="font-mono text-xs tabular-nums text-text-tertiary line-through">
+              {formatUsd(listUsd)}
+            </p>
+          )}
+        </div>
+      </div>
+      <p className="mt-2 text-xs text-text-tertiary">لا رسوم إضافية — المبلغ النهائي واضح قبل الإرسال</p>
+    </div>
+  );
 }
 
 export function TopUpPageClient({
@@ -84,7 +121,23 @@ export function TopUpPageClient({
   const showStickySubmit = step === "proof" || step === "submit";
   const isPartner = Boolean(partner);
   const usdPerSpark = isPartner ? sparkPricing.partnerUsd : sparkPricing.listUsd;
-  const transferUsd = sparkPackageUsd(amount, usdPerSpark);
+  const transferUsd = useMemo(
+    () => sparkPackageUsd(amount, usdPerSpark),
+    [amount, usdPerSpark]
+  );
+  const listUsd = useMemo(
+    () => (isPartner ? sparkPackageUsd(amount, sparkPricing.listUsd) : undefined),
+    [amount, isPartner, sparkPricing.listUsd]
+  );
+
+  function selectPackage(pkg: TopUpPackage) {
+    setCustomMode(false);
+    setSelectedAmount(pkg.amount);
+    trackProductEvent("wallet_topup_package_select", {
+      section: "topup_package",
+      metadata: { amount: pkg.amount, featured: pkg.featured },
+    });
+  }
 
   function handleProofSelect(file: File | null) {
     setProofFile(file);
@@ -113,6 +166,10 @@ export function TopUpPageClient({
     if (!proofFile) return;
     setLoading(true);
     setSubmitError(null);
+    trackProductEvent("wallet_topup_submit", {
+      section: "topup_proof",
+      metadata: { amount, hasReference: bankReference.length >= 3 },
+    });
     try {
       const request = await requestTopUp(amount, bankReference, {
         transferMethod: transferSettings.transferMethod,
@@ -136,20 +193,19 @@ export function TopUpPageClient({
   if (step === "done" && submittedRequest) {
     return (
       <div className="mx-auto max-w-lg space-y-6 pb-safe">
-        <GlassCard className="space-y-4 text-center">
-          <p className="text-2xl text-gold-1">تم استلام طلبك</p>
-          <p className="text-sm text-dim">قيد المراجعة — ستصلك إشعار عند الموافقة</p>
+        <GlassCard className="space-y-4 border-success/30 bg-success/5 text-center">
+          <Icon name="check" size={40} className="mx-auto text-success" />
+          <p className="text-2xl font-semibold text-gold-accent">تم استلام طلبك</p>
+          <p className="text-sm text-text-secondary">قيد المراجعة — ستصلك إشعار عند الموافقة</p>
           <SparkAmount amount={amount} size="lg" className="justify-center" />
         </GlassCard>
         <GlassCard>
-          <h2 className="mb-4 text-lg text-gold-1">متابعة الطلب</h2>
+          <h2 className="mb-4 text-lg font-semibold text-text-primary">متابعة الطلب</h2>
           <TopUpTimeline request={submittedRequest} />
         </GlassCard>
-        <div className="flex flex-col gap-2">
-          <Button href="/dashboard/wallet" fullWidth className="min-h-11">
-            الذهاب للمحفظة
-          </Button>
-        </div>
+        <Button href="/dashboard/wallet" fullWidth className="min-h-12">
+          الذهاب للمحفظة
+        </Button>
       </div>
     );
   }
@@ -178,7 +234,7 @@ export function TopUpPageClient({
           </>
         }
         action={
-          <Button href="/dashboard/wallet" variant="secondary" size="sm" className="min-h-11">
+          <Button href="/dashboard/wallet" variant="secondary" size="sm" className="min-h-12">
             المحفظة
           </Button>
         }
@@ -204,23 +260,18 @@ export function TopUpPageClient({
 
       <WalletTopUpStepper current={stepperKey} />
 
-      {draft && (
-        <DraftCampaignBanner title={draft.title} sparkNeeded={draft.sparkNeeded} />
-      )}
+      {draft && <DraftCampaignBanner title={draft.title} sparkNeeded={draft.sparkNeeded} />}
 
       {step === "package" && (
         <>
           <TopUpSocialProof data={socialProof} />
-          <div className="grid items-stretch gap-4 sm:grid-cols-3">
+          <div className="grid items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {packages.map((pkg) => (
               <TopUpPackageCard
                 key={pkg.amount}
                 pkg={pkg}
                 selected={!customMode && selectedAmount === pkg.amount}
-                onSelect={() => {
-                  setCustomMode(false);
-                  setSelectedAmount(pkg.amount);
-                }}
+                onSelect={() => selectPackage(pkg)}
               />
             ))}
           </div>
@@ -231,18 +282,27 @@ export function TopUpPageClient({
               onChange={(e) => setCustomMode(e.target.checked)}
             />
             {customMode && (
-              <Input
-                type="number"
-                min={1}
-                value={customAmount}
-                onChange={(e) => setCustomAmount(Number(e.target.value))}
-                className="min-h-11 font-mono"
-              />
+              <FormField label="المبلغ (Spark)" hint="أدخل عدد Spark المطلوب">
+                <Input
+                  type="number"
+                  min={1}
+                  value={customAmount}
+                  onChange={(e) => setCustomAmount(Number(e.target.value))}
+                  className="min-h-12 font-mono tabular-nums"
+                />
+              </FormField>
             )}
+            <TopUpSummary
+              amount={amount}
+              transferUsd={transferUsd}
+              listUsd={listUsd}
+              isPartner={isPartner}
+            />
             <Button
               fullWidth
+              glow
               disabled={amount < 1}
-              className="min-h-11"
+              className="min-h-12"
               onClick={() => setStep("transfer")}
             >
               متابعة — ShamCash
@@ -253,7 +313,7 @@ export function TopUpPageClient({
                 variant="secondary"
                 fullWidth
                 loading={stripeLoading}
-                className="min-h-11"
+                className="min-h-12"
                 onClick={handleStripeCheckout}
               >
                 الدفع بالبطاقة (Stripe)
@@ -265,41 +325,20 @@ export function TopUpPageClient({
 
       {step === "transfer" && (
         <div className="space-y-4">
-          <Button variant="ghost" size="sm" className="min-h-11" onClick={() => setStep("package")}>
+          <Button variant="ghost" size="sm" className="min-h-12" onClick={() => setStep("package")}>
             ← تغيير الباقة
           </Button>
-          <GlassCard className="space-y-2 text-center">
-            <p className="text-sm text-dim">المبلغ المطلوب شحنه</p>
-            <SparkAmount amount={amount} size="xl" className="justify-center" />
-            <p className="text-sm text-dim">
-              ما يعادل{" "}
-              <span className="font-mono font-semibold text-gold-1">{formatUsd(transferUsd)}</span>
-              {isPartner && (
-                <>
-                  {" "}
-                  <span className="font-mono text-dim line-through">
-                    {formatUsd(sparkPackageUsd(amount, sparkPricing.listUsd))}
-                  </span>
-                </>
-              )}
-            </p>
-            {partner && (
-              <p className="text-xs text-dim">
-                كود الشريك:{" "}
-                <span className="font-mono text-gold-1">{partner.discountCode}</span>
-              </p>
-            )}
-          </GlassCard>
+          <TopUpSummary amount={amount} transferUsd={transferUsd} listUsd={listUsd} isPartner={isPartner} />
           <ProofConfidencePanel
             settings={transferSettings}
             amountLabel={
-              <div className="text-center">
-                <p className="text-xs text-dim">المبلغ</p>
+              <div className="rounded-lg border border-subtle bg-bg-base/40 py-3 text-center">
+                <p className="text-xs text-text-tertiary">المبلغ المحوّل</p>
                 <SparkAmount amount={amount} size="md" className="justify-center" />
               </div>
             }
           />
-          <Button fullWidth className="min-h-11" onClick={() => setStep("proof")}>
+          <Button fullWidth glow className="min-h-12" onClick={() => setStep("proof")}>
             تم التحويل — رفع الإثبات
           </Button>
         </div>
@@ -307,9 +346,10 @@ export function TopUpPageClient({
 
       {(step === "proof" || step === "submit") && (
         <GlassCard className="space-y-4">
-          <Button variant="ghost" size="sm" className="min-h-11" onClick={() => setStep("transfer")}>
+          <Button variant="ghost" size="sm" className="min-h-12" onClick={() => setStep("transfer")}>
             ← رجوع للتحويل
           </Button>
+          <TopUpSummary amount={amount} transferUsd={transferUsd} listUsd={listUsd} isPartner={isPartner} />
           <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
             <TrustProofUploader
               label="صورة إثبات التحويل"
@@ -319,29 +359,31 @@ export function TopUpPageClient({
               previewUrl={proofPreview}
               onSelect={handleProofSelect}
             />
-            <div>
-              <Label htmlFor="bank-ref">رقم العملية / المرجع</Label>
+            <FormField label="رقم العملية / المرجع" required hint="من إيصال التحويل البنكي">
               <Input
-                id="bank-ref"
                 type="text"
                 value={bankReference}
                 onChange={(e) => setBankReference(e.target.value)}
-                className="min-h-11 font-mono"
+                className="min-h-12 font-mono tabular-nums"
                 required
                 minLength={3}
               />
-            </div>
+            </FormField>
             {submitError && (
-              <p className="rounded border border-danger/30 bg-danger-muted px-3 py-2 text-sm text-danger">
+              <p
+                className="rounded-xl border border-danger/40 bg-danger-muted px-4 py-3 text-sm text-danger"
+                role="alert"
+              >
                 {submitError}
               </p>
             )}
             <Button
               type="submit"
+              glow
               loading={loading}
               disabled={amount < 1 || !proofFile}
               fullWidth
-              className="hidden min-h-11 py-3 text-base md:flex"
+              className="hidden min-h-12 md:flex"
             >
               إرسال طلب الشحن
             </Button>

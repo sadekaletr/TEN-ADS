@@ -7,6 +7,7 @@ import { MarketplaceDiscoverCampaigns } from "@/components/marketplace/Marketpla
 import { EmptyState } from "@/components/ui/EmptyState";
 import { EmptySearchIllustration } from "@/components/illustrations/EmptyIllustrations";
 import { Tabs } from "@/components/ui/Tabs";
+import { Button } from "@/components/ui/Button";
 import { useLocale } from "@/lib/i18n";
 import type { CreatorCardData } from "@/lib/creators/getFeaturedCreators";
 
@@ -38,10 +39,14 @@ export function MarketplacePageClient({
     searchParams.tab === "campaigns" ? "campaigns" : "creators"
   );
 
+  const hasFilters = Boolean(
+    searchParams.city || searchParams.category || searchParams.minTrust
+  );
+
   return (
     <>
       <Tabs
-        className="mb-6"
+        className="mb-8"
         tabs={[
           { id: "campaigns" as const, label: "اكتشف الحملات" },
           { id: "creators" as const, label: "ابحث عن صناع" },
@@ -61,16 +66,34 @@ export function MarketplacePageClient({
           />
           {creators.length === 0 ? (
             <EmptyState
-              title={t("marketplace.noResults")}
-              description={t("marketplace.subtitle")}
+              variant="premium"
+              title={hasFilters ? "لا نتائج للفلتر" : t("marketplace.noResults")}
+              description={
+                hasFilters
+                  ? "جرّب توسيع البحث أو إزالة بعض الفلاتر"
+                  : t("marketplace.subtitle")
+              }
               illustration={<EmptySearchIllustration className="h-full w-full" />}
+              action={
+                hasFilters ? (
+                  <Button href="/marketplace" variant="secondary" className="min-h-12">
+                    إعادة تعيين الفلاتر
+                  </Button>
+                ) : undefined
+              }
             />
           ) : (
-            <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {creators.map((creator) => (
-                <MarketplaceListingCard key={creator.id} creator={creator} />
-              ))}
-            </div>
+            <>
+              <p className="mb-4 text-sm text-text-secondary">
+                {creators.length} صانع — مرتّبون حسب الثقة والنشاط
+              </p>
+              <h2 className="sr-only">نتائج البحث عن صناع المحتوى</h2>
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {creators.map((creator) => (
+                  <MarketplaceListingCard key={creator.id} creator={creator} />
+                ))}
+              </div>
+            </>
           )}
         </>
       )}

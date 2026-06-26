@@ -1,5 +1,7 @@
 import { transition } from "./tokens";
 
+export { transition, duration, easeGold, easeSnap, stagger, durationMs, cssTransition, maxConcurrentParticles } from "./tokens";
+
 export const fadeUp = {
   initial: { opacity: 0, y: 16 },
   animate: { opacity: 1, y: 0 },
@@ -22,6 +24,8 @@ export const staggerContainer = {
     transition: { staggerChildren: 0.08, delayChildren: 0.04 },
   },
 };
+
+export const staggerChildren = staggerContainer;
 
 export const staggerItem = {
   initial: { opacity: 0, y: 12 },

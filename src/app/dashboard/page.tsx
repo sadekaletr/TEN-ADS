@@ -1,6 +1,11 @@
-import { getCreatorSession } from "@/lib/session-auth";
+import { getCachedCreator, getCachedCreatorSession } from "@/lib/creators/cached-session";
 import { getCreatorAnalytics } from "@/lib/analytics";
 import { getCreatorInsights } from "@/lib/intelligence/graph";
+import { getCampaignRecommendations } from "@/lib/intelligence/recommendations";
+import {
+  getBestCampaignTemplate,
+  getRecommendedSponsorsForCreator,
+} from "@/lib/network/recommendations";
 import { notDeleted } from "@/lib/db";
 import { prisma } from "@/lib/prisma";
 import {
@@ -12,12 +17,10 @@ import { BusinessDashboard } from "@/components/dashboard/BusinessDashboard";
 import { redirect } from "next/navigation";
 
 export default async function DashboardPage() {
-  const session = await getCreatorSession();
+  const session = await getCachedCreatorSession();
   if (!session) redirect("/login");
 
-  const creator = await prisma.creator.findFirst({
-    where: { id: session.user.id, ...notDeleted },
-  });
+  const creator = await getCachedCreator();
   if (!creator) redirect("/login");
 
   let sparkScore = await getLatestSparkScore(creator.id);
@@ -25,7 +28,7 @@ export default async function DashboardPage() {
     sparkScore = await computeSparkScore(creator.id);
   }
 
-  const [analytics, insights, campaigns, sparkUnit, completedCampaigns] = await Promise.all([
+  const [analytics, insights, campaigns, sparkUnit, completedCampaigns, sparkRecommendation, recommendedSponsors, bestTemplate] = await Promise.all([
     getCreatorAnalytics(session.user.id),
     getCreatorInsights(session.user.id),
     prisma.campaign.findMany({
@@ -41,6 +44,9 @@ export default async function DashboardPage() {
         ...notDeleted,
       },
     }),
+    getCampaignRecommendations(session.user.id),
+    getRecommendedSponsorsForCreator(session.user.id),
+    getBestCampaignTemplate(session.user.id),
   ]);
 
   return (
@@ -57,6 +63,9 @@ export default async function DashboardPage() {
       }}
       insights={insights}
       campaigns={campaigns}
+      sparkRecommendation={sparkRecommendation}
+      recommendedSponsors={recommendedSponsors}
+      bestTemplate={bestTemplate}
     />
   );
 }

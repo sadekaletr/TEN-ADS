@@ -268,6 +268,9 @@ export function RewardReveal({
             برعاية {campaign.sponsor.name}
           </motion.p>
           <div className="mt-6 space-y-2">
+            <Button fullWidth glow className="min-h-12" href="/marketplace">
+              اكتشف حملات أخرى
+            </Button>
             <Button fullWidth variant="secondary" onClick={handleShare}>
               {copied ? "تم نسخ الرابط" : "مشاركة"}
             </Button>

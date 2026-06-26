@@ -48,7 +48,7 @@
   --bg-elevated: #1a1a1d;
   --text-primary: #fafafa;
   --text-secondary: #a1a1aa;
-  --text-muted: #71717a;
+  --text-muted: #8a8a94;
   --gold-accent: #e8c872;
   --gold-rich: #d4af37;
   --gold-deep: #9a7b2f;
@@ -423,5 +423,23 @@
   @keyframes junction-pulse {
     0%, 100% { transform: scale(1); opacity: 0.6; }
     50% { transform: scale(1.35); opacity: 1; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .landing-marquee,
+    .landing-aurora-layer,
+    .cta-shimmer,
+    .validation-pulse,
+    .animate-junction-pulse,
+    .hero-spotlight,
+    .landing-hero-glow,
+    .landing-spark-particle,
+    .animate-pulse {
+      animation: none !important;
+    }
+
+    html {
+      scroll-behavior: auto !important;
+    }
   }
 }

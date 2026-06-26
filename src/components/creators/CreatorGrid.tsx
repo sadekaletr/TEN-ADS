@@ -17,12 +17,12 @@ export function CreatorGrid({ creators }: CreatorGridProps) {
   if (creators.length === 0) return null;
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-10 md:px-6">
-      <h2 className="mb-6 text-xl font-semibold text-warm-white">
+    <section className="mx-auto max-w-6xl px-4 py-12 md:px-6">
+      <h2 className="mb-8 text-xl font-semibold tracking-tight text-text-primary md:text-2xl">
         {t("creators.grid.title")}
       </h2>
       <motion.div
-        className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+        className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
         variants={reducedMotion ? undefined : creatorsStaggerContainer}
         initial={reducedMotion ? false : "hidden"}
         whileInView="show"

@@ -5,11 +5,11 @@ import { useState } from "react";
 import {
   grantIntelligenceSubscription,
   revokeIntelligenceSubscription,
-  adjustWallet,
   recomputeSparkAdmin,
   updateCreatorAdmin,
   upsertCreatorListingAdmin,
 } from "@/app/admin/actions";
+import { adjustWallet } from "@/app/admin/wallet.actions";
 import { CreatorSpotlightCard } from "@/components/creators/CreatorSpotlightCard";
 import type { CreatorCardData } from "@/lib/creators/getFeaturedCreators";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";

@@ -3,6 +3,8 @@
 import { useCallback, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FilterPill, FilterPillGroup } from "@/components/ui/FilterPill";
+import { Input } from "@/components/ui/Input";
+import { trackProductEvent } from "@/lib/analytics/product-events";
 
 const CATEGORIES = [
   { value: "", label: "الكل" },
@@ -48,6 +50,15 @@ export function MarketplaceFilters({
       if (nextMinTrust) params.set("minTrust", nextMinTrust);
       else params.delete("minTrust");
 
+      trackProductEvent("marketplace_filter_apply", {
+        section: "marketplace_filters",
+        metadata: {
+          city: nextCity || null,
+          category: nextCategory || null,
+          minTrust: nextMinTrust || null,
+        },
+      });
+
       router.push(`/marketplace?${params.toString()}`);
     },
     [city, router, searchParams]
@@ -57,19 +68,27 @@ export function MarketplaceFilters({
   const activeMinTrust = searchParams.get("minTrust") ?? initialMinTrust;
 
   return (
-    <div className="sticky top-0 z-10 mb-6 space-y-3 rounded-xl border border-gold-4/20 bg-surface-elevated/95 p-4 backdrop-blur-sm">
-      <div className="flex flex-wrap items-center gap-2">
-        <span className="text-xs text-dim">المدينة</span>
-        <input
+    <div
+      className="sticky top-0 z-10 mb-6 space-y-4 rounded-2xl border border-strong bg-bg-surface/95 p-4 shadow-surface backdrop-blur-md"
+      role="search"
+      aria-label="فلاتر السوق"
+    >
+      <div className="flex flex-wrap items-end gap-2">
+        <label className="w-full text-xs font-medium text-text-tertiary sm:w-auto">
+          المدينة
+        </label>
+        <Input
           value={city}
           onChange={(e) => setCity(e.target.value)}
           onKeyDown={(e) => {
             if (e.key === "Enter") apply({ city });
           }}
           placeholder="دمشق، حلب..."
-          className="min-w-[120px] flex-1 rounded-full border border-gold-4/40 bg-surface-2 px-3 py-1.5 text-sm text-warm-white placeholder:text-dimmer focus:border-gold-2 focus:outline-none"
+          className="min-h-12 flex-1 sm:min-w-[160px]"
         />
-        <FilterPill onClick={() => apply({ city })}>تطبيق</FilterPill>
+        <FilterPill active={Boolean(city)} onClick={() => apply({ city })}>
+          تطبيق
+        </FilterPill>
       </div>
 
       <FilterPillGroup label="الفئة">

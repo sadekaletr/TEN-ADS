@@ -2,6 +2,7 @@
 
 import { n } from "@/lib/format";
 import { useLocale } from "@/lib/i18n";
+import { cn } from "@/lib/utils";
 
 interface CreatorStatChipsProps {
   sparkScore: number | null;
@@ -24,23 +25,40 @@ export function CreatorStatChips({
     sparkScore != null ? n(sparkScore) : isNew ? t("creators.chips.new") : "—";
 
   const chips = [
-    { label: t("creators.chips.spark"), value: sparkValue },
-    { label: t("creators.chips.campaigns"), value: n(activeCampaigns) },
-    { label: t("creators.chips.redemptions"), value: n(totalRedemptions) },
+    { label: t("creators.chips.spark"), value: sparkValue, highlight: true },
+    { label: t("creators.chips.campaigns"), value: n(activeCampaigns), highlight: false },
+    { label: t("creators.chips.redemptions"), value: n(totalRedemptions), highlight: false },
   ];
 
   return (
-    <div className={compact ? "flex flex-wrap gap-1.5" : "flex flex-wrap gap-2"}>
+    <div
+      className={cn(
+        "flex flex-wrap",
+        compact ? "gap-1.5" : "gap-2"
+      )}
+      role="list"
+      aria-label={t("creators.chips.spark")}
+    >
       {chips.map((chip) => (
         <span
           key={chip.label}
-          className={
+          role="listitem"
+          className={cn(
+            "inline-flex items-baseline gap-1 rounded-lg border",
             compact
-              ? "rounded-md border border-gold-4/20 bg-void/50 px-2 py-0.5 text-[10px]"
-              : "rounded-lg border border-gold-4/25 bg-void/40 px-2.5 py-1 text-xs"
-          }
+              ? "border-strong/60 bg-bg-elevated/80 px-2 py-0.5 text-[10px]"
+              : "border-strong bg-bg-elevated/90 px-2.5 py-1 text-xs shadow-surface",
+            chip.highlight && "border-gold-2/30 bg-gold-rich/5"
+          )}
         >
-          <span className="font-mono font-medium text-gold-1">{chip.value}</span>{" "}
+          <span
+            className={cn(
+              "font-mono font-semibold tabular-nums",
+              chip.highlight ? "text-gold-accent" : "text-text-primary"
+            )}
+          >
+            {chip.value}
+          </span>
           <span className="text-text-secondary">{chip.label}</span>
         </span>
       ))}

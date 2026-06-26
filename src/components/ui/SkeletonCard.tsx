@@ -66,14 +66,52 @@ export function SkeletonHeatmap() {
 export function DashboardLoadingSkeleton() {
   return (
     <div className="mx-auto max-w-6xl space-y-8 px-4 py-8">
-      <Skeleton className="h-8 w-48" />
-      <SkeletonKpiGrid />
-      <SkeletonCard className="min-h-[180px]" />
-      <div className="grid gap-4 lg:grid-cols-2">
-        <SkeletonCard className="min-h-[200px]" />
-        <SkeletonCard className="min-h-[200px]" />
+      <Skeleton className="h-8 w-56" />
+      <div className="space-y-4">
+        <SkeletonCard className="min-h-[160px]" />
+        <div className="grid gap-3 sm:grid-cols-2">
+          <SkeletonCard className="min-h-[88px]" />
+          <SkeletonCard className="min-h-[88px]" />
+        </div>
       </div>
-      <SkeletonTable />
+      <Skeleton className="h-10 w-full max-w-xl rounded-xl" />
+      <Skeleton className="h-12 w-full rounded-xl" />
+      <div className="grid gap-6 lg:grid-cols-2">
+        <SkeletonCard className="min-h-[220px]" />
+        <SkeletonCard className="min-h-[280px]" />
+      </div>
+      <SkeletonTable rows={4} />
+    </div>
+  );
+}
+
+export function TopUpLoadingSkeleton() {
+  return (
+    <div className="mx-auto max-w-5xl space-y-6">
+      <Skeleton className="h-8 w-40" />
+      <Skeleton className="h-12 w-full rounded-xl" />
+      <div className="grid gap-4 sm:grid-cols-3">
+        {[0, 1, 2].map((i) => (
+          <SkeletonCard key={i} className="min-h-[280px]" />
+        ))}
+      </div>
+      <SkeletonCard className="min-h-[120px]" />
+    </div>
+  );
+}
+
+export function SponsorRoiLoadingSkeleton() {
+  return (
+    <div className="space-y-6">
+      <Skeleton className="h-8 w-56" />
+      <SkeletonCard className="min-h-[100px]" />
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {[0, 1, 2, 3].map((i) => (
+          <SkeletonCard key={i} className="min-h-[120px]" />
+        ))}
+      </div>
+      <SkeletonCard className="min-h-[140px]" />
+      <SkeletonCard className="min-h-[200px]" />
     </div>
   );
 }

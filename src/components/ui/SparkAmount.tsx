@@ -35,7 +35,7 @@ export function SparkAmount({
       <SparkIcon size={ICON_SIZES[size]} />
       <span className={cn("font-mono text-gold-1", textSize, valueClassName)}>
         {formatSparkAmount(amount)}
-        {showLabel && <span className="mr-1 text-dim"> Spark</span>}
+        {showLabel && <span className="ms-1 text-text-secondary"> Spark</span>}
       </span>
     </span>
   );

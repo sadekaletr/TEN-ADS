@@ -10,7 +10,9 @@ Measure on staging before Batch D merges. Landing baselines use `LandingEvent` t
 | `/creators` | Card click-through | **Record 7d** | +20% relative | `creator_card_click` / page views |
 | `/dashboard/wallet/topup` | Start → submit proof | **TBD** | +10% relative | `wallet.topup_requested` / sessions |
 | `/sponsor/roi` | Login → ROI view | **TBD** | +12% return visits | `trackSponsorRoiView` |
-| `/admin/wallet` | Pending → approved &lt;4h | **TBD** | 90% within 4h | `reviewedAt - createdAt` |
+| `/marketplace` | Filter → card click | **Record 7d** | +15% relative | `marketplace_filter_apply` + card clicks |
+| `/creator/[handle]` | Profile → collab/WhatsApp CTA | **Record 7d** | +12% relative | `creator_public_cta_click` |
+| `/admin` | Home → wallet review | **TBD** | &lt;4h SLA | `admin_primary_action_click` |
 | `/c/[code]` | Welcome → complete | **TBD** | -15% drop-off | `PAGE_VIEW` metadata `funnelStep` |
 | Dashboard perf | p95 latency | **104ms** (post-UI) | stay &lt;500ms; alert &gt;104ms | `npm run perf:p95` |
 
@@ -42,7 +44,8 @@ WHERE type = 'PAGE_VIEW'
 - Viewports: 375 / 768 / 1280 ([design-qa-checklist.md](../design-qa-checklist.md))
 - a11y: focus rings on cards; `aria-label` on creator card links
 - Perf: `npm run perf:p95` after dashboard ATF changes
-- Visual: re-run `npm run visual-audit` for `/`, `/creators`, `/dashboard`, `/sponsor/roi`, `/marketplace`, `/c/[code]`
+- Visual: re-run `npm run visual-audit` for `/`, `/creators`, `/dashboard`, `/sponsor/roi`, `/marketplace`, `/c/[code]`, `/admin`, `/creator/[handle]`
+- PR-3 evidence: [PR3-UI-OVERHAUL.md](../launch-evidence/PR3-UI-OVERHAUL.md)
 
 ## Landing measurement (7-day protocol)
 

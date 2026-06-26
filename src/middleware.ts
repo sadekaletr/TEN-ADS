@@ -56,7 +56,7 @@ async function checkRateLimitEdge(
 
     console.error("[middleware] RATE_LIMIT_INTERNAL_SECRET missing");
 
-    return true;
+    return false;
 
   }
 

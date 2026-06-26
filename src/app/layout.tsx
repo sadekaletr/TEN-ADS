@@ -77,6 +77,12 @@ export default async function RootLayout({
       className={`${notoNaskhArabic.variable} ${spaceMono.variable} ${syne.variable}`}
     >
       <body suppressHydrationWarning>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-surface-2 focus:px-4 focus:py-2 focus:text-text-primary focus:ring-2 focus:ring-[var(--ring)]"
+        >
+          تخطي إلى المحتوى
+        </a>
         <Providers initialLocale={locale}>{children}</Providers>
         <ConditionalLegalFooter />
       </body>

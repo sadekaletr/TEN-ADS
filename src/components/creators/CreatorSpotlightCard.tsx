@@ -91,7 +91,11 @@ export function CreatorSpotlightCard({
         />
       )}
       <div
-        className="absolute inset-0 bg-gradient-to-t from-void via-void/70 to-transparent"
+        className="absolute inset-0 bg-gradient-to-t from-void via-void/75 to-void/10"
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-void/90 to-transparent"
         aria-hidden
       />
       {isSpotlight && creator.spotlightRank != null && (
@@ -110,7 +114,7 @@ export function CreatorSpotlightCard({
   const bodyBlock = (
     <div className={cn("p-4 md:p-5", isHero && "absolute inset-x-0 bottom-0")}>
       <div className="flex items-end gap-3">
-        <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full border-2 border-gold-2/60 ring-2 ring-gold-2/20 md:h-16 md:w-16">
+        <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full border-2 border-gold-2/70 ring-2 ring-gold-2/25 ring-offset-2 ring-offset-void md:h-16 md:w-16">
           {creator.avatarUrl ? (
             <Image src={creator.avatarUrl} alt="" fill className="object-cover" sizes="64px" />
           ) : (
@@ -181,13 +185,13 @@ export function CreatorSpotlightCard({
 
       {!isHero && (
         <div className="mt-4 flex flex-wrap gap-2">
-          <span className="inline-flex min-h-9 items-center rounded-lg bg-gold-2/20 px-3 text-xs font-medium text-gold-1">
+          <span className="inline-flex min-h-10 items-center rounded-xl bg-gold-rich/15 px-3 text-xs font-semibold text-gold-accent shadow-surface transition-colors group-hover:bg-gold-rich/25">
             {t("creators.card.viewProfile")}
           </span>
           <button
             type="button"
             onClick={handleCollabClick}
-            className="inline-flex min-h-9 items-center rounded-lg border border-gold-4/30 px-3 text-xs text-dim transition-colors hover:border-gold-2/40 hover:text-warm-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-2/50"
+            className="inline-flex min-h-10 items-center rounded-xl border border-strong bg-bg-elevated/80 px-3 text-xs font-medium text-text-secondary transition-all hover:border-gold-2/40 hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-void"
           >
             {t("creators.card.collab")}
           </button>
@@ -196,34 +200,26 @@ export function CreatorSpotlightCard({
     </div>
   );
 
-  const cardInner = isSpotlight ? (
+  const cardInner = (
     <GlassCard
-      featured
-      innerClassName="p-0"
+      featured={isSpotlight}
+      innerClassName={isSpotlight ? "p-0" : undefined}
       className={cn(
         "group h-full overflow-hidden",
+        !isSpotlight && isHero && "relative min-h-[280px]",
         !reducedMotion &&
           !preview &&
-          "transition-all duration-200 hover:-translate-y-1 hover:shadow-elevated"
+          "transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-1 hover:shadow-elevated hover:shadow-[0_12px_40px_rgba(212,168,85,0.12)]",
+        !isSpotlight && !reducedMotion && !preview && "hover:border-gold-2/50",
+        isSpotlight &&
+          !reducedMotion &&
+          !preview &&
+          "hover:shadow-[0_0_0_1px_rgba(212,168,85,0.35),0_16px_48px_rgba(0,0,0,0.45)]"
       )}
     >
       {coverBlock}
       {bodyBlock}
     </GlassCard>
-  ) : (
-    <article
-      className={cn(
-        "group relative overflow-hidden rounded-2xl border border-gold-4/20 bg-surface-2 shadow-card",
-        isHero && "relative min-h-[280px]",
-        !reducedMotion &&
-          !preview &&
-          "transition-all duration-200 hover:-translate-y-1 hover:border-gold-2/40 hover:shadow-elevated",
-        isCompact && "h-full"
-      )}
-    >
-      {coverBlock}
-      {bodyBlock}
-    </article>
   );
 
   if (preview) return cardInner;
@@ -233,7 +229,7 @@ export function CreatorSpotlightCard({
       href={`/creator/${cleanHandle}`}
       onClick={handleCardClick}
       aria-label={`${displayName} — @${cleanHandle}`}
-      className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-2 focus-visible:ring-offset-2 focus-visible:ring-offset-void"
+      className="block rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-void"
     >
       {cardInner}
     </Link>

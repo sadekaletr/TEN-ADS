@@ -6,5 +6,9 @@ interface MarketplaceListingCardProps {
 }
 
 export function MarketplaceListingCard({ creator }: MarketplaceListingCardProps) {
-  return <CreatorSpotlightCard creator={creator} size="default" animate={false} />;
+  return (
+    <div className="h-full">
+      <CreatorSpotlightCard creator={creator} size="default" animate={false} />
+    </div>
+  );
 }

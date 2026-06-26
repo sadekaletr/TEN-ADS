@@ -1,7 +1,5 @@
 import { redirect } from "next/navigation";
-import { getCreatorSession } from "@/lib/session-auth";
-import { notDeleted } from "@/lib/db";
-import { prisma } from "@/lib/prisma";
+import { getCachedCreator, getCachedCreatorSession } from "@/lib/creators/cached-session";
 import { getUnreadCount } from "@/lib/notifications";
 import { DashboardNav } from "@/components/dashboard/DashboardNav";
 import { DashboardPageShell } from "@/components/dashboard/DashboardPageShell";
@@ -14,12 +12,10 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getCreatorSession();
+  const session = await getCachedCreatorSession();
   if (!session) redirect("/login");
 
-  const creator = await prisma.creator.findFirst({
-    where: { id: session.user.id, ...notDeleted },
-  });
+  const creator = await getCachedCreator();
   if (!creator) redirect("/login");
 
   const unread = await getUnreadCount(session.user.id, "CREATOR");

@@ -7,7 +7,8 @@ import { cn } from "@/lib/utils";
 import { Icon } from "@/components/ui/Icon";
 import { useMotion } from "@/components/motion/MotionProvider";
 import { playTapClick } from "@/lib/sound/sfx";
-import type { ButtonHTMLAttributes, MouseEventHandler, ReactNode } from "react";
+import { TOKENS } from "@/styles/tokens";
+import type { ButtonHTMLAttributes, CSSProperties, MouseEventHandler, ReactNode } from "react";
 
 type ButtonVariant = "primary" | "secondary" | "ghost" | "destructive";
 type ButtonSize = "sm" | "md" | "lg";
@@ -18,6 +19,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   fullWidth?: boolean;
   href?: LinkProps["href"];
   loading?: boolean;
+  glow?: boolean;
   icon?: ReactNode;
   iconPosition?: "start" | "end";
 }
@@ -33,9 +35,9 @@ const variantStyles: Record<ButtonVariant, string> = {
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
-  sm: "rounded-lg px-3 py-1.5 text-xs",
-  md: "rounded-xl px-4 py-2.5 text-sm",
-  lg: "rounded-xl px-6 py-3 text-base",
+  sm: "rounded-lg px-3 py-1.5 text-xs min-h-11",
+  md: "rounded-xl px-4 py-2.5 text-sm min-h-12",
+  lg: "rounded-xl px-6 py-3 text-base min-h-12",
 };
 
 function ButtonContent({
@@ -78,6 +80,7 @@ export function Button({
   href,
   loading,
   disabled,
+  glow,
   icon,
   iconPosition,
   children,
@@ -93,6 +96,14 @@ export function Button({
   );
   const isDisabled = disabled || loading;
   const { soundEnabled } = useMotion();
+
+  const glowStyle: CSSProperties | undefined =
+    glow && variant === "primary"
+      ? {
+          background: TOKENS.gradient.buttonPrimary,
+          boxShadow: `${TOKENS.shadow.button}, ${TOKENS.shadow.ctaGlow}`,
+        }
+      : undefined;
 
   function handleTapSound() {
     if (variant === "primary" && soundEnabled) playTapClick();
@@ -115,6 +126,7 @@ export function Button({
         <Link
           href={href}
           className={classes}
+          style={glowStyle}
           aria-disabled={isDisabled || undefined}
           tabIndex={isDisabled ? -1 : undefined}
           onClick={(e) => {
@@ -139,6 +151,8 @@ export function Button({
         type={type}
         disabled={isDisabled}
         className={classes}
+        style={glowStyle}
+        aria-busy={loading || undefined}
         onClick={onClick}
         onPointerDown={(e) => {
           handleTapSound();

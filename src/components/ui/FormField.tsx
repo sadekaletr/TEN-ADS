@@ -60,7 +60,7 @@ export function FormField({
       </Label>
       {control}
       {hint ? (
-        <p id={hintId} className="text-xs text-dimmer">
+        <p id={hintId} className="text-xs text-text-secondary">
           {hint}
         </p>
       ) : null}

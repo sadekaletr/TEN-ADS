@@ -1,8 +1,6 @@
-/** Allowed creator top-up pack sizes (Spark units). */
-export const TOP_UP_PACKAGES = [5, 15, 30] as const;
-
-export type TopUpPackage = (typeof TOP_UP_PACKAGES)[number];
-
-export function isValidTopUpAmount(amount: number): amount is TopUpPackage {
-  return (TOP_UP_PACKAGES as readonly number[]).includes(amount);
-}
+/** @deprecated Import from `@/lib/wallet/topup-packages` */
+export {
+  TOP_UP_PACKAGE_AMOUNTS as TOP_UP_PACKAGES,
+  isValidTopUpAmount,
+  type TopUpPackAmount as TopUpPackage,
+} from "@/lib/wallet/topup-packages";

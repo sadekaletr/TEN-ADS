@@ -11,6 +11,7 @@ import { TrustScoreRing } from "@/components/trust/TrustScoreRing";
 import { CreatorStatChips } from "@/components/creators/CreatorStatChips";
 import { CampaignWall } from "@/components/creator/CampaignWall";
 import { CollabRequestForm } from "@/components/marketplace/CollabRequestForm";
+import { trackProductEvent } from "@/lib/analytics/product-events";
 import { TOKENS } from "@/styles/tokens";
 import { cn } from "@/lib/utils";
 
@@ -162,15 +163,23 @@ export function CreatorPublicClient({
         </div>
       </GlassCard>
 
-      <div className="flex gap-2 overflow-x-auto border-b border-gold-4/20 pb-1">
+      <div
+        className="flex gap-2 overflow-x-auto rounded-xl border border-strong bg-bg-elevated/50 p-1"
+        role="tablist"
+        aria-label="أقسام الملف"
+      >
         {tabs.map((t) => (
           <button
             key={t.id}
             type="button"
+            role="tab"
+            aria-selected={tab === t.id}
             onClick={() => setTab(t.id)}
             className={cn(
-              "flex min-h-11 shrink-0 items-center gap-2 px-4 py-2 text-sm transition-colors duration-200",
-              tab === t.id ? "border-b-2 border-gold-2 text-gold-1" : "text-text-secondary hover:text-text-primary"
+              "focus-ring flex min-h-11 shrink-0 items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors",
+              tab === t.id
+                ? "bg-gold-rich/20 text-gold-accent"
+                : "text-text-secondary hover:text-text-primary"
             )}
           >
             {t.label}
@@ -190,6 +199,7 @@ export function CreatorPublicClient({
         <div className="space-y-3">
           {activeCampaigns.length === 0 ? (
             <EmptyState
+              variant="premium"
               title="لا توجد حملات نشطة"
               description="تابع هذا الصانع لمعرفة الحملات القادمة"
             />
@@ -217,7 +227,7 @@ export function CreatorPublicClient({
 
       {tab === "past" && (
         endedCampaigns.length === 0 ? (
-          <EmptyState title="لا توجد حملات سابقة" />
+          <EmptyState variant="premium" title="لا توجد حملات سابقة" />
         ) : (
           <CampaignWall campaigns={endedCampaigns} />
         )
@@ -225,7 +235,7 @@ export function CreatorPublicClient({
 
       {tab === "partners" && (
         sponsors.length === 0 ? (
-          <EmptyState title="لا يوجد شركاء بعد" />
+          <EmptyState variant="premium" title="لا يوجد شركاء بعد" />
         ) : (
           <div className="grid gap-3 sm:grid-cols-2">
             {sponsors.map((s) => (
@@ -242,7 +252,20 @@ export function CreatorPublicClient({
 
       <CollabRequestForm creatorId={creator.id} creatorName={creator.name} />
       {whatsappUrl && (
-        <Button href={whatsappUrl} variant="secondary" fullWidth className="min-h-11">
+        <Button
+          href={whatsappUrl}
+          variant="primary"
+          glow
+          fullWidth
+          className="min-h-12"
+          onClick={() =>
+            trackProductEvent("creator_public_cta_click", {
+              section: "creator_public",
+              ctaLabel: "whatsapp",
+              metadata: { creatorId: creator.id },
+            })
+          }
+        >
           تواصل واتساب
         </Button>
       )}

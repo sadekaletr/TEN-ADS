@@ -34,10 +34,10 @@ export function Tabs<T extends string>({
           aria-selected={active === tab.id}
           onClick={() => onChange(tab.id)}
           className={cn(
-            "min-h-11 shrink-0 px-4 py-2 text-sm transition-colors",
+            "min-h-11 shrink-0 px-4 py-2 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-base)]",
             active === tab.id
               ? "border-b-2 border-gold-2 text-gold-1"
-              : "text-dim hover:text-warm-white"
+              : "text-text-secondary hover:text-text-primary"
           )}
         >
           {tab.label}

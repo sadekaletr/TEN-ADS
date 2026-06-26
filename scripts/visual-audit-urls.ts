@@ -36,6 +36,12 @@ export async function getAuditRoutes(): Promise<AuditRoute[]> {
 
   const routes: AuditRoute[] = [
     { id: 1, path: "/", name: "Landing", screenshot: "01-landing.png" },
+    {
+      id: 49,
+      path: "/creators",
+      name: "Creators directory",
+      screenshot: "49-creators.png",
+    },
     { id: 2, path: "/privacy", name: "Privacy", screenshot: "02-privacy.png" },
     { id: 3, path: "/terms", name: "Terms", screenshot: "03-terms.png" },
     { id: 4, path: "/redeem", name: "Redeem entry", screenshot: "04-redeem.png" },

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import type { RedemptionLivePayload } from "@/lib/events/publish";
 import { emitSparkFlow } from "@/lib/spark-flow-events";
 import { LiveSparkEmptyPulse } from "@/components/command/LiveSparkEmptyPulse";
@@ -19,6 +19,8 @@ export function LiveSparkFlow({
   const [items, setItems] = useState<RedemptionLivePayload[]>([]);
   const [connected, setConnected] = useState(false);
   const [freshId, setFreshId] = useState<string | null>(null);
+
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     let es: EventSource | null = null;
@@ -80,13 +82,15 @@ export function LiveSparkFlow({
         <motion.span
           className={`rounded-full bg-gold-1 ${compact ? "h-1.5 w-1.5" : "h-2 w-2"}`}
           animate={
-            connected
-              ? { scale: [1, 1.35, 1], opacity: [0.6, 1, 0.6] }
-              : { opacity: 0.4 }
+            reducedMotion
+              ? { opacity: connected ? 1 : 0.4 }
+              : connected
+                ? { scale: [1, 1.35, 1], opacity: [0.6, 1, 0.6] }
+                : { opacity: 0.4 }
           }
-          transition={{ repeat: Infinity, duration: 1.5 }}
+          transition={reducedMotion ? undefined : { repeat: Infinity, duration: 1.5 }}
         />
-        <span className="text-xs text-dim">{connected ? "مباشر" : "polling"}</span>
+        <span className="text-xs text-text-tertiary">{connected ? "مباشر" : "polling"}</span>
       </div>
       <div
         className={

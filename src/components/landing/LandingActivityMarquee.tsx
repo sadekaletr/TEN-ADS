@@ -15,7 +15,10 @@ export function LandingActivityMarquee() {
   const items = [...SAMPLE_EVENTS, ...SAMPLE_EVENTS];
 
   return (
-    <div className="overflow-hidden border-b border-gold-4/15 bg-void/60 py-2.5">
+    <div
+      className="overflow-hidden border-b border-gold-4/15 bg-void/60 py-2.5"
+      aria-hidden="true"
+    >
       <div className="landing-marquee-track gap-8 px-4 text-xs text-dim">
         {items.map((item, i) => (
           <span key={`${item.city}-${i}`} className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap">

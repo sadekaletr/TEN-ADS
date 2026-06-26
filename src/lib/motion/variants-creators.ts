@@ -1,3 +1,5 @@
+import { easeGold, transition } from "./tokens";
+
 export const creatorsStaggerContainer = {
   hidden: { opacity: 0 },
   show: {
@@ -7,11 +9,11 @@ export const creatorsStaggerContainer = {
 };
 
 export const creatorsCardReveal = {
-  hidden: { opacity: 0, y: 48 },
+  hidden: { opacity: 0, y: 24 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] as const },
+    transition: transition.normal,
   },
 };
 
@@ -19,5 +21,5 @@ export const creatorsListPresence = {
   initial: { opacity: 0, y: 12 },
   animate: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: -8 },
-  transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] as const },
+  transition: transition.fast,
 };

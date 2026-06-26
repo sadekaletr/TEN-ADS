@@ -1,11 +1,13 @@
 import { notDeleted } from "@/lib/db";
-import { enrichListing } from "@/lib/creators/getFeaturedCreators";
+import { enrichListingsBatch } from "@/lib/creators/enrich";
 import { prisma } from "@/lib/prisma";
 import { getSponsorSession } from "@/lib/session-auth";
 import { redirect } from "next/navigation";
 import { MarketplaceHeader } from "@/components/marketplace/MarketplaceHeader";
 import { MarketplacePageClient } from "@/components/marketplace/MarketplacePageClient";
 import { CircuitPageBackground } from "@/components/ui/CircuitPageBackground";
+
+const MARKETPLACE_LISTING_LIMIT = 24;
 
 export default async function MarketplacePage({
   searchParams,
@@ -16,7 +18,12 @@ export default async function MarketplacePage({
   if (!session) redirect("/sponsor/login");
 
   const listings = await prisma.creatorListing.findMany({
-    where: { isPublic: true },
+    where: {
+      isPublic: true,
+      creator: { deletedAt: null },
+    },
+    take: MARKETPLACE_LISTING_LIMIT,
+    orderBy: { createdAt: "desc" },
     include: {
       creator: {
         select: {
@@ -63,14 +70,18 @@ export default async function MarketplacePage({
   const now = new Date();
   const sorted = [...filtered].sort((a, b) => {
     const aBoost =
-      a.creator.marketplaceBoostUntil && a.creator.marketplaceBoostUntil > now ? 1 : 0;
+      a.creator.marketplaceBoostUntil && a.creator.marketplaceBoostUntil > now
+        ? 1
+        : 0;
     const bBoost =
-      b.creator.marketplaceBoostUntil && b.creator.marketplaceBoostUntil > now ? 1 : 0;
+      b.creator.marketplaceBoostUntil && b.creator.marketplaceBoostUntil > now
+        ? 1
+        : 0;
     if (bBoost !== aBoost) return bBoost - aBoost;
     return (b.creator.trustScore ?? 0) - (a.creator.trustScore ?? 0);
   });
 
-  const enriched = await Promise.all(sorted.map((l) => enrichListing(l)));
+  const enriched = await enrichListingsBatch(sorted);
 
   const discoverCampaigns = await prisma.campaign.findMany({
     where: { status: "ACTIVE", ...notDeleted, slug: { not: null } },
@@ -91,7 +102,7 @@ export default async function MarketplacePage({
 
   return (
     <CircuitPageBackground>
-      <main className="mx-auto min-h-screen max-w-6xl px-4 py-10">
+      <main className="mx-auto min-h-screen max-w-6xl px-4 py-10" id="main-content">
         <MarketplaceHeader userName={session.user.name ?? ""} />
         <MarketplacePageClient
           creators={enriched}

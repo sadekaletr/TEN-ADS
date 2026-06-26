@@ -1,4 +1,4 @@
-import type { EventType, Prisma } from "@prisma/client";
+import { Prisma, type EventType } from "@prisma/client";
 import { notDeleted } from "@/lib/db";
 import { prisma } from "@/lib/prisma";
 import { detectDevice, getClientIp, hashIp } from "@/lib/session";
@@ -141,7 +141,7 @@ export async function getCreatorAnalytics(creatorId: string) {
     };
   }
 
-  const [views, codeSubmits, redemptions, activeCampaigns, prizeAgg, redemptionsByCity, events, extras] =
+  const [views, codeSubmits, redemptions, activeCampaigns, prizeAgg, redemptionsByCity, peakHourRows, extras] =
     await Promise.all([
       prisma.campaignEvent.count({
         where: { campaignId: { in: campaignIds }, type: "PAGE_VIEW" },
@@ -164,22 +164,20 @@ export async function getCreatorAnalytics(creatorId: string) {
         where: { campaignId: { in: campaignIds }, city: { not: null } },
         _count: { city: true },
       }),
-      prisma.campaignEvent.findMany({
-        where: { campaignId: { in: campaignIds } },
-        select: { createdAt: true },
-      }),
+      prisma.$queryRaw<{ hour: number; count: bigint }[]>`
+        SELECT EXTRACT(HOUR FROM "createdAt")::int AS hour, COUNT(*)::bigint AS count
+        FROM "CampaignEvent"
+        WHERE "campaignId" IN (${Prisma.join(campaignIds)})
+        GROUP BY hour
+        ORDER BY hour
+      `,
       getVisitExtras(campaignIds),
     ]);
 
-  const hourMap = new Map<number, number>();
-  for (const e of events) {
-    const hour = e.createdAt.getHours();
-    hourMap.set(hour, (hourMap.get(hour) ?? 0) + 1);
-  }
-
-  const peakHours = Array.from(hourMap.entries())
-    .map(([hour, count]) => ({ hour, count }))
-    .sort((a, b) => a.hour - b.hour);
+  const peakHours = peakHourRows.map((row) => ({
+    hour: row.hour,
+    count: Number(row.count),
+  }));
 
   const cities = redemptionsByCity
     .filter((r) => r.city)

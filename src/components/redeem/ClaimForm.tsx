@@ -5,10 +5,12 @@ import { useMemo } from "react";
 import { Button } from "@/components/ui/Button";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { Input } from "@/components/ui/Input";
+import { FormField } from "@/components/ui/FormField";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { SurfaceCard } from "@/components/ui/SurfaceCard";
 import { StepProgressRail } from "@/components/ui/StepProgressRail";
 import { TrustProofUploader } from "@/components/ui/TrustProofUploader";
+import { Icon } from "@/components/ui/Icon";
 import { isProCampaign } from "@/lib/campaign-tiers";
 import type { Campaign } from "@prisma/client";
 
@@ -84,37 +86,51 @@ export function ClaimForm({
         description="أدخل معلوماتك لإتمام الاسترداد"
       />
       <SurfaceCard>
-        <form onSubmit={onSubmit} className="space-y-3">
-          <Input
-            placeholder="الاسم الكامل"
-            value={fullName}
-            onChange={(e) => onFullNameChange(e.target.value)}
-            className="min-h-11"
-            required
-          />
-          <Input
-            type="tel"
-            placeholder="رقم الهاتف"
-            value={phone}
-            onChange={(e) => onPhoneChange(e.target.value)}
-            className="min-h-11 font-mono"
-            required
-          />
-          {campaign.requireAddress && (
+        <div className="mb-4 flex items-start gap-2 rounded-xl border border-strong bg-bg-elevated/60 px-3 py-2.5 text-xs text-text-secondary">
+          <Icon name="lock" size={16} className="mt-0.5 shrink-0 text-gold-accent" />
+          <p>
+            بياناتك محمية ومشفّرة. نستخدمها فقط لتوصيل الجائزة ولن نشاركها مع أطراف ثالثة.
+          </p>
+        </div>
+        <form onSubmit={onSubmit} className="space-y-4" aria-label="نموذج الاستلام">
+          <FormField label="الاسم الكامل" required>
             <Input
-              placeholder="العنوان"
-              value={address}
-              onChange={(e) => onAddressChange(e.target.value)}
-              className="min-h-11"
+              placeholder="الاسم الكامل"
+              value={fullName}
+              onChange={(e) => onFullNameChange(e.target.value)}
+              className="min-h-12"
               required
             />
+          </FormField>
+          <FormField label="رقم الهاتف" required hint="أدخل رقم هاتف صالح للتواصل">
+            <Input
+              type="tel"
+              placeholder="رقم الهاتف"
+              value={phone}
+              onChange={(e) => onPhoneChange(e.target.value)}
+              className="min-h-12 font-mono tabular-nums"
+              required
+            />
+          </FormField>
+          {campaign.requireAddress && (
+            <FormField label="العنوان" required>
+              <Input
+                placeholder="العنوان"
+                value={address}
+                onChange={(e) => onAddressChange(e.target.value)}
+                className="min-h-12"
+                required
+              />
+            </FormField>
           )}
-          <Input
-            placeholder="المدينة"
-            value={city}
-            onChange={(e) => onCityChange(e.target.value)}
-            className="min-h-11"
-          />
+          <FormField label="المدينة">
+            <Input
+              placeholder="المدينة"
+              value={city}
+              onChange={(e) => onCityChange(e.target.value)}
+              className="min-h-12"
+            />
+          </FormField>
           <TrustProofUploader
             label={
               proCampaign
@@ -146,10 +162,12 @@ export function ClaimForm({
           <Button
             type="submit"
             fullWidth
+            glow
             className="min-h-12"
-            disabled={loading || !acceptedTerms}
+            loading={loading}
+            disabled={!acceptedTerms}
           >
-            {loading ? "جاري التأكيد..." : "تأكيد الاستلام"}
+            تأكيد الاستلام
           </Button>
         </form>
       </SurfaceCard>

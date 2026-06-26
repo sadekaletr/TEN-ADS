@@ -5,7 +5,7 @@ import { useState } from "react";
 import {
   resetAllCreatorWalletBalances,
   setSparkTreasuryBalance,
-} from "@/app/admin/actions";
+} from "@/app/admin/wallet.actions";
 import { AdminToast } from "@/components/admin/AdminToast";
 import { Button } from "@/components/ui/Button";
 import { CircuitCard } from "@/components/ui/CircuitCard";

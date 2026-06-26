@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { GlassCard } from "@/components/ui/GlassCard";
+import { EmptyState } from "@/components/ui/EmptyState";
 import { SponsorVerifiedBadge } from "@/components/sponsor/SponsorVerifiedBadge";
 
 type DiscoverCampaign = {
@@ -21,6 +22,15 @@ export function MarketplaceDiscoverCampaigns({
 }: {
   campaigns: DiscoverCampaign[];
 }) {
+  if (campaigns.length === 0) {
+    return (
+      <EmptyState
+        title="لا توجد حملات للاكتشاف"
+        description="ستظهر الحملات النشطة هنا عند توفرها."
+      />
+    );
+  }
+
   return (
     <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {campaigns.map((c) => (

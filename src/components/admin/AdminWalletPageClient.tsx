@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
-import { approveTopUp, rejectTopUp } from "@/app/admin/actions";
+import { approveTopUp, rejectTopUp } from "@/app/admin/wallet.actions";
 import { Button } from "@/components/ui/Button";
 import { CircuitCard } from "@/components/ui/CircuitCard";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";

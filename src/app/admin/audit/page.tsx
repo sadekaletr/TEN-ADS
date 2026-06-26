@@ -3,6 +3,7 @@ import { getAdminSession } from "@/lib/session-auth";
 import { prisma } from "@/lib/prisma";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { CircuitCard } from "@/components/ui/CircuitCard";
+import { formatDateTime } from "@/lib/format";
 
 export default async function AdminAuditPage() {
   const session = await getAdminSession();
@@ -37,7 +38,7 @@ export default async function AdminAuditPage() {
             {logs.map((log) => (
               <tr key={log.id} className="border-b border-gold-4/10">
                 <td className="px-3 py-2 text-dim whitespace-nowrap">
-                  {log.createdAt.toLocaleString("ar-SY")}
+                  {formatDateTime(log.createdAt)}
                 </td>
                 <td className="px-3 py-2">{log.actorType ?? "—"}</td>
                 <td className="px-3 py-2">{log.action}</td>

@@ -28,13 +28,12 @@ export function LandingNav() {
   return (
     <>
       <header
-        className="sticky top-0 z-50 border-b border-subtle backdrop-blur-md"
-        style={{ backgroundColor: "var(--nav-bg)" }}
+        className="sticky top-0 z-50 border-b border-subtle bg-bg-base/80 backdrop-blur-xl"
       >
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-6 py-4">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
           <Link
             href="/"
-            className="flex shrink-0 items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+            className="flex shrink-0 items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-base)]"
           >
             <Image
               src="/brand/tenegta-logo.svg"
@@ -45,15 +44,15 @@ export function LandingNav() {
               priority
             />
           </Link>
-          <nav className="hidden items-center gap-5 lg:flex" aria-label={t("nav.mainNav")}>
+          <nav className="hidden items-center gap-1 lg:flex" aria-label={t("nav.mainNav")}>
             {navLinks.map((link) => (
               <Link
                 key={link.id}
                 href={link.href}
                 className={
                   link.highlight
-                    ? "rounded-full border border-strong bg-gold-rich/10 px-3 py-1.5 text-sm text-gold-accent transition-colors hover:border-spotlight hover:bg-gold-rich/20"
-                    : "rounded text-sm text-text-secondary transition-colors hover:text-gold-accent"
+                    ? "rounded-full border border-strong bg-gold-rich/10 px-3 py-2 text-sm text-gold-accent transition-colors hover:border-spotlight hover:bg-gold-rich/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
+                    : "rounded-lg px-3 py-2 text-sm text-text-secondary transition-colors hover:bg-bg-elevated hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]"
                 }
               >
                 {link.label}
@@ -67,7 +66,8 @@ export function LandingNav() {
               href="/login"
               size="sm"
               variant="primary"
-              className="hidden sm:inline-flex"
+              glow
+              className="hidden min-h-11 sm:inline-flex"
               onClick={() =>
                 trackLandingEvent("landing_nav_login_click", {
                   section: "nav",
@@ -81,7 +81,7 @@ export function LandingNav() {
               href="/sponsor/login"
               size="sm"
               variant="secondary"
-              className="hidden md:inline-flex"
+              className="hidden min-h-11 md:inline-flex"
               onClick={() =>
                 trackLandingEvent("landing_cta_sponsor_click", {
                   section: "nav",
@@ -93,7 +93,7 @@ export function LandingNav() {
             </Button>
             <button
               type="button"
-              className="rounded p-2 text-text-secondary hover:text-gold-accent lg:hidden"
+              className="focus-ring rounded-lg p-2 text-text-secondary hover:bg-bg-elevated hover:text-gold-accent lg:hidden"
               aria-label={mobileOpen ? t("nav.closeMenu") : t("nav.openMenu")}
               onClick={() => setMobileOpen((o) => !o)}
             >

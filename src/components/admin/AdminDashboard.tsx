@@ -1,9 +1,12 @@
 "use client";
 
-import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { CircuitCard } from "@/components/ui/CircuitCard";
+import { CommandKPICluster } from "@/components/ui/CommandKPICluster";
+import { Icon } from "@/components/ui/Icon";
 import { SparkBadge } from "@/components/ui/SparkBadge";
+import { trackProductEvent } from "@/lib/analytics/product-events";
+import { n } from "@/lib/format";
 import { signOut } from "next-auth/react";
 
 interface AdminDashboardProps {
@@ -21,50 +24,87 @@ export function AdminDashboard({ stats }: AdminDashboardProps) {
     : 0;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-2xl font-bold text-warm-white">لوحة الإدارة</h1>
-        <Button variant="ghost" size="sm" className="min-h-11" onClick={() => signOut({ callbackUrl: "/admin/login" })}>
+        <h1 className="text-2xl font-bold text-text-primary">لوحة الإدارة</h1>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="min-h-12"
+          onClick={() => signOut({ callbackUrl: "/admin/login" })}
+        >
           خروج
         </Button>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-3">
-        <CircuitCard>
-          <p className="text-sm text-dim">Spark متداول</p>
-          <div className="mt-2">
-            <SparkBadge amount={stats.totalSpark} />
+      <CommandKPICluster
+        primary={{
+          label: "Spark متداول",
+          value: <SparkBadge amount={stats.totalSpark} />,
+          meta: pendingCount > 0 ? `${n(pendingCount)} طلب شحن بانتظار المراجعة` : "لا طلبات معلّقة",
+        }}
+        secondary={[
+          {
+            label: "حملات نشطة",
+            value: n(stats.activeCampaigns),
+            trend: "عبر المنصة",
+          },
+          {
+            label: "إجمالي الاستردادات",
+            value: n(stats.totalRedemptions),
+            trend: "كل الوقت",
+          },
+        ]}
+        primaryAction={{
+          href: "/admin/wallet",
+          label: "مراجعة المحفظة",
+          icon: <Icon name="wallet" size={16} />,
+          onClick: () =>
+            trackProductEvent("admin_primary_action_click", {
+              section: "admin_home",
+              ctaLabel: "review_wallet",
+              metadata: { pendingCount },
+            }),
+        }}
+        secondaryAction={{ href: "/admin/campaigns", label: "الحملات" }}
+      />
+
+      {pendingCount > 0 && (
+        <CircuitCard className="flex flex-wrap items-center justify-between gap-4 border-warning/30 bg-warning-muted/20">
+          <div>
+            <p className="font-semibold text-warning">طلبات شحن عاجلة</p>
+            <p className="text-sm text-text-secondary">
+              {n(pendingCount)} بانتظار المراجعة — SLA 4 ساعات
+            </p>
           </div>
+          <Button
+            href="/admin/wallet"
+            glow
+            className="min-h-12"
+            onClick={() =>
+              trackProductEvent("admin_primary_action_click", {
+                section: "admin_alert",
+                ctaLabel: "urgent_wallet",
+              })
+            }
+          >
+            مراجعة الآن
+          </Button>
         </CircuitCard>
-        <CircuitCard>
-          <p className="text-sm text-dim">حملات نشطة</p>
-          <p className="mt-2 font-mono text-3xl text-gold-1">{stats.activeCampaigns}</p>
-        </CircuitCard>
-        <CircuitCard>
-          <p className="text-sm text-dim">إجمالي الاستردادات</p>
-          <p className="mt-2 font-mono text-3xl text-gold-1">{stats.totalRedemptions}</p>
-        </CircuitCard>
-      </div>
+      )}
 
-      <CircuitCard className="flex flex-wrap items-center justify-between gap-4">
-        <div>
-          <p className="text-gold-1">طلبات شحن معلّقة</p>
-          <p className="text-sm text-dim">{pendingCount} بانتظار المراجعة</p>
-        </div>
-        <Button href="/admin/wallet" className="min-h-11">
-          مراجعة المحفظة
-        </Button>
-      </CircuitCard>
-
-      <div className="grid gap-3 sm:grid-cols-2">
-        <Button href="/admin/settings" variant="secondary" className="min-h-11">
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <Button href="/admin/settings" variant="secondary" className="min-h-12">
           إعدادات المنصة
         </Button>
-        <Button href="/admin/homepage" variant="secondary" className="min-h-11">
+        <Button href="/admin/homepage" variant="secondary" className="min-h-12">
           الصفحة الرئيسية
         </Button>
-        <Button href="/admin/trust" variant="secondary" className="min-h-11">
+        <Button href="/admin/trust" variant="secondary" className="min-h-12">
           الثقة والتوثيق
+        </Button>
+        <Button href="/admin/beta" variant="secondary" className="min-h-12">
+          Beta Metrics
         </Button>
       </div>
     </div>

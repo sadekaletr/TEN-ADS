@@ -8,6 +8,7 @@ import { EnergyRing } from "@/components/ui/EnergyRing";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { CopyableField } from "@/components/ui/CopyableField";
 import { ProofConfidencePanel } from "@/components/wallet/ProofConfidencePanel";
+import { GlobalUi40PreviewPanel } from "@/components/design-preview/GlobalUi40PreviewPanel";
 import { AdminPreviewPanel } from "@/components/design-preview/AdminPreviewPanel";
 import { BlackGoldPreviewPanel } from "@/components/design-preview/BlackGoldPreviewPanel";
 import { CreatorsPreviewPanel } from "@/components/design-preview/CreatorsPreviewPanel";
@@ -153,6 +154,7 @@ function A11yPanel() {
 export default function DesignPreviewPage() {
   return (
     <DesignPreviewShell
+      ui40={<GlobalUi40PreviewPanel />}
       tokens={<TokensPanel />}
       components={<ComponentsPanel />}
       motion={<MotionPanel />}

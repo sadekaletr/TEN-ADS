@@ -18,8 +18,8 @@ export default function Error({
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-void px-4 text-center">
       <SparkIcon size={64} />
-      <h1 className="mt-6 text-4xl font-bold text-[#ede8e0]">حدث خطأ غير متوقع</h1>
-      <p className="mt-2 max-w-md text-[#9a9180]">
+      <h1 className="mt-6 text-4xl font-bold text-text-primary">حدث خطأ غير متوقع</h1>
+      <p className="mt-2 max-w-md text-text-secondary">
         لم نتمكن من إكمال هذا الطلب. حاول مرة أخرى أو عد للصفحة الرئيسية.
       </p>
       <div className="mt-6 flex flex-wrap justify-center gap-3">
