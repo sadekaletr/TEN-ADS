@@ -16,14 +16,14 @@ export function LandingLogoStrip({ sponsors }: { sponsors: LandingSponsorLogo[] 
 
   return (
     <LandingScrollReveal>
-      <div className="border-y border-gold-4/10 bg-surface/30 py-10">
-        <p className="mb-8 text-center text-sm text-dim">{t("landing.logos.title")}</p>
+      <div className="border-y border-gold-4/15 bg-surface-1/80 py-10 shadow-surface backdrop-blur-sm">
+        <p className="mb-8 text-center text-sm text-text-secondary">{t("landing.logos.title")}</p>
         <div className="relative overflow-hidden mask-fade-x">
           <div className="landing-marquee-track gap-12 px-6">
             {doubled.map((s, i) => (
               <div
                 key={`${s.id}-${i}`}
-                className="flex shrink-0 items-center gap-3 rounded-xl border border-gold-4/15 bg-surface-2/50 px-5 py-3"
+                className="flex shrink-0 items-center gap-3 rounded-xl border border-gold-4/20 bg-surface-2/60 px-5 py-3 shadow-surface"
               >
                 {s.logoUrl ? (
                   <Image
@@ -40,7 +40,7 @@ export function LandingLogoStrip({ sponsors }: { sponsors: LandingSponsorLogo[] 
                   </span>
                 )}
                 <div className="flex items-center gap-2">
-                  <Muted className="whitespace-nowrap font-brand text-sm text-dim">
+                  <Muted className="whitespace-nowrap font-brand text-sm text-text-secondary">
                     {s.name}
                   </Muted>
                   {s.verified && <SponsorVerifiedBadge className="scale-90" />}

@@ -13,7 +13,7 @@ import { LandingLiveCaseStudy } from "@/components/landing/LandingLiveCaseStudy"
 import { LandingProductFilm } from "@/components/landing/LandingProductFilm";
 import { LandingTrustStats } from "@/components/landing/LandingTrustStats";
 import { LandingTestimonials } from "@/components/landing/LandingTestimonials";
-import { LandingTierShowcase } from "@/components/landing/LandingTierShowcase";
+import { LandingPricingPlans } from "@/components/landing/LandingPricingPlans";
 import { LandingFaq } from "@/components/landing/LandingFaq";
 import { LandingFinalCta } from "@/components/landing/LandingFinalCta";
 import { SparkNetworkStrip } from "@/components/network/SparkNetworkStrip";
@@ -62,7 +62,7 @@ export default async function HomePage() {
       />
       <SparkNetworkStrip />
       <LandingTestimonials testimonials={testimonials} />
-      <LandingTierShowcase />
+      <LandingPricingPlans />
       <LandingFaq />
       <LandingFinalCta />
     </PublicShell>

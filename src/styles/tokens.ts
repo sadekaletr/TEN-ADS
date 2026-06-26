@@ -2,11 +2,13 @@ export const TOKENS = {
   color: {
     void: "var(--bg-base)",
     surface: "var(--bg-surface)",
-    surface2: "var(--bg-elevated)",
     surfaceElevated: "var(--surface-elevated)",
     surfaceL0: "var(--bg-base)",
     surfaceL1: "var(--bg-surface)",
     surfaceL2: "var(--bg-elevated)",
+    surface0: "var(--surface-0, var(--bg-base))",
+    surface1: "var(--surface-1, var(--bg-surface))",
+    surface2: "var(--surface-2, var(--bg-elevated))",
     surfaceL3: "var(--glass-bg)",
     surfaceL4: "var(--glass-bg-featured)",
     gold1: "var(--gold-accent)",
@@ -49,6 +51,7 @@ export const TOKENS = {
     cardFeatured: "var(--glass-bg-featured)",
     heroGlow: "var(--spotlight-hero)",
     spotlightHero: "var(--spotlight-hero)",
+    pageMesh: "var(--page-mesh)",
     buttonPrimary: "var(--btn-primary-bg)",
   },
   shadow: {

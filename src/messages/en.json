@@ -22,6 +22,7 @@
     "submit": "Submit"
   },
   "theme": {
+    "label": "Theme",
     "switchToLight": "Light mode",
     "switchToDark": "Dark mode"
   },
@@ -30,10 +31,12 @@
     "demo": "Demo",
     "faq": "FAQ",
     "pricing": "Pricing",
-    "productFilm": "How it works",
+    "productFilm": "Product film",
     "marketplace": "Marketplace",
     "creators": "Creators",
     "discover": "Discover offers",
+    "more": "More",
+    "explore": "Explore",
     "dashboard": "Dashboard",
     "campaigns": "My campaigns",
     "collabRequests": "Collab requests",
@@ -230,9 +233,56 @@
       "title": "Brands and partners working with us"
     },
     "pricing": {
-      "title": "Choose your campaign tier",
-      "subtitle": "Three clear packages — no confusing technical numbers",
-      "cta": "Start with this tier"
+      "title": "Spark bundles — start at your pace",
+      "subtitle": "Unified Spark credit for the platform — fast, transparent top-up",
+      "featuredBadge": "Most popular",
+      "cta": "Start with this plan",
+      "toggle": {
+        "monthly": "Monthly",
+        "yearly": "Yearly",
+        "saveLabel": "Save 20%",
+        "note": "Same prices — toggle is preview only"
+      },
+      "trust": {
+        "secure": "Secure transfer",
+        "transparent": "Transparent pricing",
+        "noFees": "No hidden fees"
+      },
+      "plans": {
+        "starter": {
+          "title": "Starter",
+          "subtitle": "Try and launch",
+          "cta": "Start with 5 Spark",
+          "features": {
+            "campaigns": "~5 basic campaigns",
+            "redeem": "Instant follower redemptions",
+            "dashboard": "Core dashboard",
+            "support": "Email support"
+          }
+        },
+        "growth": {
+          "title": "Growth",
+          "subtitle": "Steady growth",
+          "cta": "Start with 10 Spark",
+          "features": {
+            "campaigns": "~10 pro campaigns",
+            "tiers": "All campaign tiers",
+            "analytics": "Advanced analytics",
+            "priority": "Priority review"
+          }
+        },
+        "scale": {
+          "title": "Scale",
+          "subtitle": "Teams and agencies",
+          "cta": "Start with 50 Spark",
+          "features": {
+            "volume": "High redemption volume",
+            "multi": "Multiple concurrent campaigns",
+            "agency": "Agency dashboard",
+            "dedicated": "Dedicated account manager"
+          }
+        }
+      }
     },
     "howItWorks": {
       "title": "Why TENEGTA?",
@@ -338,6 +388,11 @@
       "topup": {
         "stepperLabel": "Wallet top-up steps",
         "stepProgress": "Step {current} of {total}",
+        "selected": "Selected",
+        "select": "Choose this package",
+        "approxSyp": "approx.",
+        "draftBanner": "Campaign «{title}» is ready — you only need {spark} Spark",
+        "draftCta": "Top up and launch now",
         "step": {
           "package": "Package",
           "transfer": "Transfer",

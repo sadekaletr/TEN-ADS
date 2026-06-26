@@ -12,6 +12,7 @@ export const LANDING_EVENT_NAMES = [
   "landing_final_cta_click",
   "landing_faq_expand",
   "landing_nav_login_click",
+  "landing_pricing_plan_click",
 ] as const;
 
 export type LandingEventName = (typeof LANDING_EVENT_NAMES)[number];

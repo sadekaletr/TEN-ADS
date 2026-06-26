@@ -117,6 +117,10 @@ export function LandingHeroImmersive({ stats }: { stats: HeroStats }) {
       </div>
       <div className="hero-spotlight pointer-events-none absolute inset-0" aria-hidden />
       <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-bg-base"
+        aria-hidden
+      />
+      <div
         className="pointer-events-none absolute inset-0 opacity-80"
         style={{ background: TOKENS.gradient.heroGlow }}
         aria-hidden

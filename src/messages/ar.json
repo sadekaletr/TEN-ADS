@@ -22,6 +22,7 @@
     "submit": "إرسال"
   },
   "theme": {
+    "label": "المظهر",
     "switchToLight": "وضع فاتح",
     "switchToDark": "وضع داكن"
   },
@@ -30,10 +31,12 @@
     "demo": "التجربة",
     "faq": "الأسئلة",
     "pricing": "الباقات",
-    "productFilm": "كيف يعمل",
+    "productFilm": "فيلم المنتج",
     "marketplace": "السوق",
     "creators": "الصناع",
     "discover": "اكتشف العروض",
+    "more": "المزيد",
+    "explore": "استكشف",
     "dashboard": "لوحة التحكم",
     "campaigns": "حملاتي",
     "collabRequests": "طلبات التعاون",
@@ -230,9 +233,56 @@
       "title": "شركاء وعلامات يعملون معنا"
     },
     "pricing": {
-      "title": "اختر مستوى حملتك",
-      "subtitle": "ثلاث باقات واضحة — لا أرقام تقنية مبهمة",
-      "cta": "ابدأ بهذه الباقة"
+      "title": "باقات Spark — ابدأ بما يناسبك",
+      "subtitle": "رصيد Spark موحّد للمنصة — شحن سريع وشفاف",
+      "featuredBadge": "الأكثر طلباً",
+      "cta": "ابدأ بهذه الباقة",
+      "toggle": {
+        "monthly": "شهري",
+        "yearly": "سنوي",
+        "saveLabel": "وفر 20%",
+        "note": "الأسعار نفسها — التبديل للمعاينة فقط"
+      },
+      "trust": {
+        "secure": "تحويل آمن",
+        "transparent": "أسعار شفافة",
+        "noFees": "بدون رسوم مخفية"
+      },
+      "plans": {
+        "starter": {
+          "title": "Starter",
+          "subtitle": "للتجربة والانطلاق",
+          "cta": "ابدأ بـ 5 Spark",
+          "features": {
+            "campaigns": "حوالي 5 حملات أساسية",
+            "redeem": "استرداد فوري للمتابعين",
+            "dashboard": "لوحة تحكم أساسية",
+            "support": "دعم عبر البريد"
+          }
+        },
+        "growth": {
+          "title": "Growth",
+          "subtitle": "للنمو المستمر",
+          "cta": "ابدأ بـ 10 Spark",
+          "features": {
+            "campaigns": "حوالي 10 حملات محترفة",
+            "tiers": "جميع مستويات الحملة",
+            "analytics": "تحليلات متقدمة",
+            "priority": "أولوية في المراجعة"
+          }
+        },
+        "scale": {
+          "title": "Scale",
+          "subtitle": "للفرق والوكالات",
+          "cta": "ابدأ بـ 50 Spark",
+          "features": {
+            "volume": "حجم كبير من الاستردادات",
+            "multi": "حملات متعددة متزامنة",
+            "agency": "لوحة وكالة",
+            "dedicated": "مدير حساب مخصص"
+          }
+        }
+      }
     },
     "howItWorks": {
       "title": "لماذا TENEGTA؟",
@@ -338,6 +388,11 @@
       "topup": {
         "stepperLabel": "خطوات شحن المحفظة",
         "stepProgress": "خطوة {current} من {total}",
+        "selected": "محدّدة",
+        "select": "اختر هذه الباقة",
+        "approxSyp": "تقريباً",
+        "draftBanner": "حملة «{title}» جاهزة — تحتاج فقط {spark} سبارك",
+        "draftCta": "اشحن الآن وأطلق فوراً",
         "step": {
           "package": "الباقة",
           "transfer": "التحويل",
