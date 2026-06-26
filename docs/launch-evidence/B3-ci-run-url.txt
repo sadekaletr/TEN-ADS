@@ -1,0 +1,24 @@
+# CI run URL — pending remote push
+
+Status: **READY** — branch `feat/benchmark-ui-sprint` committed locally (2026-06-26).
+
+## Automated closure complete
+
+- Commit: `feat(ui): Benchmark UI Sprint — cards, ATF, ROI, analytics funnel`
+- B6 signoff: automated via `npm run screenshots:benchmark` (7/7 pass)
+- Screenshots: `docs/visual-audit/screenshots/benchmark-sprint/`
+- PR body: `docs/launch-evidence/BENCHMARK-PR-BODY.md`
+
+## One command to publish (after `gh auth login`)
+
+```bash
+gh repo create tenegta-spark --private --source=. --remote=origin --push
+gh pr create --base main --head feat/benchmark-ui-sprint --title "feat(ui): Benchmark UI Sprint" --body-file docs/launch-evidence/BENCHMARK-PR-BODY.md
+```
+
+Or if remote exists:
+
+```bash
+git push -u origin feat/benchmark-ui-sprint
+gh pr create --base main --head feat/benchmark-ui-sprint --title "feat(ui): Benchmark UI Sprint" --body-file docs/launch-evidence/BENCHMARK-PR-BODY.md
+```

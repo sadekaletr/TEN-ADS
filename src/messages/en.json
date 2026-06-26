@@ -1,0 +1,491 @@
+{
+  "common": {
+    "brand": "TENEGTA Spark",
+    "tagline": "Turn every follower into a real customer",
+    "logout": "Sign out",
+    "startNow": "Start now",
+    "forMerchants": "For merchants",
+    "copyright": "All rights reserved.",
+    "contactUs": "Contact us",
+    "privacy": "Privacy policy",
+    "terms": "Terms of use",
+    "creators": "Creators",
+    "sponsors": "Sponsors",
+    "product": "Product",
+    "company": "Company",
+    "legal": "Legal",
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit"
+  },
+  "theme": {
+    "switchToLight": "Light mode",
+    "switchToDark": "Dark mode"
+  },
+  "nav": {
+    "howItWorks": "How it works",
+    "demo": "Demo",
+    "faq": "FAQ",
+    "pricing": "Pricing",
+    "productFilm": "How it works",
+    "marketplace": "Marketplace",
+    "creators": "Creators",
+    "discover": "Discover offers",
+    "dashboard": "Dashboard",
+    "campaigns": "My campaigns",
+    "collabRequests": "Collab requests",
+    "marketplaceListing": "My listing",
+    "commandCenter": "Command center",
+    "live": "Live",
+    "topUp": "Top up wallet",
+    "wallet": "Wallet",
+    "walletBalance": "Wallet balance",
+    "mainNav": "Main navigation",
+    "dashboardNav": "Dashboard navigation",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "landing": {
+    "hero": {
+      "mock": {
+        "redeem": "Redemption screen",
+        "dashboard": "Dashboard",
+        "redemptions": "Redemptions this week",
+        "prize": "Instant prize for followers"
+      },
+      "control": {
+        "eyebrow": "Coupon campaign platform for creators",
+        "title": "Turn your followers into",
+        "titleHighlight": "real customers",
+        "titleSuffix": "for your sponsors",
+        "subtitle": "Create a campaign, share the code, and watch prizes get redeemed — in minutes, not days",
+        "ctaCreator": "Start as a creator",
+        "ctaSponsor": "I'm a merchant, I want a campaign",
+        "ctaDemo": "Try live redemption",
+        "trustLine": "No credit card · Top up Spark via ShamCash · First campaign in minutes"
+      },
+      "variantA": {
+        "eyebrow": "Proven platform for creators",
+        "title": "Turn your followers into",
+        "titleHighlight": "store visits",
+        "titleSuffix": "with Spark coupons",
+        "subtitle": "Real campaigns with measurable redemptions — see results before you spend more",
+        "ctaCreator": "Start your campaign",
+        "ctaSponsor": "Launch as sponsor",
+        "ctaDemo": "Watch redemption demo",
+        "trustLine": "Live platform data · No credit card"
+      },
+      "variantB": {
+        "eyebrow": "Try before you commit",
+        "title": "Test the",
+        "titleHighlight": "live redemption",
+        "titleSuffix": "in 30 seconds",
+        "subtitle": "Enter a demo code and see what your followers see — then create your first campaign",
+        "ctaCreator": "Start as creator",
+        "ctaSponsor": "I'm a merchant",
+        "ctaDemo": "Try demo code now",
+        "trustLine": "Live demo, no signup · SPARK-HERO-H1"
+      }
+    },
+    "trust": {
+      "updatedPrefix": "Last updated:",
+      "updatedLive": "Live data from the platform"
+    },
+    "network": {
+      "creators": "Creators",
+      "sponsors": "Sponsors",
+      "redemptions": "Redemptions this week"
+    },
+    "sparkJourney": {
+      "title": "How Spark works",
+      "subtitle": "From idea to redemption in four steps",
+      "step1Title": "Create campaign",
+      "step1Desc": "Pick sponsor, prize, and quantity in minutes",
+      "step2Title": "Share the code",
+      "step2Desc": "QR and links ready for stories and WhatsApp",
+      "step3Title": "Instant redeem",
+      "step3Desc": "Followers claim prizes in moments",
+      "step4Title": "Measure ROI",
+      "step4Desc": "Clear analytics for creators and sponsors"
+    },
+    "caseStudy": {
+      "eyebrow": "Real success story",
+      "views": "Views",
+      "redemptions": "Redemptions",
+      "days": "Days",
+      "roi": "Est. ROI",
+      "viewCampaign": "View campaign",
+      "tryCode": "Try the code"
+    },
+    "redemptionDemo": {
+      "title": "Live redemption demo",
+      "realCampaign": "Preview from a real campaign on the platform",
+      "fallback": "Try the consumer journey — no signup",
+      "helper": "Enter code SPARK-HERO-H1 and see the welcome screen your followers see",
+      "openFull": "Open full demo"
+    },
+    "productFilm": {
+      "title": "See how TENEGTA Spark works",
+      "subtitle": "From idea to redemption — a clear journey for creators, fans, and sponsors",
+      "placeholder": "Product film coming soon — explore the steps below",
+      "step1Title": "Launch your campaign",
+      "step1Body": "Describe the prize and sponsor — we generate code and assets",
+      "step2Title": "Share the code",
+      "step2Body": "Post on your channels — fans enter the code on their phone",
+      "step3Title": "Real redemption",
+      "step3Body": "Prizes delivered instantly — sponsors see results in real time",
+      "cta": "Claim your prize",
+      "watchCta": "Watch how it works"
+    },
+    "sponsorBenefits": {
+      "title": "For sponsors",
+      "subtitle": "Turn influencer marketing into store visits",
+      "b1": "Access verified creators",
+      "b2": "Real-time measurable redemptions",
+      "b3": "Clear ROI without manual reports",
+      "b4": "Campaigns ready to share and scale",
+      "cta": "Sponsor portal"
+    },
+    "creatorBenefits": {
+      "title": "For creators",
+      "subtitle": "Monetize your audience with real prizes",
+      "b1": "Launch in under 30 minutes",
+      "b2": "Share Spark codes ready to post",
+      "b3": "Instant prizes your audience loves",
+      "b4": "Performance reports that win sponsors",
+      "cta": "Start as creator"
+    },
+    "journey": {
+      "createTitle": "Create campaign",
+      "createBody": "One sentence — the system fills in the details",
+      "codeTitle": "Enter the code",
+      "codeBody": "Your follower enters the code from their phone",
+      "revealTitle": "Golden reveal",
+      "revealBody": "The prize appears in a magical moment",
+      "pause": "Pause",
+      "play": "Play",
+      "phaseLabel": "Step"
+    },
+    "offers": {
+      "eyebrow": "Live on platform",
+      "headline": "Active Spark offers",
+      "live": "Live",
+      "claimed": "Claimed",
+      "allCities": "All cities",
+      "sampleNote": "Sample offers — sign in to see real campaigns"
+    },
+    "marquee": {
+      "redeemed": "Redeemed",
+      "newCampaign": "New campaign"
+    },
+    "bento": {
+      "title": "Everything in one platform",
+      "subtitle": "From campaign creation to ROI — no external tools",
+      "campaignTitle": "Campaign in 30 minutes",
+      "campaignDesc": "Smart wizard prepares code, poster, and details",
+      "qrTitle": "QR & ready assets",
+      "qrDesc": "Story, post, WhatsApp — instant download",
+      "redeemTitle": "Provably fair redemption",
+      "redeemDesc": "Full transparency for follower and sponsor",
+      "roiTitle": "Live sponsor ROI",
+      "roiDesc": "Redemptions and conversions in real time",
+      "treasuryTitle": "Spark treasury",
+      "treasuryDesc": "Verified wallet with transaction ledger",
+      "agencyTitle": "Multi-creator agencies",
+      "agencyDesc": "Team management and monthly spend limits"
+    },
+    "preview": {
+      "title": "One platform — three experiences",
+      "subtitle": "Dashboard preview by role",
+      "tab": {
+        "creator": "Creator",
+        "sponsor": "Sponsor",
+        "follower": "Follower"
+      },
+      "creatorHeadline": "Creator dashboard",
+      "creatorDesc": "Campaigns, wallet, and analytics in one place",
+      "sponsorHeadline": "Sponsor portal",
+      "sponsorDesc": "ROI, leads, and deal messaging",
+      "followerHeadline": "Follower experience",
+      "followerDesc": "Code → prize → proof in seconds"
+    },
+    "audience": {
+      "title": "Who is TENEGTA for?",
+      "subtitle": "Different value for each side — same platform",
+      "tab": {
+        "creator": "Creators",
+        "sponsor": "Sponsors"
+      }
+    },
+    "stats": {
+      "headline": "Creators trust TENEGTA Spark",
+      "activeCampaigns": "Active campaigns on platform",
+      "sparkVolume": "Spark traded",
+      "weeklyRedemptions": "Redemptions this week"
+    },
+    "logos": {
+      "title": "Brands and partners working with us"
+    },
+    "pricing": {
+      "title": "Choose your campaign tier",
+      "subtitle": "Three clear packages — no confusing technical numbers",
+      "cta": "Start with this tier"
+    },
+    "howItWorks": {
+      "title": "Why TENEGTA?",
+      "step1Title": "Boost engagement",
+      "step1Desc": "Turn views into real participation with instant prizes",
+      "step2Title": "Convert followers",
+      "step2Desc": "Every redemption means an actual visit to the sponsor's store",
+      "step3Title": "Measurable results",
+      "step3Desc": "Track redemptions and conversion in real time"
+    },
+    "testimonials": {
+      "title": "What creators say",
+      "t1Quote": "My first campaign got 40 redemptions in two days — the audience loved the code.",
+      "t1Handle": "@sara.creates",
+      "t1Role": "Creator — Damascus",
+      "t2Quote": "Sponsors love the instant reports. TENEGTA campaigns are now part of my pitches.",
+      "t2Handle": "@omar.media",
+      "t2Role": "Influencer — Aleppo",
+      "t3Quote": "From idea to launch in under an hour. No complexity.",
+      "t3Handle": "@layla.spark",
+      "t3Role": "Creator — Latakia"
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "leadIn": "Quick answers before you start — no surprises",
+      "q1": "How much does a campaign cost?",
+      "a1": "You pay in Spark based on expected redemptions. Tiers start at a clear basic level with no hidden fees.",
+      "q2": "How does a follower redeem a prize?",
+      "a2": "They enter the code on their phone, fill in their details, and receive the prize instantly with optional camera verification.",
+      "q3": "Do I need a large following?",
+      "a3": "No. Even small audiences succeed when the prize is attractive and the code is easy to share.",
+      "q4": "Can merchants launch campaigns?",
+      "a4": "Yes. Register as a sponsor, top up your wallet, and link your campaign to a creator or launch directly.",
+      "q5": "What's the difference between tiers?",
+      "a5": "They differ in code count, camera verification, PDF export, and co-campaigns with partners."
+    },
+    "finalCta": {
+      "title": "Ready to spark your first campaign?",
+      "subtitle": "Start today — your first campaign takes minutes, not weeks",
+      "ctaCreator": "Start as a creator",
+      "ctaSponsor": "I'm a merchant, I want a campaign",
+      "trustBadges": "No credit card · ShamCash · First campaign in minutes"
+    },
+    "footer": {
+      "tagline": "Every campaign is a spark — Spark by TENEGTA",
+      "redeemPrize": "Redeem prize"
+    }
+  },
+  "dashboard": {
+    "home": {
+      "title": "Turn followers into customers",
+      "description": "Watch live redemptions and launch your next campaign",
+      "liveRedemptions": "Live redemption stream",
+      "liveRedemptionsDesc": "Latest redemptions in real time",
+      "smartSuggestion": "Smart suggestion",
+      "smartSuggestionDesc": "From the insights engine — start here",
+      "conversionRate": "Conversion rate",
+      "activeCampaigns": "Active campaigns",
+      "sparkScore": "Spark Score",
+      "updatedToday": "Updated today",
+      "myCampaigns": "My campaigns",
+      "viewAll": "View all",
+      "noCampaigns": "No campaigns yet",
+      "noCampaignsDesc": "Create your first campaign and start collecting redemptions",
+      "createCampaign": "Create campaign"
+    },
+    "campaigns": {
+      "title": "My campaigns",
+      "newCampaign": "New campaign",
+      "statusDraft": "Draft",
+      "statusActive": "Active",
+      "statusPaused": "Paused",
+      "statusEnded": "Ended",
+      "breadcrumbDashboard": "Dashboard",
+      "breadcrumbCampaigns": "My campaigns",
+      "breadcrumbNew": "New campaign",
+      "wizard": {
+        "title": "New campaign",
+        "subtitle": "Describe your campaign in one sentence — we'll fill in the details",
+        "stepSponsor": "Sponsor",
+        "stepPrize": "Prize",
+        "stepRules": "Rules",
+        "stepCollab": "Co-Campaign partners",
+        "stepReview": "Review & launch",
+        "copilotPlaceholder": "e.g. Restaurant campaign with free coffee for first 50 followers",
+        "suggest": "Suggest for me",
+        "launch": "Launch campaign",
+        "saveDraft": "Save as draft"
+      }
+    },
+    "requests": {
+      "title": "Collaboration requests",
+      "description": "Sponsor requests to collaborate with you"
+    },
+    "command": {
+      "title": "Command center",
+      "description": "Live Spark stream and monitoring dashboard"
+    },
+    "wallet": {
+      "title": "Top up wallet",
+      "description": "Your current balance",
+      "balance": "Spark",
+      "topup": {
+        "stepperLabel": "Wallet top-up steps",
+        "stepProgress": "Step {current} of {total}",
+        "step": {
+          "package": "Package",
+          "transfer": "Transfer",
+          "proof": "Proof",
+          "submit": "Submit"
+        }
+      }
+    },
+    "analytics": {
+      "funnel": "Conversion funnel",
+      "views": "Views",
+      "codeSubmits": "Code submits",
+      "redemptions": "Redemptions",
+      "cities": "City breakdown",
+      "peakHours": "Peak hours",
+      "conversionRate": "Conversion rate",
+      "prizesDistributed": "Prizes distributed"
+    }
+  },
+  "admin": {
+    "controlCenter": "Control Center",
+    "overview": "Overview",
+    "wallet": "Wallet",
+    "creators": "Creators",
+    "campaigns": "Campaigns",
+    "sponsors": "Sponsors",
+    "homepage": "Homepage",
+    "agencies": "Agencies",
+    "settings": "Settings",
+    "trust": "Trust",
+    "audit": "Audit",
+    "creators": {
+      "title": "Creators management",
+      "editTitle": "Edit creator",
+      "tabs": {
+        "identity": "Identity",
+        "listing": "Showcase card",
+        "performance": "Performance",
+        "wallet": "Wallet"
+      }
+    },
+    "campaigns": { "title": "Campaigns management" },
+    "sponsors": { "title": "Sponsors management" }
+  },
+  "agency": {
+    "dashboard": "Agency dashboard",
+    "members": "Members",
+    "wallet": "Wallet",
+    "campaigns": "Campaigns",
+    "settings": "Settings"
+  },
+  "auth": {
+    "login": "Sign in",
+    "loginTitle": "Creator sign in",
+    "loginSubtitle": "Invalid credentials — please check and try again",
+    "loginIdentifierHint": "Enter email or phone — either works",
+    "sponsorLoginTitle": "Sponsor sign in",
+    "sponsorLoginSubtitle": "Manage your campaigns and wallet",
+    "adminLoginTitle": "Admin panel",
+    "adminLoginSubtitle": "Administrators only",
+    "agencyLoginTitle": "Agency sign in",
+    "agencyLoginError": "Invalid credentials — please check and try again",
+    "phone": "Phone number",
+    "password": "Password",
+    "email": "Email",
+    "signIn": "Sign in",
+    "forgotPassword": "Forgot password?",
+    "signInGoogle": "Sign in with Google",
+    "demoHint": "Demo: creator@tenegta.com / demo1234"
+  },
+  "redeem": {
+    "title": "Claim prize",
+    "enterCode": "Enter prize code",
+    "subtitle": "Enter the code shared by the creator",
+    "claim": "Claim prize",
+    "errorTitle": "Redemption failed",
+    "tryAgain": "Try again"
+  },
+  "marketplace": {
+    "title": "Marketplace",
+    "subtitle": "Discover campaigns and creators to collaborate with",
+    "noResults": "No results found"
+  },
+  "creators": {
+    "hero": {
+      "eyebrow": "Verified creators",
+      "title": "Meet TENEGTA Creators",
+      "subtitle": "Live cards with active campaigns and real redemptions — pick your next partner with confidence",
+      "statCampaigns": "Active campaigns",
+      "statRedemptions": "Redemptions this week",
+      "ctaCreator": "Join as a creator",
+      "ctaSponsor": "I'm a sponsor — collaborate"
+    },
+    "filters": {
+      "all": "All",
+      "verified": "Verified",
+      "top_spark": "Top Spark",
+      "active": "Active campaigns",
+      "new": "New",
+      "searchPlaceholder": "Search by name, handle, or city...",
+      "allCategories": "All categories",
+      "categoriesLabel": "Category"
+    },
+    "chips": {
+      "spark": "Spark",
+      "campaigns": "Campaigns",
+      "redemptions": "Redemptions",
+      "conversion": "Conversion",
+      "new": "New"
+    },
+    "spotlight": {
+      "title": "Spotlight"
+    },
+    "grid": {
+      "title": "All creators"
+    },
+    "card": {
+      "viewProfile": "View profile",
+      "collab": "Request collab"
+    },
+    "empty": {
+      "title": "No matching creators",
+      "description": "Try another filter or clear search to see the full list",
+      "reset": "Reset"
+    }
+  },
+  "settings": {
+    "soundOn": "Enable sounds",
+    "soundOff": "Disable sounds"
+  },
+  "errors": {
+    "generic": "We couldn't complete this — please try again",
+    "campaignCreate": "We couldn't create the campaign — check your data and try again",
+    "uploadImage": "We couldn't upload the image — check the file and try again",
+    "insufficientBalance": "Insufficient balance to launch this campaign"
+  },
+  "notifications": {
+    "topupApprovedTitle": "Top-up approved",
+    "topupApprovedBody": "+{amount} Spark added to your wallet.",
+    "topupRejectedTitle": "Top-up rejected",
+    "title": "Notifications",
+    "campaignEndingTitle": "Campaign almost full",
+    "campaignEndingBody": "{claimed} of {total} prizes claimed.",
+    "milestoneTitle": "New milestone",
+    "collabRequestTitle": "New collaboration request",
+    "collabAcceptedTitle": "Collaboration accepted",
+    "viewAll": "View all",
+    "markAllRead": "Mark all as read",
+    "empty": "No notifications"
+  }
+}

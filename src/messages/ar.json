@@ -1,0 +1,493 @@
+{
+  "common": {
+    "brand": "TENEGTA Spark",
+    "tagline": "حوّل كل متابع إلى عميل حقيقي",
+    "logout": "خروج",
+    "startNow": "ابدأ الآن",
+    "forMerchants": "للتجار",
+    "copyright": "جميع الحقوق محفوظة.",
+    "contactUs": "تواصل معنا",
+    "privacy": "سياسة الخصوصية",
+    "terms": "شروط الاستخدام",
+    "creators": "صناع المحتوى",
+    "sponsors": "الرعاة",
+    "product": "المنتج",
+    "company": "الشركة",
+    "legal": "قانوني",
+    "loading": "جاري التحميل...",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "back": "رجوع",
+    "next": "التالي",
+    "submit": "إرسال"
+  },
+  "theme": {
+    "switchToLight": "وضع فاتح",
+    "switchToDark": "وضع داكن"
+  },
+  "nav": {
+    "howItWorks": "كيف يعمل",
+    "demo": "التجربة",
+    "faq": "الأسئلة",
+    "pricing": "الباقات",
+    "productFilm": "كيف يعمل",
+    "marketplace": "السوق",
+    "creators": "الصناع",
+    "discover": "اكتشف العروض",
+    "dashboard": "لوحة التحكم",
+    "campaigns": "حملاتي",
+    "collabRequests": "طلبات التعاون",
+    "marketplaceListing": "قائمتي",
+    "commandCenter": "مركز التحكم",
+    "live": "مباشر",
+    "topUp": "شحن المحفظة",
+    "wallet": "المحفظة",
+    "walletBalance": "رصيد المحفظة",
+    "mainNav": "التنقل الرئيسي",
+    "dashboardNav": "لوحة التحكم",
+    "openMenu": "فتح القائمة",
+    "closeMenu": "إغلاق القائمة"
+  },
+  "landing": {
+    "hero": {
+      "mock": {
+        "redeem": "شاشة الاسترداد",
+        "dashboard": "لوحة التحكم",
+        "redemptions": "استرداد هذا الأسبوع",
+        "prize": "جائزة فورية للمتابع"
+      },
+      "control": {
+        "eyebrow": "منصة الحملات بالكوبون لصناع المحتوى",
+        "title": "حوّل متابعينك إلى",
+        "titleHighlight": "عملاء حقيقيين",
+        "titleSuffix": "لرعاتك",
+        "subtitle": "أنشئ حملة، شارك الكود، وشاهد الجوائز تُسترد — في دقائق لا أيام",
+        "ctaCreator": "ابدأ كصانع محتوى",
+        "ctaSponsor": "أنا تاجر، أريد حملة",
+        "ctaDemo": "جرّب الاسترداد الحي",
+        "trustLine": "بدون بطاقة ائتمان · شحن Spark عبر ShamCash · أول حملة في دقائق"
+      },
+      "variantA": {
+        "eyebrow": "منصة مثبتة لصناع المحتوى",
+        "title": "حوّل متابعينك إلى",
+        "titleHighlight": "زيارات للمتجر",
+        "titleSuffix": "بكوبونات Spark",
+        "subtitle": "حملات حقيقية مع استردادات قابلة للقياس — شاهد النتائج قبل أن تدفع أكثر",
+        "ctaCreator": "ابدأ حملتك الآن",
+        "ctaSponsor": "أطلق كراعٍ",
+        "ctaDemo": "شاهد تجربة الاسترداد",
+        "trustLine": "بيانات حية من المنصة · لا بطاقة ائتمان"
+      },
+      "variantB": {
+        "eyebrow": "جرّب قبل أن تلتزم",
+        "title": "اختبر رحلة",
+        "titleHighlight": "الاسترداد الحية",
+        "titleSuffix": "في 30 ثانية",
+        "subtitle": "ادخل كود تجريبي وشاهد ما يراه متابعوك — ثم أنشئ حملتك الأولى",
+        "ctaCreator": "ابدأ كصانع محتوى",
+        "ctaSponsor": "أنا تاجر",
+        "ctaDemo": "جرّب الكود التجريبي الآن",
+        "trustLine": "تجربة حية بدون تسجيل · SPARK-HERO-H1"
+      }
+    },
+    "trust": {
+      "updatedPrefix": "آخر تحديث:",
+      "updatedLive": "بيانات محدّثة من المنصة"
+    },
+    "network": {
+      "creators": "صانع محتوى",
+      "sponsors": "راعٍ",
+      "redemptions": "استرداد هذا الأسبوع"
+    },
+    "sparkJourney": {
+      "title": "كيف يعمل Spark؟",
+      "subtitle": "من الفكرة إلى الاسترداد في أربع خطوات",
+      "step1Title": "أنشئ الحملة",
+      "step1Desc": "اختر الراعي والجائزة وحدد الكمية في دقائق",
+      "step2Title": "شارك الكود",
+      "step2Desc": "QR وروابط جاهزة للستوري والواتساب",
+      "step3Title": "استرداد فوري",
+      "step3Desc": "المتابعون يستلمون الجائزة خلال لحظات",
+      "step4Title": "قِس العائد",
+      "step4Desc": "تحليلات وROI واضح للراعي والصانع"
+    },
+    "caseStudy": {
+      "eyebrow": "قصة نجاح حقيقية",
+      "views": "مشاهدة",
+      "redemptions": "استرداد",
+      "days": "يوم",
+      "roi": "عائد تقديري",
+      "viewCampaign": "عرض الحملة",
+      "tryCode": "جرّب الكود"
+    },
+    "redemptionDemo": {
+      "title": "تجربة الاسترداد الحية",
+      "realCampaign": "معاينة من حملة حقيقية على المنصة",
+      "fallback": "جرّب رحلة المستهلك — بدون تسجيل",
+      "helper": "ادخل كود SPARK-HERO-H1 وشاهد شاشة الترحيب كما يراها متابعوك",
+      "openFull": "فتح التجربة كاملة"
+    },
+    "productFilm": {
+      "title": "شاهد كيف يعمل TENEGTA Spark",
+      "subtitle": "من الفكرة إلى الاسترداد — رحلة واضحة لصانع المحتوى والمتابع والراعي",
+      "placeholder": "فيديو تعريفي قريباً — استكشف الخطوات أدناه",
+      "step1Title": "أنشئ حملتك",
+      "step1Body": "صف الجائزة والراعي — النظام يجهّز الكود والبوستر",
+      "step2Title": "شارك الكود",
+      "step2Body": "انشر على منصاتك — متابعك يدخل الكود من هاتفه",
+      "step3Title": "استرداد حقيقي",
+      "step3Body": "الجائزة تُسلّم فوراً — والراعي يرى النتائج لحظياً",
+      "cta": "استلم جائزتك الآن",
+      "watchCta": "شاهد كيف يعمل"
+    },
+    "sponsorBenefits": {
+      "title": "للرعاة",
+      "subtitle": "حوّل التسويق بالمؤثرين إلى زيارات فعلية",
+      "b1": "وصول لصناع محتوى موثّقين",
+      "b2": "استردادات قابلة للقياس لحظة بلحظة",
+      "b3": "ROI واضح بدون تقارير يدوية",
+      "b4": "حملات جاهزة للمشاركة والتوسع",
+      "cta": "دخول بوابة الراعي"
+    },
+    "creatorBenefits": {
+      "title": "لصناع المحتوى",
+      "subtitle": "اربح من متابعينك بجوائز حقيقية",
+      "b1": "أطلق حملتك في أقل من 30 دقيقة",
+      "b2": "شارك أكواد Spark جاهزة للنشر",
+      "b3": "جوائز فورية تُسعد جمهورك",
+      "b4": "تقارير أداء تُقنع الرعاة",
+      "cta": "ابدأ كصانع محتوى"
+    },
+    "journey": {
+      "createTitle": "إنشاء حملة",
+      "createBody": "صف جملة واحدة — النظام يملأ التفاصيل",
+      "codeTitle": "أدخل الكود",
+      "codeBody": "متابعك يدخل الكود من هاتفه",
+      "revealTitle": "الكشف الذهبي",
+      "revealBody": "الجائزة تظهر بلحظة سحرية",
+      "pause": "إيقاف",
+      "play": "تشغيل",
+      "phaseLabel": "الخطوة"
+    },
+    "offers": {
+      "eyebrow": "الآن على المنصة",
+      "headline": "عروض Spark نشطة",
+      "live": "مباشر",
+      "claimed": "مُسترد",
+      "allCities": "كل المدن",
+      "sampleNote": "عروض تجريبية — سجّل الدخول لرؤية الحملات الحقيقية"
+    },
+    "marquee": {
+      "redeemed": "استرداد",
+      "newCampaign": "حملة جديدة"
+    },
+    "bento": {
+      "title": "كل ما تحتاجه في منصة واحدة",
+      "subtitle": "من إنشاء الحملة إلى قياس العائد — بدون أدوات خارجية",
+      "campaignTitle": "حملة في 30 دقيقة",
+      "campaignDesc": "معالج ذكي يجهّز الكود والبوستر والتفاصيل",
+      "qrTitle": "QR وأصول جاهزة",
+      "qrDesc": "ستوري، بوست، واتساب — تحميل فوري",
+      "redeemTitle": "استرداد provably fair",
+      "redeemDesc": "شفافية كاملة للمتابع والراعي",
+      "roiTitle": "ROI حي للراعي",
+      "roiDesc": "استردادات وتحويلات لحظة بلحظة",
+      "treasuryTitle": "خزينة Spark",
+      "treasuryDesc": "محفظة موثّقة مع سجل معاملات",
+      "agencyTitle": "وكالات متعددة الصناع",
+      "agencyDesc": "إدارة فرق وحدود إنفاق شهرية"
+    },
+    "preview": {
+      "title": "منصة واحدة — ثلاث تجارب",
+      "subtitle": "معاينة لوحة التحكم حسب دورك",
+      "tab": {
+        "creator": "للصانع",
+        "sponsor": "للراعي",
+        "follower": "للمتابع"
+      },
+      "creatorHeadline": "لوحة الصانع",
+      "creatorDesc": "حملات، محفظة، وتحليلات في مكان واحد",
+      "sponsorHeadline": "بوابة الراعي",
+      "sponsorDesc": "ROI، leads، ورسائل التعاون",
+      "followerHeadline": "تجربة المتابع",
+      "followerDesc": "كود → جائزة → إثبات خلال ثوانٍ"
+    },
+    "audience": {
+      "title": "لمن TENEGTA؟",
+      "subtitle": "قيمة مختلفة لكل طرف — نفس المنصة",
+      "tab": {
+        "creator": "صناع المحتوى",
+        "sponsor": "الرعاة"
+      }
+    },
+    "stats": {
+      "headline": "صناع محتوى يثقون بـ TENEGTA Spark",
+      "activeCampaigns": "حملة نشطة على المنصة",
+      "sparkVolume": "سبارك تم تداولها",
+      "weeklyRedemptions": "استرداد هذا الأسبوع"
+    },
+    "logos": {
+      "title": "شركاء وعلامات يعملون معنا"
+    },
+    "pricing": {
+      "title": "اختر مستوى حملتك",
+      "subtitle": "ثلاث باقات واضحة — لا أرقام تقنية مبهمة",
+      "cta": "ابدأ بهذه الباقة"
+    },
+    "howItWorks": {
+      "title": "لماذا TENEGTA؟",
+      "step1Title": "زيادة التفاعل",
+      "step1Desc": "حوّل المشاهدات إلى مشاركة حقيقية مع جوائز فورية",
+      "step2Title": "تحويل المتابعين",
+      "step2Desc": "كل استرداد يعني زيارة فعلية لمتجر الراعي",
+      "step3Title": "نتائج قابلة للقياس",
+      "step3Desc": "تتبع الاستردادات والتحويل في الوقت الفعلي"
+    },
+    "testimonials": {
+      "title": "ماذا يقول صناع المحتوى",
+      "t1Quote": "أول حملة لي جمعت 40 استرداد في يومين — الجمهور تحمس للكود.",
+      "t1Handle": "@sara.creates",
+      "t1Role": "صانعة محتوى — دمشق",
+      "t2Quote": "الرعاة يحبون التقارير الفورية. أصبحت حملات TENEGTA جزءاً من عروضي.",
+      "t2Handle": "@omar.media",
+      "t2Role": "مؤثر — حلب",
+      "t3Quote": "من الفكرة إلى الإطلاق في أقل من ساعة. لا تعقيد.",
+      "t3Handle": "@layla.spark",
+      "t3Role": "صانعة — اللاذقية"
+    },
+    "faq": {
+      "title": "أسئلة شائعة",
+      "leadIn": "إجابات سريعة قبل أن تبدأ — بدون مفاجآت",
+      "q1": "كم تكلفة الحملة؟",
+      "a1": "تدفع بالسبارك حسب عدد الاستردادات المتوقعة. الباقات تبدأ من مستوى أساسي واضح بدون رسوم خفية.",
+      "q2": "كيف يسترد المتابع الجائزة؟",
+      "a2": "يدخل الكود من هاتفه، يملأ بياناته، ويستلم الجائزة فوراً مع تحقق اختياري بالكاميرا.",
+      "q3": "هل أحتاج متابعين كثيرين؟",
+      "a3": "لا. حتى الجماهير الصغيرة تنجح عندما تكون الجائزة جذابة والكود سهل المشاركة.",
+      "q4": "هل يمكن للتجار إطلاق حملات؟",
+      "a4": "نعم. سجّل كراعٍ، اشحن المحفظة، واربط حملتك بصانع محتوى أو أطلقها مباشرة.",
+      "q5": "ما الفرق بين الباقات؟",
+      "a5": "تختلف في عدد الأكواد، التحقق بالكاميرا، تصدير PDF، والحملات المشتركة مع شركاء."
+    },
+    "finalCta": {
+      "title": "جاهز لإشعال أول حملة؟",
+      "subtitle": "ابدأ اليوم — أول حملة تستغرق دقائق وليس أسابيع",
+      "ctaCreator": "ابدأ كصانع محتوى",
+      "ctaSponsor": "أنا تاجر، أريد حملة",
+      "trustBadges": "بدون بطاقة ائتمان · ShamCash · أول حملة في دقائق"
+    },
+    "footer": {
+      "tagline": "كل حملة شعلة — Spark by TENEGTA",
+      "redeemPrize": "استرداد جائزة"
+    }
+  },
+  "dashboard": {
+    "home": {
+      "title": "حوّل متابعيك إلى عملاء",
+      "description": "شاهد الاستردادات الحية وانطلق بحملة جديدة",
+      "liveRedemptions": "تيار الاسترداد الحي",
+      "liveRedemptionsDesc": "آخر الاستردادات في الوقت الفعلي",
+      "smartSuggestion": "اقتراح ذكي",
+      "smartSuggestionDesc": "من محرك الرؤى — ابدأ من هنا",
+      "conversionRate": "نسبة التحويل",
+      "activeCampaigns": "حملات نشطة",
+      "sparkScore": "Spark Score",
+      "updatedToday": "آخر تحديث: اليوم",
+      "myCampaigns": "حملاتي",
+      "viewAll": "عرض الكل",
+      "noCampaigns": "لا توجد حملات بعد",
+      "noCampaignsDesc": "أنشئ حملتك الأولى وابدأ بجمع الاستردادات",
+      "createCampaign": "إنشاء حملة"
+    },
+    "campaigns": {
+      "title": "حملاتي",
+      "newCampaign": "حملة جديدة",
+      "statusDraft": "مسودة",
+      "statusActive": "نشطة",
+      "statusPaused": "متوقفة",
+      "statusEnded": "منتهية",
+      "breadcrumbDashboard": "لوحة التحكم",
+      "breadcrumbCampaigns": "حملاتي",
+      "breadcrumbNew": "حملة جديدة",
+      "wizard": {
+        "title": "حملة جديدة",
+        "subtitle": "صف حملتك بجملة واحدة — نملأ التفاصيل عنك",
+        "stepSponsor": "الراعي",
+        "stepPrize": "الجائزة",
+        "stepRules": "القواعد",
+        "stepCollab": "شركاء Co-Campaign",
+        "stepReview": "المراجعة والإطلاق",
+        "copilotPlaceholder": "مثال: حملة مطعم بجوائز قهوة مجانية لأول 50 متابع",
+        "suggest": "اقترح لي",
+        "launch": "إطلاق الحملة",
+        "saveDraft": "حفظ كمسودة"
+      }
+    },
+    "requests": {
+      "title": "طلبات التعاون",
+      "description": "طلبات الرعاة للتعاون معك"
+    },
+    "command": {
+      "title": "مركز التحكم",
+      "description": "تيار سبارك الحي ولوحة المراقبة"
+    },
+    "wallet": {
+      "title": "شحن المحفظة",
+      "description": "رصيدك الحالي",
+      "balance": "سبارك",
+      "topup": {
+        "stepperLabel": "خطوات شحن المحفظة",
+        "stepProgress": "خطوة {current} من {total}",
+        "step": {
+          "package": "الباقة",
+          "transfer": "التحويل",
+          "proof": "الإثبات",
+          "submit": "الإرسال"
+        }
+      }
+    },
+    "analytics": {
+      "funnel": "قمع التحويل",
+      "views": "زيارات",
+      "codeSubmits": "إدخال كود",
+      "redemptions": "استرداد",
+      "cities": "توزيع المدن",
+      "peakHours": "أوقات الذروة",
+      "conversionRate": "معدل التحويل",
+      "prizesDistributed": "جوائز موزّعة"
+    }
+  },
+  "admin": {
+    "controlCenter": "مركز التحكم",
+    "overview": "نظرة عامة",
+    "wallet": "المحفظة",
+    "creators": "الصناع",
+    "campaigns": "الحملات",
+    "sponsors": "الرعاة",
+    "homepage": "الصفحة الرئيسية",
+    "agencies": "الوكالات",
+    "settings": "الإعدادات",
+    "trust": "الثقة",
+    "audit": "التدقيق"
+  },
+  "agency": {
+    "dashboard": "لوحة الوكالة",
+    "members": "الأعضاء",
+    "wallet": "المحفظة",
+    "campaigns": "الحملات",
+    "settings": "الإعدادات"
+  },
+  "auth": {
+    "login": "تسجيل الدخول",
+    "loginTitle": "تسجيل دخول صانع المحتوى",
+    "loginSubtitle": "بيانات الدخول غير صحيحة — تحقق وحاول مرة أخرى",
+    "loginIdentifierHint": "أدخل البريد أو الهاتف — يكفي أحدهما",
+    "sponsorLoginTitle": "تسجيل دخول الراعي",
+    "sponsorLoginSubtitle": "إدارة حملاتك ومحفظتك",
+    "adminLoginTitle": "لوحة الإدارة",
+    "adminLoginSubtitle": "دخول المسؤولين فقط",
+    "agencyLoginTitle": "تسجيل دخول الوكالة",
+    "agencyLoginError": "بيانات الدخول غير صحيحة — تحقق وحاول مرة أخرى",
+    "phone": "رقم الهاتف",
+    "password": "كلمة المرور",
+    "email": "البريد الإلكتروني",
+    "signIn": "دخول",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "signInGoogle": "الدخول عبر Google",
+    "demoHint": "تجريبي: creator@tenegta.com / demo1234"
+  },
+  "redeem": {
+    "title": "استلام الجائزة",
+    "enterCode": "أدخل كود الجائزة",
+    "subtitle": "أدخل الكود الذي شاركه صانع المحتوى",
+    "claim": "استلام الجائزة",
+    "errorTitle": "تعذّر إتمام الاسترداد",
+    "tryAgain": "المحاولة مجدداً"
+  },
+  "marketplace": {
+    "title": "السوق",
+    "subtitle": "اكتشف حملات وصناع محتوى للتعاون",
+    "noResults": "لا توجد نتائج"
+  },
+  "creators": {
+    "hero": {
+      "eyebrow": "صناع محتوى موثّقون",
+      "title": "تعرّف على صناع TENEGTA",
+      "subtitle": "بطاقات حية تعرض الحملات النشطة والاستردادات الحقيقية — اختر شريكك القادم بثقة",
+      "statCampaigns": "حملات نشطة",
+      "statRedemptions": "استردادات هذا الأسبوع",
+      "ctaCreator": "انضم كصانع محتوى",
+      "ctaSponsor": "أنا راعٍ — أريد تعاوناً"
+    },
+    "filters": {
+      "all": "الكل",
+      "verified": "موثّقون",
+      "top_spark": "أعلى Spark",
+      "active": "حملات نشطة",
+      "new": "جديد",
+      "searchPlaceholder": "ابحث بالاسم أو الحساب أو المدينة...",
+      "allCategories": "كل التصنيفات",
+      "categoriesLabel": "التصنيف"
+    },
+    "chips": {
+      "spark": "Spark",
+      "campaigns": "حملات",
+      "redemptions": "استردادات",
+      "conversion": "تحويل",
+      "new": "جديد"
+    },
+    "spotlight": {
+      "title": "في الواجهة"
+    },
+    "grid": {
+      "title": "جميع الصناع"
+    },
+    "card": {
+      "viewProfile": "عرض الملف",
+      "collab": "طلب تعاون"
+    },
+    "empty": {
+      "title": "لا يوجد صناع مطابقون",
+      "description": "جرّب فلتراً آخر أو امسح البحث لعرض القائمة كاملة",
+      "reset": "إعادة تعيين"
+    }
+  },
+  "admin": {
+    "creators": {
+      "title": "إدارة الصناع",
+      "editTitle": "تعديل الصانع",
+      "tabs": {
+        "identity": "الهوية",
+        "listing": "بطاقة العرض",
+        "performance": "الأداء",
+        "wallet": "المحفظة"
+      }
+    },
+    "campaigns": { "title": "إدارة الحملات" },
+    "sponsors": { "title": "إدارة الرعاة" }
+  },
+  "settings": {
+    "soundOn": "تفعيل الأصوات",
+    "soundOff": "إيقاف الأصوات"
+  },
+  "errors": {
+    "generic": "لم نتمكن من إكمال هذا — حاول مرة أخرى",
+    "campaignCreate": "لم نتمكن من إنشاء الحملة — تحقق من البيانات وحاول مرة أخرى",
+    "uploadImage": "لم نتمكن من رفع الصورة — تحقق من الملف وحاول مرة أخرى",
+    "insufficientBalance": "رصيدك غير كافٍ لإطلاق هذه الحملة"
+  },
+  "notifications": {
+    "topupApprovedTitle": "تمت الموافقة على شحنك",
+    "topupApprovedBody": "+{amount} Spark أُضيفت إلى محفظتك.",
+    "topupRejectedTitle": "تم رفض طلب الشحن",
+    "title": "الإشعارات",
+    "campaignEndingTitle": "حملتك على وشك الامتلاء",
+    "campaignEndingBody": "تم استرداد {claimed} من {total} جائزة.",
+    "milestoneTitle": "إنجاز جديد",
+    "collabRequestTitle": "طلب تعاون جديد",
+    "collabAcceptedTitle": "تم قبول طلب التعاون",
+    "viewAll": "عرض الكل",
+    "markAllRead": "تعليم الكل كمقروء",
+    "empty": "لا توجد إشعارات"
+  }
+}

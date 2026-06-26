@@ -1,0 +1,33 @@
+"use client";
+
+import { useEffect } from "react";
+import { SparkIcon } from "@/components/ui/SparkIcon";
+import { Button } from "@/components/ui/Button";
+
+export default function Error({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) {
+  useEffect(() => {
+    console.error(error);
+  }, [error]);
+
+  return (
+    <div className="flex min-h-screen flex-col items-center justify-center bg-void px-4 text-center">
+      <SparkIcon size={64} />
+      <h1 className="mt-6 text-4xl font-bold text-[#ede8e0]">حدث خطأ غير متوقع</h1>
+      <p className="mt-2 max-w-md text-[#9a9180]">
+        لم نتمكن من إكمال هذا الطلب. حاول مرة أخرى أو عد للصفحة الرئيسية.
+      </p>
+      <div className="mt-6 flex flex-wrap justify-center gap-3">
+        <Button onClick={reset}>إعادة المحاولة</Button>
+        <Button href="/" variant="secondary">
+          العودة للرئيسية
+        </Button>
+      </div>
+    </div>
+  );
+}

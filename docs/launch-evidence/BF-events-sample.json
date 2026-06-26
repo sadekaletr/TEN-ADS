@@ -1,0 +1,51 @@
+{
+  "exportedAt": "2026-06-24T22:17:39.101Z",
+  "totalSampled": 4,
+  "countsByName": {
+    "landing_scroll_25": 1,
+    "landing_cta_creator_click": 1,
+    "landing_demo_click": 1,
+    "landing_view": 1
+  },
+  "events": [
+    {
+      "name": "landing_scroll_25",
+      "locale": "ar",
+      "dir": "rtl",
+      "section": "hero",
+      "ctaLabel": null,
+      "experiment": "control",
+      "createdAt": "2026-06-24T22:17:38.237Z"
+    },
+    {
+      "name": "landing_cta_creator_click",
+      "locale": "ar",
+      "dir": "rtl",
+      "section": "hero",
+      "ctaLabel": null,
+      "experiment": "control",
+      "createdAt": "2026-06-24T22:17:38.225Z"
+    },
+    {
+      "name": "landing_demo_click",
+      "locale": "ar",
+      "dir": "rtl",
+      "section": "hero",
+      "ctaLabel": null,
+      "experiment": "control",
+      "createdAt": "2026-06-24T22:17:38.210Z"
+    },
+    {
+      "name": "landing_view",
+      "locale": "ar",
+      "dir": "rtl",
+      "section": "hero",
+      "ctaLabel": null,
+      "experiment": "control",
+      "createdAt": "2026-06-24T22:17:38.182Z"
+    }
+  ],
+  "queryTemplate": {
+    "demoRate": "SELECT COUNT(*) FILTER (WHERE name = 'landing_demo_click')::float / NULLIF(COUNT(*) FILTER (WHERE name = 'landing_view'), 0) FROM \"LandingEvent\" WHERE \"createdAt\" >= NOW() - INTERVAL '7 days'"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-06-26T06:47:03.677Z",
+  "baseUrl": "http://localhost:3000",
+  "viewport": "1280x720",
+  "results": [
+    {
+      "path": "/",
+      "name": "Landing",
+      "screenshot": "benchmark-sprint/landing.png",
+      "status": 200,
+      "pass": true,
+      "note": "automated pass"
+    },
+    {
+      "path": "/creators",
+      "name": "Creators directory",
+      "screenshot": "benchmark-sprint/creators.png",
+      "status": 200,
+      "pass": true,
+      "note": "automated pass"
+    },
+    {
+      "path": "/c/SPARK-HERO-H1",
+      "name": "Redeem flow",
+      "screenshot": "benchmark-sprint/redeem.png",
+      "status": 200,
+      "pass": true,
+      "note": "automated pass"
+    },
+    {
+      "path": "/design-preview",
+      "name": "Design preview",
+      "screenshot": "benchmark-sprint/design-preview.png",
+      "status": 200,
+      "pass": true,
+      "note": "automated pass"
+    },
+    {
+      "path": "/dashboard",
+      "name": "Dashboard ATF",
+      "screenshot": "benchmark-sprint/dashboard.png",
+      "status": 200,
+      "pass": true,
+      "note": "automated pass"
+    },
+    {
+      "path": "/sponsor/roi",
+      "name": "Sponsor ROI",
+      "screenshot": "benchmark-sprint/sponsor-roi.png",
+      "status": 200,
+      "pass": true,
+      "note": "automated pass"
+    },
+    {
+      "path": "/marketplace",
+      "name": "Marketplace",
+      "screenshot": "benchmark-sprint/marketplace.png",
+      "status": 200,
+      "pass": true,
+      "note": "automated pass"
+    }
+  ],
+  "allPass": true
+}

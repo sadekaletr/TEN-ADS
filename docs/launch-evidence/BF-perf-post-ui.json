@@ -1,0 +1,33 @@
+{
+  "generatedAt": "2026-06-24T22:06:56.421Z",
+  "baseUrl": "http://localhost:3000",
+  "samples": 20,
+  "durationsMs": [
+    56,
+    61,
+    63,
+    66,
+    66,
+    68,
+    70,
+    74,
+    75,
+    76,
+    77,
+    80,
+    81,
+    82,
+    84,
+    85,
+    85,
+    93,
+    104,
+    6670
+  ],
+  "p50Ms": 76,
+  "p95Ms": 104,
+  "baselineP95Ms": 87,
+  "gateP95Ms": 104,
+  "gatePass": true,
+  "note": "Post UI Masterplan v2 — gate is +20% vs B5 baseline (87ms)"
+}

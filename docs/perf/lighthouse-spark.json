@@ -1,0 +1,17 @@
+{
+  "generatedAt": "2026-06-25T00:00:00.000Z",
+  "base": "http://localhost:3000",
+  "note": "Run: AUDIT_BASE_URL=http://localhost:3000 npm run perf:lighthouse",
+  "targets": {
+    "LCP_ms": 2500,
+    "CLS": 0.1
+  },
+  "summary": {
+    "/": {
+      "note": "Measure after npm run build && npm run start"
+    },
+    "/c/SPARK-HERO-H1?demo=1": {
+      "note": "Consumer path — priority for 3G throttling"
+    }
+  }
+}

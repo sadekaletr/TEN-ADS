@@ -1,0 +1,690 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Creator {
+  id            String                 @id @default(cuid())
+  name          String
+  handle        String                 @unique
+  email         String?                @unique
+  phone         String                 @unique
+  password      String?
+  avatarUrl     String?
+  verified      Boolean                @default(false)
+  walletBalance Int                    @default(0)
+  trustScore    Int?
+  trustScoreAt  DateTime?
+  marketplaceBoostUntil DateTime?
+  isPartner           Boolean                @default(false)
+  partnerDiscountCode String?                @unique
+  deletedAt     DateTime?
+  createdAt     DateTime               @default(now())
+  campaigns     Campaign[]
+  transactions  WalletTransaction[]
+  topUpRequests TopUpRequest[]
+  sparkScores   SparkScoreSnapshot[]
+  listing       CreatorListing?
+  collabRequests CollabRequest[]
+  agencyMember  AgencyMember?
+  physicalCard  PhysicalCard?
+  collaborators CampaignCollaborator[]
+  intelligenceSubscription IntelligenceSubscription?
+
+  @@index([deletedAt])
+}
+
+model WalletTransaction {
+  id        String   @id @default(cuid())
+  creatorId String
+  creator   Creator  @relation(fields: [creatorId], references: [id])
+  type      TxType
+  amount    Int
+  note      String?
+  createdAt DateTime @default(now())
+  topUpRequest TopUpRequest?
+
+  @@index([creatorId])
+}
+
+enum TxType {
+  TOPUP
+  CAMPAIGN_SPEND
+  REFUND
+}
+
+model ExchangeRate {
+  id        String   @id @default(cuid())
+  currency  String   @unique
+  sparkUnit Int
+  updatedAt DateTime @updatedAt
+}
+
+model Sponsor {
+  id              String     @id @default(cuid())
+  name            String
+  logoUrl         String?
+  city            String?
+  address         String?
+  phone           String?
+  email           String?    @unique
+  password        String?
+  sector          String?
+  verified        Boolean    @default(false)
+  trustScore      Int?
+  trustScoreAt    DateTime?
+  currentStreak   Int        @default(0)
+  longestStreak   Int        @default(0)
+  lastActiveWeek  DateTime?
+  deletedAt       DateTime?
+  campaigns       Campaign[]
+  collabRequests  CollabRequest[]
+  intelligenceSubscription IntelligenceSubscription?
+
+  @@index([deletedAt])
+}
+
+model Campaign {
+  id                String                 @id @default(cuid())
+  creatorId         String
+  creator           Creator                @relation(fields: [creatorId], references: [id])
+  sponsorId         String
+  sponsor           Sponsor                @relation(fields: [sponsorId], references: [id])
+  title             String
+  description       String?
+  prizeName         String
+  prizeQuantity     Int
+  prizeClaimed      Int                    @default(0)
+  codeMode          CodeMode               @default(SHARED)
+  costPerRedemption Int
+  tier              CampaignTier           @default(BASIC)
+  tierBoostUntil    DateTime?
+  status            CampaignStatus         @default(DRAFT)
+  startsAt          DateTime?
+  endsAt            DateTime?
+  city              String?
+  requirePhone      Boolean                @default(true)
+  requireAddress    Boolean                @default(false)
+  antiAbuse         Boolean                @default(true)
+  heroTemplate      String?
+  slug              String?                @unique
+  promoVideoUrl     String?
+  prizeImageUrl     String?
+  revealStyle       RevealStyle            @default(CLASSIC_GOLD)
+  deletedAt         DateTime?
+  createdAt         DateTime               @default(now())
+  codes             CampaignCode[]
+  redemptions       Redemption[]
+  visits            CampaignVisit[]
+  events            CampaignEvent[]
+  hourlyMetrics     CampaignMetricHourly[]
+  collaborators     CampaignCollaborator[]
+  consumerReferrals ConsumerReferral[]
+  endingNotifiedAt  DateTime?
+  actions           CampaignAction[]
+
+  @@index([creatorId, status])
+  @@index([sponsorId, status])
+  @@index([status, createdAt])
+  @@index([deletedAt])
+}
+
+enum CodeMode {
+  SHARED
+  UNIQUE
+}
+
+enum CampaignTier {
+  BASIC
+  PRO
+  EMPIRE
+}
+
+enum RevealStyle {
+  CLASSIC_GOLD
+  SCRATCH_CARD
+  SPIN_WHEEL
+}
+
+enum CampaignStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  ENDED
+}
+
+model CampaignCode {
+  id         String   @id @default(cuid())
+  campaignId String
+  campaign   Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  code       String   @unique
+  used       Boolean  @default(false)
+  qrUrl      String?
+
+  @@index([campaignId])
+}
+
+model CampaignCollaborator {
+  id               String   @id @default(cuid())
+  campaignId       String
+  campaign         Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  creatorId        String
+  creator          Creator  @relation(fields: [creatorId], references: [id])
+  sharePercentage  Float
+  trackingCode     String   @unique
+  redemptionsCount Int      @default(0)
+
+  @@unique([campaignId, creatorId])
+  @@index([campaignId])
+  @@index([creatorId])
+}
+
+model Redemption {
+  id                   String             @id @default(cuid())
+  campaignId           String
+  campaign             Campaign           @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  participantId        String?
+  participant          Participant?       @relation(fields: [participantId], references: [id])
+  sessionId            String?
+  codeUsed             String
+  fullName             String
+  phone                String
+  address              String?
+  city                 String?
+  ipHash               String?
+  verificationPhotoUrl String?
+  collaboratorId       String?
+  createdAt            DateTime           @default(now())
+  rating               ParticipantRating?
+
+  @@index([campaignId])
+  @@index([campaignId, createdAt])
+  @@index([createdAt])
+  @@index([phone, campaignId])
+  @@index([ipHash, campaignId])
+  @@index([participantId])
+  @@index([sessionId])
+}
+
+model Participant {
+  id          String       @id @default(cuid())
+  phoneHash   String?      @unique
+  ipHash      String?
+  sessionIds  String[]
+  tags        String[]
+  firstSeenAt DateTime     @default(now())
+  lastSeenAt  DateTime     @updatedAt
+  redemptions Redemption[]
+
+  @@index([ipHash])
+}
+
+model ParticipantRating {
+  id           String     @id @default(cuid())
+  redemptionId String     @unique
+  redemption   Redemption @relation(fields: [redemptionId], references: [id], onDelete: Cascade)
+  rating       Int
+  comment      String?
+  createdAt    DateTime   @default(now())
+}
+
+model TrustScoreSnapshot {
+  id             String          @id @default(cuid())
+  entityType     TrustEntityType
+  entityId       String
+  score          Int
+  completionRate Float
+  deliverySpeed  Float
+  ratingAverage  Float?
+  fraudRate      Float
+  campaignsCount Int
+  calculatedAt   DateTime        @default(now())
+
+  @@index([entityType, entityId])
+  @@index([calculatedAt])
+}
+
+enum TrustEntityType {
+  CREATOR
+  SPONSOR
+}
+
+model SparkScoreSnapshot {
+  id             String   @id @default(cuid())
+  creatorId      String
+  creator        Creator  @relation(fields: [creatorId], references: [id])
+  score          Int
+  conversionRate Float
+  fraudRate      Float
+  consistency    Float
+  computedAt     DateTime @default(now())
+
+  @@index([creatorId, computedAt])
+}
+
+model CampaignMetricHourly {
+  id          String   @id @default(cuid())
+  campaignId  String
+  campaign    Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  hour        DateTime
+  pageViews   Int      @default(0)
+  codeSubmits Int      @default(0)
+  redemptions Int      @default(0)
+  failed      Int      @default(0)
+
+  @@unique([campaignId, hour])
+  @@index([campaignId, hour])
+}
+
+model FraudSignal {
+  id         String   @id @default(cuid())
+  entityType String
+  entityHash String
+  campaignId String?
+  riskScore  Float
+  reason     String
+  metadata   Json?
+  createdAt  DateTime @default(now())
+
+  @@index([entityHash, campaignId])
+  @@index([createdAt])
+}
+
+model CampaignVisit {
+  id         String   @id @default(cuid())
+  campaignId String
+  campaign   Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  sessionId  String
+  ipHash     String?
+  userAgent  String?
+  device     String?
+  referrer   String?
+  createdAt  DateTime @default(now())
+
+  @@index([campaignId, createdAt])
+}
+
+model CampaignEvent {
+  id         String    @id @default(cuid())
+  campaignId String
+  campaign   Campaign  @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  sessionId  String
+  type       EventType
+  metadata   Json?
+  createdAt  DateTime  @default(now())
+
+  @@index([campaignId, type, createdAt])
+}
+
+enum EventType {
+  PAGE_VIEW
+  CODE_SUBMIT
+  REDEMPTION_STARTED
+  REDEMPTION_COMPLETED
+  REDEMPTION_FAILED
+}
+
+model CreatorListing {
+  id               String   @id @default(cuid())
+  creatorId        String   @unique
+  creator          Creator  @relation(fields: [creatorId], references: [id])
+  bio              String?
+  categories       String[]
+  estimatedReach   Int?
+  isPublic         Boolean  @default(true)
+  coverImageUrl    String?
+  showcaseTagline  String?
+  spotlightRank    Int?
+  createdAt        DateTime @default(now())
+}
+
+model CollabRequest {
+  id        String       @id @default(cuid())
+  sponsorId String
+  sponsor   Sponsor      @relation(fields: [sponsorId], references: [id])
+  creatorId String
+  creator   Creator      @relation(fields: [creatorId], references: [id])
+  message   String
+  status    CollabStatus @default(PENDING)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  @@index([creatorId, status])
+  @@index([sponsorId])
+}
+
+enum CollabStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+}
+
+model Agency {
+  id            String                   @id @default(cuid())
+  name          String
+  email         String                   @unique
+  password      String
+  walletBalance Int                      @default(0)
+  members       AgencyMember[]
+  topUpRequests AgencyTopUpRequest[]
+  transactions  AgencyWalletTransaction[]
+  createdAt     DateTime                 @default(now())
+}
+
+model AgencyMember {
+  id             String  @id @default(cuid())
+  agencyId       String
+  agency         Agency  @relation(fields: [agencyId], references: [id])
+  creatorId      String  @unique
+  creator        Creator @relation(fields: [creatorId], references: [id])
+  spendingLimit  Int?
+  spentThisMonth Int     @default(0)
+  isActive       Boolean @default(true)
+
+  @@index([agencyId])
+}
+
+model AgencyWalletTransaction {
+  id        String   @id @default(cuid())
+  agencyId  String
+  agency    Agency   @relation(fields: [agencyId], references: [id])
+  type      String
+  amount    Int
+  note      String?
+  createdAt DateTime @default(now())
+
+  @@index([agencyId, createdAt])
+}
+
+model AgencyTopUpRequest {
+  id             String    @id @default(cuid())
+  agencyId       String
+  agency         Agency    @relation(fields: [agencyId], references: [id])
+  amount         Int
+  bankReference  String
+  proofImageUrl  String?
+  transferMethod String?
+  status         String    @default("PENDING")
+  createdAt      DateTime  @default(now())
+  reviewedAt     DateTime?
+
+  @@index([agencyId, status])
+}
+
+model TreasuryLedger {
+  id        String   @id @default(cuid())
+  amount    Int
+  reason    String
+  actorId   String?
+  actorType String?
+  metadata  Json?
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
+
+model IntelligenceSubscription {
+  id          String    @id @default(cuid())
+  creatorId   String?   @unique
+  creator     Creator?  @relation(fields: [creatorId], references: [id])
+  sponsorId   String?   @unique
+  sponsor     Sponsor?  @relation(fields: [sponsorId], references: [id])
+  tier        String
+  activeUntil DateTime
+  createdAt   DateTime  @default(now())
+}
+
+model PhysicalCard {
+  id         String     @id @default(cuid())
+  creatorId  String     @unique
+  creator    Creator    @relation(fields: [creatorId], references: [id])
+  cardNumber String     @unique
+  nfcUid     String?
+  issuedAt   DateTime?
+  status     CardStatus @default(PENDING)
+}
+
+enum CardStatus {
+  PENDING
+  ISSUED
+  ACTIVE
+  LOST
+}
+
+model TopUpRequest {
+  id                  String             @id @default(cuid())
+  creatorId           String
+  creator             Creator            @relation(fields: [creatorId], references: [id])
+  amount              Int
+  bankReference       String
+  proofImageUrl       String?
+  transferMethod      String?            @default("ShamCash")
+  rejectionReason     String?
+  walletTransactionId String?            @unique
+  walletTransaction   WalletTransaction? @relation(fields: [walletTransactionId], references: [id])
+  status              TopUpStatus        @default(PENDING)
+  reviewedAt          DateTime?
+  createdAt           DateTime           @default(now())
+
+  @@index([creatorId])
+  @@index([status])
+}
+
+enum NotificationUserType {
+  CREATOR
+  SPONSOR
+  ADMIN
+}
+
+model Notification {
+  id        String               @id @default(cuid())
+  userId    String
+  userType  NotificationUserType
+  type      String
+  title     String
+  body      String
+  href      String?
+  readAt    DateTime?
+  createdAt DateTime             @default(now())
+
+  @@index([userId, userType])
+  @@index([userId, userType, readAt])
+}
+
+model PlatformSettings {
+  id                   String   @id @default("default")
+  transferMethod       String   @default("ShamCash")
+  transferAccount      String   @default("")
+  transferInstructions String?
+  sparkUnit            Int?
+  sparkUsdListPrice    Int?     @default(7)
+  sparkUsdPartnerPrice Int?     @default(3)
+  sparkTreasuryBalance Int      @default(0)
+  featuredCampaignId   String?
+  featuredCreatorId    String?
+  heroCampaignId       String?
+  maxPrizeQuantity     Int?
+  testimonialQuote     String?
+  testimonialAuthor    String?
+  landingVideoUrl      String?
+  updatedAt            DateTime @updatedAt
+}
+
+model MarketingTestimonial {
+  id        String   @id @default(cuid())
+  quote     String
+  author    String
+  handle    String?
+  avatarUrl String?
+  sortOrder Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([isActive, sortOrder])
+}
+
+model ConsumerReferral {
+  id              String   @id @default(cuid())
+  referrerPhone   String
+  referredCount   Int      @default(0)
+  campaignId      String
+  campaign        Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  rewarded        Boolean  @default(false)
+  createdAt       DateTime @default(now())
+
+  @@unique([referrerPhone, campaignId])
+  @@index([campaignId])
+}
+
+model PushSubscription {
+  id        String   @id @default(cuid())
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  userAgent String?
+  createdAt DateTime @default(now())
+}
+
+enum TopUpStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model Admin {
+  id       String @id @default(cuid())
+  email    String @unique
+  password String
+  name     String
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  actorId    String?
+  actorType  String
+  action     String
+  entityType String
+  entityId   String?
+  before     Json?
+  after      Json?
+  metadata   Json?
+  createdAt  DateTime @default(now())
+
+  @@index([entityType, entityId])
+  @@index([actorId, createdAt])
+  @@index([createdAt])
+}
+
+model LandingEvent {
+  id         String   @id @default(cuid())
+  name       String
+  sessionId  String
+  locale     String
+  dir        String
+  section    String?
+  ctaLabel   String?
+  experiment String   @default("control")
+  metadata   Json?
+  createdAt  DateTime @default(now())
+
+  @@index([name, createdAt])
+  @@index([sessionId, createdAt])
+  @@index([experiment, name])
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  email     String
+  role      String
+  tokenHash String   @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime @default(now())
+
+  @@index([email, role])
+}
+
+model CampaignAction {
+  id          String   @id @default(cuid())
+  campaignId  String
+  campaign    Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  type        String
+  label       String
+  targetUrl   String?
+  sortOrder   Int      @default(0)
+  required    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  @@index([campaignId, sortOrder])
+}
+
+model DealThread {
+  id          String        @id @default(cuid())
+  sponsorId   String
+  creatorId   String
+  campaignId  String?
+  subject     String
+  messages    DealMessage[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([sponsorId, creatorId])
+}
+
+model DealMessage {
+  id        String     @id @default(cuid())
+  threadId  String
+  thread    DealThread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  senderId  String
+  senderRole String
+  body      String
+  createdAt DateTime   @default(now())
+
+  @@index([threadId, createdAt])
+}
+
+model ApiKey {
+  id        String    @id @default(cuid())
+  name      String
+  keyHash   String    @unique
+  prefix    String
+  scopes    String[]
+  creatorId String?
+  lastUsedAt DateTime?
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([creatorId])
+}
+
+model WebhookEndpoint {
+  id        String   @id @default(cuid())
+  creatorId String?
+  url       String
+  secret    String
+  events    String[]
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  @@index([creatorId])
+}
+
+model BlogPost {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  excerpt     String?
+  body        String
+  locale      String   @default("ar")
+  published   Boolean  @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([published, locale])
+}
