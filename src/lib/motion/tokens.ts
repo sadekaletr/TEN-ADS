@@ -1,16 +1,20 @@
+import { MOTION } from "@/styles/motion";
+
+export { MOTION };
+
 export const duration = {
   instant: 0.12,
-  fast: 0.22,
-  normal: 0.4,
-  slow: 0.7,
+  fast: MOTION.fast,
+  normal: MOTION.normal,
+  slow: MOTION.slow,
   cinematic: 1.2,
 } as const;
 
 export const durationMs = {
   instant: 120,
-  fast: 220,
-  normal: 400,
-  slow: 700,
+  fast: Math.round(MOTION.fast * 1000),
+  normal: Math.round(MOTION.normal * 1000),
+  slow: Math.round(MOTION.slow * 1000),
   cinematic: 1200,
 } as const;
 

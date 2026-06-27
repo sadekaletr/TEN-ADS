@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 import {
   redeemCode,
   trackRedemptionStarted,
@@ -23,6 +23,7 @@ import { ReferralShareScreen } from "@/components/redeem/ReferralShareScreen";
 import { Button } from "@/components/ui/Button";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { Icon } from "@/components/ui/Icon";
+import { RewardJourney } from "@/components/experience/RewardJourney";
 import { useLocale } from "@/lib/i18n";
 import type { Campaign, Creator, Sponsor } from "@prisma/client";
 
@@ -224,14 +225,11 @@ export function RedeemFlow({
         {PHASE_LABELS[phase]}
       </div>
 
-      <Image
-        src="/brand/tenegta-logo.svg"
-        alt="TENEGTA Spark"
-        width={140}
-        height={36}
-        className="mb-8 opacity-95"
-        priority
-      />
+      <BrandLogo variant="logo" size="md" priority className="mb-6 opacity-95" />
+
+      {phase !== "error" && (
+        <RewardJourney currentPhase={phase} className="mb-8 max-w-sm" />
+      )}
 
       {phase === "welcome" && (
         <RedeemWelcomeScreen campaign={campaign} onContinue={() => goTo("preview")} />

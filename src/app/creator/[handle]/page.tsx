@@ -97,6 +97,8 @@ export default async function CreatorPublicPage({
           handle: creator.handle.replace(/^@/, ""),
           avatarUrl: creator.avatarUrl,
           verified: creator.verified,
+          planTier: creator.planTier,
+          foundingPartnerNo: creator.foundingPartnerNo,
           phone: creator.phone,
           sparkScore: sparkSnapshot?.score ?? null,
         }}

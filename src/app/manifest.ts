@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { BRAND_MANIFEST_ICONS } from "@/lib/brand";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
@@ -11,13 +12,11 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: "#fafaf9",
     lang: "ar",
     dir: "rtl",
-    icons: [
-      {
-        src: "/brand/tenegta-logo.svg",
-        sizes: "any",
-        type: "image/svg+xml",
-        purpose: "any",
-      },
-    ],
+    icons: BRAND_MANIFEST_ICONS.map((icon) => ({
+      src: icon.src,
+      sizes: icon.sizes,
+      type: icon.type,
+      purpose: icon.purpose,
+    })),
   };
 }

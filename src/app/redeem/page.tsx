@@ -2,7 +2,7 @@
 
 import { SkeletonCard } from "@/components/ui/SkeletonCard";
 import { Suspense } from "react";
-import Image from "next/image";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Label } from "@/components/ui/Label";
@@ -29,13 +29,7 @@ function RedeemPageInner() {
       <div className="absolute end-4 top-4">
         <LocaleSwitcher />
       </div>
-      <Image
-        src="/brand/tenegta-logo.svg"
-        alt="TENEGTA Spark"
-        width={160}
-        height={40}
-        className="mb-6 opacity-90"
-      />
+      <BrandLogo variant="logo" size="footer" className="mb-6 opacity-95" />
       <SurfaceCard className="w-full">
         <h1 className="mb-1 text-center text-lg text-warm-white">
           {t("redeem.enterCode")}

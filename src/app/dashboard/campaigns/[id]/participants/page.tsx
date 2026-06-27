@@ -3,6 +3,7 @@ import { getCreatorSession } from "@/lib/session-auth";
 import { prisma } from "@/lib/prisma";
 import { notDeleted } from "@/lib/db";
 import { RedemptionsTable } from "@/components/dashboard/RedemptionsTable";
+import { ParticipantsExportButton } from "@/components/dashboard/ParticipantsExportButton";
 import { AnimatedCircuitCard } from "@/components/motion/AnimatedCircuitCard";
 
 export default async function CampaignParticipantsPage({
@@ -24,6 +25,7 @@ export default async function CampaignParticipantsPage({
   return (
     <AnimatedCircuitCard>
       <h2 className="mb-4 text-gold-1">المشاركون والاستردادات</h2>
+      <ParticipantsExportButton campaignTitle={campaign.title} redemptions={campaign.redemptions} />
       <RedemptionsTable redemptions={campaign.redemptions} />
     </AnimatedCircuitCard>
   );

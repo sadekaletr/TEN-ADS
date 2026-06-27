@@ -11,6 +11,8 @@ import { triggerTrustRecalcForCampaign } from "@/lib/intelligence/trust-score";
 import { prisma } from "@/lib/prisma";
 import { saveCampaignQrFiles } from "@/lib/qr";
 import { getCreatorSession } from "@/lib/session-auth";
+import type { CampaignStatus, CampaignTier, CreatorPlanTier } from "@prisma/client";
+import { maxCoCampaignPartners, canUseCampaignAbTest } from "@/lib/plans/entitlements";
 import {
   allowsCollaborators,
   allowsUniqueCodes,
@@ -23,7 +25,6 @@ import {
   returnSparkToTreasury,
 } from "@/lib/spark-treasury";
 import { getPlatformSettings } from "@/lib/platform-settings";
-import type { CampaignStatus, CampaignTier } from "@prisma/client";
 
 const topUpSchema = z.object({
   amount: z.number().int().refine(isValidTopUpAmount, {
@@ -156,6 +157,8 @@ const campaignSchema = z.object({
     .optional(),
   title: z.string().min(3),
   description: z.string().optional(),
+  descriptionVariantA: z.string().optional(),
+  descriptionVariantB: z.string().optional(),
   prizeName: z.string().min(2),
   prizeQuantity: z.number().int().positive(),
   codeMode: z.enum(["SHARED", "UNIQUE"]),
@@ -195,12 +198,20 @@ async function resolveSponsorId(parsed: z.infer<typeof campaignSchema>) {
 function validateTierRules(
   tier: CampaignTier,
   codeMode: "SHARED" | "UNIQUE",
-  collaborators: { creatorId: string; sharePercentage: number }[]
+  collaborators: { creatorId: string; sharePercentage: number }[],
+  planTier: CreatorPlanTier
 ) {
   if (!allowsUniqueCodes(tier) && codeMode === "UNIQUE") {
     throw new Error("TIER_CODE_MODE");
   }
-  if (!allowsCollaborators(tier) && collaborators.length > 0) {
+  const maxPartners = maxCoCampaignPartners(planTier);
+  if (maxPartners === 0 && collaborators.length > 0) {
+    throw new Error("PLAN_COLLABORATORS");
+  }
+  if (maxPartners !== Infinity && collaborators.length > maxPartners) {
+    throw new Error("PLAN_COLLAB_MAX");
+  }
+  if (!allowsCollaborators(tier) && collaborators.length > 0 && maxPartners === 0) {
     throw new Error("TIER_COLLABORATORS");
   }
 }
@@ -214,7 +225,11 @@ export async function saveCampaignDraft(data: z.infer<typeof draftCampaignSchema
   const tier = parsed.tier;
   const codeMode = tier === "BASIC" ? "SHARED" : parsed.codeMode;
   const collabs = parsed.collaborators ?? [];
-  validateTierRules(tier, codeMode, collabs);
+  const creator = await prisma.creator.findUniqueOrThrow({
+    where: { id: session.user.id },
+    select: { planTier: true },
+  });
+  validateTierRules(tier, codeMode, collabs, creator.planTier);
 
   const costPerRedemption = tierCostPerRedemption(tier);
 
@@ -228,6 +243,12 @@ export async function saveCampaignDraft(data: z.infer<typeof draftCampaignSchema
       sponsorId,
       title: parsed.title,
       description: parsed.description,
+      descriptionVariantA: canUseCampaignAbTest(creator)
+        ? parsed.descriptionVariantA
+        : undefined,
+      descriptionVariantB: canUseCampaignAbTest(creator)
+        ? parsed.descriptionVariantB
+        : undefined,
       prizeName: parsed.prizeName,
       prizeQuantity: parsed.prizeQuantity,
       codeMode,
@@ -262,7 +283,11 @@ export async function createCampaign(data: z.infer<typeof campaignSchema>) {
   const tier = parsed.tier;
   const codeMode = tier === "BASIC" ? "SHARED" : parsed.codeMode;
   const collabs = parsed.collaborators ?? [];
-  validateTierRules(tier, codeMode, collabs);
+  const creator = await prisma.creator.findUniqueOrThrow({
+    where: { id: session.user.id },
+    select: { planTier: true },
+  });
+  validateTierRules(tier, codeMode, collabs, creator.planTier);
 
   const baseCost = tierCostPerRedemption(tier);
   const collabTotal = collabs.reduce((s, c) => s + c.sharePercentage, 0);
@@ -367,6 +392,12 @@ export async function createCampaign(data: z.infer<typeof campaignSchema>) {
         sponsorId,
         title: parsed.title,
         description: parsed.description,
+        descriptionVariantA: canUseCampaignAbTest(creator)
+          ? parsed.descriptionVariantA
+          : undefined,
+        descriptionVariantB: canUseCampaignAbTest(creator)
+          ? parsed.descriptionVariantB
+          : undefined,
         prizeName: parsed.prizeName,
         prizeQuantity: parsed.prizeQuantity,
         codeMode,

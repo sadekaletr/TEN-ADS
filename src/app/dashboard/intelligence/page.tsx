@@ -4,14 +4,22 @@ import { prisma } from "@/lib/prisma";
 import { CircuitCard } from "@/components/ui/CircuitCard";
 import { Button } from "@/components/ui/Button";
 import Link from "next/link";
+import { CompetitorAnalyticsCard } from "@/components/dashboard/CompetitorAnalyticsCard";
+import { canUseCompetitorAnalytics } from "@/lib/plans/entitlements";
 
 export default async function IntelligenceCheckoutPage() {
   const session = await getCreatorSession();
   if (!session) redirect("/login");
 
-  const sub = await prisma.intelligenceSubscription.findUnique({
-    where: { creatorId: session.user.id },
-  });
+  const [sub, creator] = await Promise.all([
+    prisma.intelligenceSubscription.findUnique({
+      where: { creatorId: session.user.id },
+    }),
+    prisma.creator.findUnique({
+      where: { id: session.user.id },
+      select: { planTier: true },
+    }),
+  ]);
 
   return (
     <main className="mx-auto max-w-lg px-4 py-10">
@@ -39,6 +47,9 @@ export default async function IntelligenceCheckoutPage() {
           </>
         )}
       </CircuitCard>
+      {creator && canUseCompetitorAnalytics(creator) && (
+        <CompetitorAnalyticsCard creatorId={session.user.id} />
+      )}
     </main>
   );
 }

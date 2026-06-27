@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { Button } from "@/components/ui/Button";
@@ -34,10 +35,13 @@ export function SponsorNav({ sponsorName, unreadNotifications = 0 }: SponsorNavP
   return (
     <header className="border-b border-gold-4/20 bg-surface/80 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-4">
-        <div className="min-w-0">
-          <p className="font-brand text-lg text-gold-1">{t("common.brand")}</p>
-          <p className="truncate text-xs text-dim">راعٍ — {sponsorName}</p>
-        </div>
+        <Link href="/sponsor" className="flex min-w-0 items-center gap-2.5">
+          <BrandLogo variant="icon" size="xs" />
+          <div className="min-w-0">
+            <p className="font-brand text-lg text-gold-1">{t("common.brand")}</p>
+            <p className="truncate text-xs text-dim">راعٍ — {sponsorName}</p>
+          </div>
+        </Link>
         <div className="flex shrink-0 items-center gap-2">
           <LocaleSwitcher />
           <NotificationBell

@@ -128,7 +128,7 @@ async function main() {
       password: premiumPassword,
       walletBalance: 0,
       verified: true,
-      avatarUrl: "/brand/tenegta-logo.svg",
+      avatarUrl: "/brand/tenegta-icon.png",
       isPartner: true,
       partnerDiscountCode: "SPARK-LAYLA_PREMIUM",
     },

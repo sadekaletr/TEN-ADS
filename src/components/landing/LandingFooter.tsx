@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 import { useLocale } from "@/lib/i18n";
 
 export function LandingFooter() {
@@ -11,13 +11,7 @@ export function LandingFooter() {
     <footer className="border-t border-subtle bg-bg-surface/80 px-6 py-16">
       <div className="mx-auto grid max-w-5xl gap-10 md:grid-cols-4">
         <div className="md:col-span-1">
-          <Image
-            src="/brand/tenegta-logo.svg"
-            alt="TENEGTA"
-            width={160}
-            height={40}
-            className="h-10 w-auto opacity-95"
-          />
+          <BrandLogo variant="logo" size="footer" className="opacity-95" />
           <p className="mt-3 text-sm text-text-secondary">{t("landing.footer.tagline")}</p>
         </div>
         <div>

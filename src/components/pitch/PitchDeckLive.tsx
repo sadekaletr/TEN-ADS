@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 import { TrustScoreRing } from "@/components/trust/TrustScoreRing";
 import { Button } from "@/components/ui/Button";
 import { n, percent } from "@/lib/format";
@@ -129,7 +130,7 @@ export function PitchDeckLive({ data }: PitchDeckLiveProps) {
         <span className="text-xs text-dim">
           {slide + 1} / {SLIDE_COUNT}
         </span>
-        <Image src="/brand/tenegta-logo.svg" alt="TENEGTA" width={100} height={26} />
+        <BrandLogo variant="logo" size="md" />
       </div>
       <div className="flex flex-1 items-center justify-center px-6 pb-24">
         <AnimatePresence mode="wait">

@@ -10,7 +10,7 @@ import { LandingPlatformPreview } from "@/components/landing/LandingPlatformPrev
 import { LandingUnifiedJourney } from "@/components/landing/LandingUnifiedJourney";
 import { LandingAudienceTabs } from "@/components/landing/LandingAudienceTabs";
 import { LandingLiveCaseStudy } from "@/components/landing/LandingLiveCaseStudy";
-import { LandingProductFilm } from "@/components/landing/LandingProductFilm";
+import { LandingInteractiveDemo } from "@/components/landing/LandingInteractiveDemo";
 import { LandingTrustStats } from "@/components/landing/LandingTrustStats";
 import { LandingTestimonials } from "@/components/landing/LandingTestimonials";
 import { LandingPricingPlans } from "@/components/landing/LandingPricingPlans";
@@ -53,7 +53,7 @@ export default async function HomePage() {
           testimonialAuthor={platform.testimonialAuthor}
         />
       )}
-      <LandingProductFilm videoUrl={platform.landingVideoUrl} />
+      <LandingInteractiveDemo />
       <LandingTrustStats
         activeCampaigns={stats.activeCampaigns}
         sparkVolume={stats.sparkVolume}

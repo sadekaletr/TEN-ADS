@@ -47,6 +47,8 @@ const DEMO_CREATOR: CreatorCardData = {
   city: "دمشق",
   categories: ["fashion", "lifestyle"],
   verified: true,
+  planTier: "GROWTH",
+  foundingPartnerNo: null,
   sparkScore: 742,
   trustScore: 88,
   campaignsCount: 4,

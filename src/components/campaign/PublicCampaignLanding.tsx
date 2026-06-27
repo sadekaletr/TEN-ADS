@@ -2,11 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { SponsorVerifiedBadge } from "@/components/sponsor/SponsorVerifiedBadge";
 import { CampaignPerformanceBadge } from "@/components/sponsor/CampaignPerformanceBadge";
 import { isProCampaign } from "@/lib/campaign-tiers";
+import { useCampaignDescription } from "@/lib/campaign/ab-copy";
 import { LiveScarcityBar } from "@/components/campaign/LiveScarcityBar";
 import { n } from "@/lib/format";
 import type { Campaign, Creator, Sponsor, CampaignCode } from "@prisma/client";
@@ -36,17 +38,17 @@ function remainingLabel(campaign: CampaignPublic) {
 export function PublicCampaignLanding({ campaign }: PublicCampaignLandingProps) {
   const primaryCode = campaign.codes[0]?.code;
   const redeemHref = primaryCode ? `/c/${primaryCode}` : "/redeem";
+  const { text: descriptionText } = useCampaignDescription(
+    campaign.id,
+    campaign.description,
+    campaign.descriptionVariantA,
+    campaign.descriptionVariantB
+  );
 
   return (
     <main className="mx-auto min-h-dvh max-w-lg px-4 py-10">
       <div className="mb-8 text-center">
-        <Image
-          src="/brand/tenegta-logo.svg"
-          alt="TENEGTA"
-          width={140}
-          height={36}
-          className="mx-auto opacity-90"
-        />
+        <BrandLogo variant="logo" size="md" className="mx-auto opacity-95" />
       </div>
 
       {campaign.promoVideoUrl ? (
@@ -91,8 +93,8 @@ export function PublicCampaignLanding({ campaign }: PublicCampaignLandingProps) 
           </span>
         )}
         <h1 className="mt-3 text-2xl font-semibold text-warm-white">{campaign.title}</h1>
-        {campaign.description && (
-          <p className="mt-2 text-sm text-dim">{campaign.description}</p>
+        {descriptionText && (
+          <p className="mt-2 text-sm text-dim">{descriptionText}</p>
         )}
         <p className="mt-4 text-xs text-dim">
           هدية من {campaign.creator.name} بالتعاون مع {campaign.sponsor.name}

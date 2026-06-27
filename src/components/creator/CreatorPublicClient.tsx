@@ -6,6 +6,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { GlassCard } from "@/components/ui/GlassCard";
 import { VerifiedBadge } from "@/components/ui/VerifiedBadge";
+import { FoundingPartnerBadge } from "@/components/ui/FoundingPartnerBadge";
+import { displayVerified } from "@/lib/plans/entitlements";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { TrustScoreRing } from "@/components/trust/TrustScoreRing";
 import { CreatorStatChips } from "@/components/creators/CreatorStatChips";
@@ -21,6 +23,8 @@ type CreatorProfile = {
   handle: string;
   avatarUrl: string | null;
   verified: boolean;
+  planTier: "STARTER" | "GROWTH" | "SCALE";
+  foundingPartnerNo: number | null;
   phone: string | null;
   sparkScore: number | null;
 };
@@ -122,7 +126,10 @@ export function CreatorPublicClient({
           </div>
           <h1 className="text-xl font-semibold text-text-primary">{displayName}</h1>
           <p className="font-mono text-sm text-gold-3">@{creator.handle}</p>
-          {creator.verified && <VerifiedBadge className="mt-2" />}
+          {displayVerified(creator) && <VerifiedBadge className="mt-2" />}
+          {creator.foundingPartnerNo != null && (
+            <FoundingPartnerBadge number={creator.foundingPartnerNo} className="mt-2" />
+          )}
           <div className="my-4 flex justify-center">
             <TrustScoreRing score={trust.score} campaignsCount={trust.campaignsCount} />
           </div>

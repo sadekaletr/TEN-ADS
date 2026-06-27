@@ -16,6 +16,9 @@ model Creator {
   password      String?
   avatarUrl     String?
   verified      Boolean                @default(false)
+  planTier            CreatorPlanTier        @default(STARTER)
+  planGrantedAt       DateTime?
+  foundingPartnerNo   Int?                   @unique
   walletBalance Int                    @default(0)
   trustScore    Int?
   trustScoreAt  DateTime?
@@ -49,6 +52,12 @@ model WalletTransaction {
   topUpRequest TopUpRequest?
 
   @@index([creatorId])
+}
+
+enum CreatorPlanTier {
+  STARTER
+  GROWTH
+  SCALE
 }
 
 enum TxType {
@@ -96,6 +105,8 @@ model Campaign {
   sponsor           Sponsor                @relation(fields: [sponsorId], references: [id])
   title             String
   description       String?
+  descriptionVariantA String?
+  descriptionVariantB String?
   prizeName         String
   prizeQuantity     Int
   prizeClaimed      Int                    @default(0)

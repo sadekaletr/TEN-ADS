@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 import { Button } from "@/components/ui/Button";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
@@ -77,15 +77,12 @@ export function LandingNav() {
             <motion.div
               animate={reducedMotion ? false : scrolled ? navLogoScale.shrunk : navLogoScale.expanded}
               transition={navShrinkTransition}
+              className="flex items-center gap-2.5"
             >
-              <Image
-                src="/brand/tenegta-logo.svg"
-                alt="TENEGTA"
-                width={120}
-                height={32}
-                className="h-8 w-auto opacity-95"
-                priority
-              />
+              <BrandLogo variant="icon" size="nav" priority className="opacity-95" />
+              <span className="hidden font-brand text-sm font-semibold tracking-tight text-text-primary sm:inline">
+                {t("common.brand")}
+              </span>
             </motion.div>
           </Link>
 

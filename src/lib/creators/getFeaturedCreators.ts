@@ -7,6 +7,7 @@ import {
   enrichListingsBatch,
   type ListingForEnrich,
 } from "@/lib/creators/enrich";
+import { hasMarketplacePriority } from "@/lib/plans/entitlements";
 
 export type CreatorCardData = {
   id: string;
@@ -17,6 +18,8 @@ export type CreatorCardData = {
   city: string | null;
   categories: string[];
   verified: boolean;
+  planTier: "STARTER" | "GROWTH" | "SCALE";
+  foundingPartnerNo: number | null;
   sparkScore: number | null;
   trustScore: number;
   campaignsCount: number;
@@ -38,6 +41,9 @@ export type FeaturedCreatorsResult = {
 const LISTING_LIMIT = 24;
 
 function defaultSort(a: CreatorCardData, b: CreatorCardData): number {
+  const aPriority = hasMarketplacePriority({ planTier: a.planTier });
+  const bPriority = hasMarketplacePriority({ planTier: b.planTier });
+  if (aPriority !== bPriority) return aPriority ? -1 : 1;
   if (a.verified !== b.verified) return a.verified ? -1 : 1;
   if (a.activeCampaigns !== b.activeCampaigns) return b.activeCampaigns - a.activeCampaigns;
   if (a.totalRedemptions !== b.totalRedemptions) return b.totalRedemptions - a.totalRedemptions;
@@ -112,6 +118,8 @@ const getFeaturedCreatorsCached = unstable_cache(
               handle: true,
               avatarUrl: true,
               verified: true,
+              planTier: true,
+              foundingPartnerNo: true,
               trustScore: true,
               createdAt: true,
               campaigns: {

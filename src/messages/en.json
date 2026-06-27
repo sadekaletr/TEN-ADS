@@ -59,6 +59,8 @@
         "redemptions": "Redemptions this week",
         "prize": "Instant prize for followers"
       },
+      "beFirst": "Be the first",
+      "ctaHowItWorks": "How it works?",
       "control": {
         "eyebrow": "Coupon campaign platform for creators",
         "title": "Turn your followers into",
@@ -142,6 +144,33 @@
       "step3Body": "Prizes delivered instantly — sponsors see results in real time",
       "cta": "Claim your prize",
       "watchCta": "Watch how it works"
+    },
+    "demo": {
+      "title": "Try the platform — no signup",
+      "subtitle": "Three interactive steps: create a campaign, share the code, watch the reveal",
+      "tabs": {
+        "create": "Create campaign",
+        "share": "Share code",
+        "reveal": "Watch reveal"
+      },
+      "create": {
+        "label": "Describe your campaign in one sentence",
+        "placeholder": "e.g. 20 free burgers from my restaurant in Damascus",
+        "cta": "Suggest for me",
+        "resultLabel": "Instant suggestion",
+        "prize": "Prize",
+        "quantity": "Quantity"
+      },
+      "share": {
+        "creatorScreen": "Creator screen — ready to post",
+        "followerScreen": "Follower screen — scan QR",
+        "storyText": "🎁 Exclusive prize! Scan the code and claim via TENEGTA Spark",
+        "next": "Go to follower view",
+        "hint": "The code flows from creator to follower — real QR powered by the platform"
+      },
+      "reveal": {
+        "cta": "Tap to try the reveal"
+      }
     },
     "sponsorBenefits": {
       "title": "For sponsors",
@@ -257,7 +286,7 @@
             "campaigns": "~5 basic campaigns",
             "redeem": "Instant follower redemptions",
             "dashboard": "Core dashboard",
-            "support": "Email support"
+            "export": "Winner backup export (CSV/JSON)"
           }
         },
         "growth": {
@@ -265,10 +294,10 @@
           "subtitle": "Steady growth",
           "cta": "Start with 10 Spark",
           "features": {
-            "campaigns": "~10 pro campaigns",
-            "tiers": "All campaign tiers",
-            "analytics": "Advanced analytics",
-            "priority": "Priority review"
+            "verified": "Instant verified badge",
+            "pitch": "Pitch portal for sponsors",
+            "collab": "Up to 2 co-campaign partners",
+            "report": "Monthly email report"
           }
         },
         "scale": {
@@ -276,10 +305,10 @@
           "subtitle": "Teams and agencies",
           "cta": "Start with 50 Spark",
           "features": {
-            "volume": "High redemption volume",
-            "multi": "Multiple concurrent campaigns",
-            "agency": "Agency dashboard",
-            "dedicated": "Dedicated account manager"
+            "priority": "Priority support + SLA",
+            "analytics": "Anonymous competitor analytics",
+            "ab": "Campaign copy A/B testing",
+            "founding": "Founding partner badge (first 100)"
           }
         }
       }
@@ -448,6 +477,7 @@
     "login": "Sign in",
     "loginTitle": "Creator sign in",
     "loginSubtitle": "Invalid credentials — please check and try again",
+    "wrongPortalAdmin": "This is an admin account — use /admin/login with admin@tenegta.com",
     "loginIdentifierHint": "Enter email or phone — either works",
     "sponsorLoginTitle": "Sponsor sign in",
     "sponsorLoginSubtitle": "Manage your campaigns and wallet",
@@ -461,7 +491,17 @@
     "signIn": "Sign in",
     "forgotPassword": "Forgot password?",
     "signInGoogle": "Sign in with Google",
-    "demoHint": "Demo: creator@tenegta.com / demo1234"
+    "demoHint": "Demo: creator@tenegta.com / demo1234",
+    "planIntent": "You selected the {plan} plan — activation is assigned by admin after signup"
+  },
+  "pitch": {
+    "upgrade": {
+      "eyebrow": "Growth+",
+      "title": "Pitch portal requires Growth or Scale",
+      "body": "A live deck for sponsors — real metrics, one shareable link",
+      "cta": "Join as a creator",
+      "pricing": "View plans"
+    }
   },
   "redeem": {
     "title": "Claim prize",

@@ -4,16 +4,22 @@
   "description": "حوّل كل متابع إلى عميل حقيقي",
   "start_url": "/discover",
   "display": "standalone",
-  "background_color": "#030304",
-  "theme_color": "#030304",
+  "background_color": "#fafaf9",
+  "theme_color": "#fafaf9",
   "lang": "ar",
   "dir": "rtl",
   "icons": [
     {
-      "src": "/brand/tenegta-logo.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
+      "src": "/brand/tenegta-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
       "purpose": "any"
+    },
+    {
+      "src": "/brand/tenegta-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }

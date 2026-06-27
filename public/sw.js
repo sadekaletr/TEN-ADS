@@ -1,7 +1,7 @@
 const CACHE = "tenegta-spark-v3";
 
 /** Only static assets — never precache HTML (was causing stale homepage). */
-const PRECACHE = ["/brand/tenegta-logo.svg"];
+const PRECACHE = ["/brand/tenegta-icon.png", "/brand/tenegta-logo.png"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(

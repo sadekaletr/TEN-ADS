@@ -6,6 +6,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { LocaleSwitcher } from "@/components/LocaleSwitcher";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 import { useLocale } from "@/lib/i18n";
 import {
   mobileBackdrop,
@@ -58,7 +59,7 @@ export function MobileNav({ links, open, onClose }: MobileNavProps) {
             transition={mobileSheetTransition}
           >
             <div className="flex items-center justify-between border-b border-subtle px-4 py-4">
-              <span className="font-brand text-sm text-text-primary">TENEGTA</span>
+              <BrandLogo variant="logo" size="xs" />
               <button
                 type="button"
                 className="focus-ring rounded-lg p-2 text-text-secondary hover:text-gold-accent"

@@ -17,11 +17,14 @@ import { createCampaign, getSponsors, saveCampaignDraft, searchCreatorsByHandle 
 import { suggestCampaignAction } from "@/app/dashboard/copilot-actions";
 import { TierPicker } from "@/components/campaign/TierPicker";
 import { CampaignLivePreview } from "@/components/campaign/CampaignLivePreview";
+import { CostSimulator } from "@/components/campaign/new/CostSimulator";
+import { LaunchProgressModal } from "@/components/campaign/new/LaunchProgressModal";
+import { PageHero } from "@/components/experience/PageHero";
 import { allowsUniqueCodes, tierCostPerRedemption } from "@/lib/campaign-tiers";
+import { maxCoCampaignPartners } from "@/lib/plans/entitlements";
 import { formatNumber } from "@/lib/format";
-import type { CampaignTier } from "@prisma/client";
+import type { CampaignTier, CreatorPlanTier } from "@prisma/client";
 import { useSession } from "next-auth/react";
-import { PageHeader } from "@/components/ui/PageHeader";
 import { Label } from "@/components/ui/Label";
 import { useLocale } from "@/lib/i18n";
 import Link from "next/link";
@@ -33,7 +36,7 @@ import type { CampaignTemplate } from "@/lib/network/recommendations";
 
 type Sponsor = { id: string; name: string; city: string | null };
 
-export function CampaignWizard() {
+export function CampaignWizard({ planTier = "STARTER" }: { planTier?: CreatorPlanTier }) {
   const { t } = useLocale();
   const router = useRouter();
   const { data: session } = useSession();
@@ -69,6 +72,7 @@ export function CampaignWizard() {
   const [copilotLoading, setCopilotLoading] = useState(false);
   const [templatesOpen, setTemplatesOpen] = useState(false);
   const [insufficientBalance, setInsufficientBalance] = useState(false);
+  const [launchModalOpen, setLaunchModalOpen] = useState(false);
 
   const totalCost = costPerRedemption * prizeQuantity;
   const collabShareTotal = collaborators.reduce((s, c) => s + c.sharePercentage, 0);
@@ -77,11 +81,14 @@ export function CampaignWizard() {
     ? newSponsor.name
     : sponsors.find((s) => s.id === sponsorId)?.name ?? "";
 
+  const maxPartners = maxCoCampaignPartners(planTier);
+  const canCollaborate = maxPartners > 0;
+
   function handleTierChange(next: CampaignTier) {
     setTier(next);
     setCostPerRedemption(tierCostPerRedemption(next));
     if (next === "BASIC") setCodeMode("SHARED");
-    if (next !== "EMPIRE") setCollaborators([]);
+    if (!canCollaborate) setCollaborators([]);
   }
 
   function buildCampaignPayload() {
@@ -101,9 +108,8 @@ export function CampaignWizard() {
       requireAddress,
       antiAbuse,
       revealStyle,
-      collaborators:
-        tier === "EMPIRE"
-          ? collaborators.map((c) => ({
+      collaborators: canCollaborate
+          ? collaborators.slice(0, maxPartners === Infinity ? undefined : maxPartners).map((c) => ({
               creatorId: c.creatorId,
               sharePercentage: c.sharePercentage,
             }))
@@ -170,7 +176,7 @@ export function CampaignWizard() {
     setCopilotLoading(false);
   }
 
-  async function handleLaunch() {
+  async function executeLaunch() {
     setLoading(true);
     setError("");
     setInsufficientBalance(false);
@@ -192,10 +198,20 @@ export function CampaignWizard() {
       }
     }
     setLoading(false);
+    setLaunchModalOpen(false);
+  }
+
+  function handleLaunchClick() {
+    setLaunchModalOpen(true);
+  }
+
+  function handleLaunchModalComplete() {
+    void executeLaunch();
   }
 
   return (
     <div className="space-y-6">
+      <LaunchProgressModal open={launchModalOpen} onComplete={handleLaunchModalComplete} />
       <nav className="flex flex-wrap items-center gap-2 text-sm text-dim">
         <Link href="/dashboard" className="hover:text-gold-1">{t("dashboard.campaigns.breadcrumbDashboard")}</Link>
         <span>/</span>
@@ -203,36 +219,46 @@ export function CampaignWizard() {
         <span>/</span>
         <span className="text-gold-1">{t("dashboard.campaigns.breadcrumbNew")}</span>
       </nav>
-      <PageHeader
+      <PageHero
+        eyebrow="AI Campaign Studio"
         title={t("dashboard.campaigns.wizard.title")}
-        description={t("dashboard.campaigns.wizard.subtitle")}
+        subtitle="صف حملتك في سطر واحد — شاهد النتيجة تتحرك أمامك"
       />
-    <div className="grid gap-8 lg:grid-cols-2">
+      <div className="grid gap-8 lg:grid-cols-2">
       <div className="space-y-6">
-        <GlassCard className="space-y-5">
+        <GlassCard className="space-y-5" featured elevation={2}>
           <div>
-            <h2 className="text-2xl font-bold text-gold-1">اكتب جملة وخلص</h2>
+            <h2 className="text-xl font-bold text-gold-1">صف حملتك في سطر واحد</h2>
             <p className="mt-1 text-sm text-dim">
-              صف حملتك بجملة واحدة — نملأ التفاصيل عنك
+              مثال: قهوة مجانية لكل عميل جديد
             </p>
           </div>
           <Textarea
             value={copilotInput}
             onChange={(e) => setCopilotInput(e.target.value)}
-            placeholder="مثال: حملة قهوة مجانية لأول 10 متابعين في دمشق"
-            rows={4}
+            placeholder="قهوة مجانية لكل عميل جديد"
+            rows={3}
           />
           <Button
             type="button"
             onClick={handleCopilot}
             loading={copilotLoading}
             disabled={!copilotInput.trim()}
+            glow
             className="w-full py-4 text-lg"
           >
-            اكتب جملة وخلص
+            Generate Campaign
           </Button>
           {error && step === 0 && <p className="text-sm text-gold-3">{error}</p>}
         </GlassCard>
+
+        {(step > 0 || title || prizeName) && (
+          <CostSimulator
+            prizeQuantity={prizeQuantity}
+            costPerRedemption={costPerRedemption}
+            totalCost={totalCost}
+          />
+        )}
 
         {step === 0 && session?.user?.id && (
           <div className="space-y-3">
@@ -426,7 +452,7 @@ export function CampaignWizard() {
                   </Button>
                   <Button
                     type="button"
-                    onClick={() => setStep(tier === "EMPIRE" ? 4 : 5)}
+                    onClick={() => setStep(canCollaborate ? 4 : 5)}
                     className="flex-1"
                   >
                     التالي
@@ -435,7 +461,7 @@ export function CampaignWizard() {
               </GlassCard>
             )}
 
-            {step === 4 && tier === "EMPIRE" && (
+            {step === 4 && canCollaborate && (
               <GlassCard className="space-y-4">
                 <h2 className="text-gold-1">الخطوة 4 — شركاء Co-Campaign</h2>
                 <p className="text-sm text-dim">
@@ -564,7 +590,7 @@ export function CampaignWizard() {
                 <div className="flex gap-2">
                   <Button
                     variant="secondary"
-                    onClick={() => setStep(tier === "EMPIRE" ? 4 : 3)}
+                    onClick={() => setStep(canCollaborate ? 4 : 3)}
                     className="flex-1"
                   >
                     رجوع
@@ -572,8 +598,8 @@ export function CampaignWizard() {
                   <MagneticCore className="flex-1">
                     <Button
                       type="button"
-                      onClick={handleLaunch}
-                      disabled={loading}
+                      onClick={handleLaunchClick}
+                      disabled={loading || launchModalOpen}
                       className="w-full"
                     >
                       {loading ? "جاري الإطلاق..." : "إطلاق الحملة"}
@@ -589,9 +615,12 @@ export function CampaignWizard() {
       <div className="lg:sticky lg:top-8 lg:h-fit">
         <CampaignLivePreview
           title={title}
+          description={description}
           prizeName={prizeName}
+          prizeQuantity={prizeQuantity}
           tier={tier}
           sponsorName={sponsorName}
+          city={city}
         />
       </div>
     </div>

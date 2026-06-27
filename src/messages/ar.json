@@ -59,6 +59,8 @@
         "redemptions": "استرداد هذا الأسبوع",
         "prize": "جائزة فورية للمتابع"
       },
+      "beFirst": "كن الأول",
+      "ctaHowItWorks": "كيف يعمل؟",
       "control": {
         "eyebrow": "منصة الحملات بالكوبون لصناع المحتوى",
         "title": "حوّل متابعينك إلى",
@@ -143,6 +145,33 @@
       "cta": "استلم جائزتك الآن",
       "watchCta": "شاهد كيف يعمل"
     },
+    "demo": {
+      "title": "جرّب المنصة — بدون تسجيل",
+      "subtitle": "ثلاث خطوات تفاعلية: أنشئ حملة، شارك الكود، وشاهد الكشف",
+      "tabs": {
+        "create": "أنشئ حملة",
+        "share": "شارك الكود",
+        "reveal": "شاهد الكشف"
+      },
+      "create": {
+        "label": "صف حملتك بجملة واحدة",
+        "placeholder": "مثال: 20 وجبة برجر مجانية من مطعمي في دمشق",
+        "cta": "اقترح لي",
+        "resultLabel": "اقتراح فوري",
+        "prize": "الجائزة",
+        "quantity": "الكمية"
+      },
+      "share": {
+        "creatorScreen": "شاشة الصانع — جاهز للنشر",
+        "followerScreen": "شاشة المتابع — امسح QR",
+        "storyText": "🎁 جائزة حصرية! امسح الكود واستلمها الآن عبر TENEGTA Spark",
+        "next": "انتقل للمتابع",
+        "hint": "الكود ينتقل من الصانع إلى المتابع — QR حقيقي يعمل على المنصة"
+      },
+      "reveal": {
+        "cta": "اضغط لتجربة الكشف"
+      }
+    },
     "sponsorBenefits": {
       "title": "للرعاة",
       "subtitle": "حوّل التسويق بالمؤثرين إلى زيارات فعلية",
@@ -226,7 +255,7 @@
     "stats": {
       "headline": "صناع محتوى يثقون بـ TENEGTA Spark",
       "activeCampaigns": "حملة نشطة على المنصة",
-      "sparkVolume": "سبارك تم تداولها",
+      "sparkVolume": "Spark تم تداولها",
       "weeklyRedemptions": "استرداد هذا الأسبوع"
     },
     "logos": {
@@ -257,7 +286,7 @@
             "campaigns": "حوالي 5 حملات أساسية",
             "redeem": "استرداد فوري للمتابعين",
             "dashboard": "لوحة تحكم أساسية",
-            "support": "دعم عبر البريد"
+            "export": "نسخة احتياطية للفائزين (CSV/JSON)"
           }
         },
         "growth": {
@@ -265,10 +294,10 @@
           "subtitle": "للنمو المستمر",
           "cta": "ابدأ بـ 10 Spark",
           "features": {
-            "campaigns": "حوالي 10 حملات محترفة",
-            "tiers": "جميع مستويات الحملة",
-            "analytics": "تحليلات متقدمة",
-            "priority": "أولوية في المراجعة"
+            "verified": "شارة موثّق فورية",
+            "pitch": "بوابة Pitch للرعاة",
+            "collab": "حتى شريكين Co-Campaign",
+            "report": "تقرير شهري بالبريد"
           }
         },
         "scale": {
@@ -276,10 +305,10 @@
           "subtitle": "للفرق والوكالات",
           "cta": "ابدأ بـ 50 Spark",
           "features": {
-            "volume": "حجم كبير من الاستردادات",
-            "multi": "حملات متعددة متزامنة",
-            "agency": "لوحة وكالة",
-            "dedicated": "مدير حساب مخصص"
+            "priority": "دعم أولوية + SLA",
+            "analytics": "تحليلات منافسين مجهولة",
+            "ab": "A/B لنص الحملة",
+            "founding": "شارة شريك مؤسس (أول 100)"
           }
         }
       }
@@ -436,6 +465,7 @@
     "login": "تسجيل الدخول",
     "loginTitle": "تسجيل دخول صانع المحتوى",
     "loginSubtitle": "بيانات الدخول غير صحيحة — تحقق وحاول مرة أخرى",
+    "wrongPortalAdmin": "هذا حساب إدارة — استخدم /admin/login مع admin@tenegta.com",
     "loginIdentifierHint": "أدخل البريد أو الهاتف — يكفي أحدهما",
     "sponsorLoginTitle": "تسجيل دخول الراعي",
     "sponsorLoginSubtitle": "إدارة حملاتك ومحفظتك",
@@ -449,7 +479,17 @@
     "signIn": "دخول",
     "forgotPassword": "نسيت كلمة المرور؟",
     "signInGoogle": "الدخول عبر Google",
-    "demoHint": "تجريبي: creator@tenegta.com / demo1234"
+    "demoHint": "تجريبي: creator@tenegta.com / demo1234",
+    "planIntent": "طلبت باقة {plan} — سيتم تفعيلها من الإدارة بعد التسجيل"
+  },
+  "pitch": {
+    "upgrade": {
+      "eyebrow": "Growth+",
+      "title": "بوابة Pitch متاحة لباقة Growth وما فوق",
+      "body": "عرض تقديمي حي لرعاتك — حمّل بياناتك الحقيقية وشارك رابطاً واحداً",
+      "cta": "انضم كصانع",
+      "pricing": "عرض الباقات"
+    }
   },
   "redeem": {
     "title": "استلام الجائزة",

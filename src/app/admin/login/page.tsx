@@ -1,9 +1,9 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 import { CircuitCard } from "@/components/ui/CircuitCard";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -45,14 +45,7 @@ export default function AdminLoginPage() {
       <div className="absolute end-6 top-6">
         <LocaleSwitcher />
       </div>
-      <Image
-        src="/brand/tenegta-logo.svg"
-        alt="TENEGTA"
-        width={180}
-        height={45}
-        className="mb-6 opacity-90"
-        priority
-      />
+      <BrandLogo variant="logo" size="auth" priority className="mb-6 opacity-95" />
       <h1 className="font-brand text-2xl font-bold text-gold-1">{t("auth.adminLoginTitle")}</h1>
       <p className="mt-1 text-sm text-dim">{t("common.brand")}</p>
 

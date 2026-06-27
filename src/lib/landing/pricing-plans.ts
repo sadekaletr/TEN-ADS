@@ -17,7 +17,7 @@ export const PRICING_PLANS: readonly PricingPlan[] = [
       "landing.pricing.plans.starter.features.campaigns",
       "landing.pricing.plans.starter.features.redeem",
       "landing.pricing.plans.starter.features.dashboard",
-      "landing.pricing.plans.starter.features.support",
+      "landing.pricing.plans.starter.features.export",
     ],
   },
   {
@@ -25,10 +25,10 @@ export const PRICING_PLANS: readonly PricingPlan[] = [
     spark: 10,
     featured: true,
     featureKeys: [
-      "landing.pricing.plans.growth.features.campaigns",
-      "landing.pricing.plans.growth.features.tiers",
-      "landing.pricing.plans.growth.features.analytics",
-      "landing.pricing.plans.growth.features.priority",
+      "landing.pricing.plans.growth.features.verified",
+      "landing.pricing.plans.growth.features.pitch",
+      "landing.pricing.plans.growth.features.collab",
+      "landing.pricing.plans.growth.features.report",
     ],
   },
   {
@@ -37,10 +37,10 @@ export const PRICING_PLANS: readonly PricingPlan[] = [
     featured: false,
     enterprise: true,
     featureKeys: [
-      "landing.pricing.plans.scale.features.volume",
-      "landing.pricing.plans.scale.features.multi",
-      "landing.pricing.plans.scale.features.agency",
-      "landing.pricing.plans.scale.features.dedicated",
+      "landing.pricing.plans.scale.features.priority",
+      "landing.pricing.plans.scale.features.analytics",
+      "landing.pricing.plans.scale.features.ab",
+      "landing.pricing.plans.scale.features.founding",
     ],
   },
 ] as const;
