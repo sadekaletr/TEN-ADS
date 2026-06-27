@@ -11,6 +11,8 @@ import { playRevealChime } from "@/lib/sound/sfx";
 import { ScratchCardReveal } from "@/components/redeem/reveals/ScratchCardReveal";
 import { SpinWheelReveal } from "@/components/redeem/reveals/SpinWheelReveal";
 import { WinCardDownload } from "@/components/redeem/WinCardDownload";
+import { ConfettiBurst } from "@/components/experience/ConfettiBurst";
+import { successSpring } from "@/lib/motion/presets";
 import { fadeUp } from "@/lib/motion/variants";
 import { transition } from "@/lib/motion/tokens";
 import type { Campaign, Sponsor, RevealStyle } from "@prisma/client";
@@ -197,6 +199,7 @@ export function RewardReveal({
   if (!reducedMotion && phase !== "done") {
     return (
       <div className="relative flex min-h-[60vh] w-full items-center justify-center overflow-hidden">
+        <ConfettiBurst active={phase === "burst"} className="pointer-events-none absolute inset-0 z-20 mx-auto" />
         <motion.div
           className="absolute inset-0 bg-void"
           initial={{ opacity: 0 }}
@@ -231,10 +234,10 @@ export function RewardReveal({
           {phase === "burst" && (
             <motion.div
               key="burst"
-              className="absolute h-40 w-40 rounded-full bg-gold-1/30"
-              initial={{ scale: 0 }}
+              className="absolute h-40 w-40 rounded-full border-2 border-gold-1/50 bg-gold-1/20"
+              initial={{ scale: 0, opacity: 0.8 }}
               animate={{ scale: 3, opacity: 0 }}
-              transition={{ duration: 1 }}
+              transition={successSpring}
             />
           )}
         </AnimatePresence>
@@ -244,6 +247,7 @@ export function RewardReveal({
 
   return (
     <div className="relative w-full text-center">
+      <ConfettiBurst active className="pointer-events-none absolute left-1/2 top-0 z-10 -translate-x-1/2" />
       <canvas ref={canvasRef} className="hidden" aria-hidden />
       <SectionCinematicDivider variant="gold" />
       <motion.div
@@ -254,7 +258,7 @@ export function RewardReveal({
         <DataDepthCard
           elevation={4}
           featured
-          title="تم الاستلام بنجاح"
+          title="لقد ربحت"
           value={prizeName}
           meta={reference}
           className="text-center"

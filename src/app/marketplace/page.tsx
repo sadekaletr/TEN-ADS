@@ -32,6 +32,8 @@ export default async function MarketplacePage({
           handle: true,
           avatarUrl: true,
           verified: true,
+          planTier: true,
+          foundingPartnerNo: true,
           trustScore: true,
           createdAt: true,
           marketplaceBoostUntil: true,

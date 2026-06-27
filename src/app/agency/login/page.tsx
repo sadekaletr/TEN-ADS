@@ -1,9 +1,9 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 import { AnimatedCircuitCard } from "@/components/motion/AnimatedCircuitCard";
 import { CircuitWake } from "@/components/motion/CircuitWake";
 import { MagneticCore } from "@/components/motion/MagneticCore";
@@ -53,14 +53,7 @@ export default function AgencyLoginPage() {
         <PageEnter
           title={
             <>
-              <Image
-                src="/brand/tenegta-logo.svg"
-                alt="TENEGTA"
-                width={180}
-                height={45}
-                className="mb-6 opacity-90"
-                priority
-              />
+              <BrandLogo variant="logo" size="auth" priority className="mb-6 opacity-95" />
               <h1 className="font-brand text-2xl font-bold text-gold-1">
                 {t("common.brand")}
               </h1>

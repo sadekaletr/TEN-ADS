@@ -1,6 +1,7 @@
 "use client";
 
-import { AnimatedNumber } from "@/components/ui/AnimatedNumber";
+import { LandingStatValue } from "@/components/landing/LandingStatValue";
+import { pickFeaturedStatIndex } from "@/lib/landing/public-stat-display";
 import { DataDepthCard } from "@/components/ui/DataDepthCard";
 import { Section } from "@/components/ui/Section";
 import { H2 } from "@/components/ui/Typography";
@@ -30,7 +31,7 @@ export function LandingTrustStats({
     { icon: "gift", value: weeklyRedemptions, labelKey: "landing.stats.weeklyRedemptions" },
   ];
 
-  const featuredIndex = values.indexOf(Math.max(...values));
+  const featuredIndex = pickFeaturedStatIndex(values);
 
   const freshnessLabel = updatedAt
     ? `${t("landing.trust.updatedPrefix")} ${updatedAt}`
@@ -51,14 +52,14 @@ export function LandingTrustStats({
                 featured
                 icon={item.icon}
                 title={t(item.labelKey)}
-                value={<AnimatedNumber value={item.value} />}
+                value={<LandingStatValue value={item.value} />}
               />
             ) : (
               <DataDepthCard
                 elevation={2}
                 icon={item.icon}
                 title={t(item.labelKey)}
-                value={<AnimatedNumber value={item.value} className="inline" />}
+                value={<LandingStatValue value={item.value} className="inline" />}
               />
             )}
           </LandingScrollReveal>

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { AnimatedNumber } from "@/components/ui/AnimatedNumber";
+import { LandingStatValue } from "@/components/landing/LandingStatValue";
 import { useLocale } from "@/lib/i18n";
 import { LandingScrollReveal } from "@/components/landing/LandingScrollReveal";
 import { cn } from "@/lib/utils";
@@ -56,19 +56,19 @@ export function LandingPlatformPreview({ stats }: { stats: PreviewStats }) {
             <div className="rounded-xl border border-subtle bg-bg-elevated p-4 text-center">
               <p className="text-xs text-text-muted">{t("landing.stats.activeCampaigns")}</p>
               <p className="mt-1 font-mono text-2xl text-gold-accent">
-                <AnimatedNumber value={stats.activeCampaigns} />
+                <LandingStatValue value={stats.activeCampaigns} />
               </p>
             </div>
             <div className="rounded-xl border border-subtle bg-bg-elevated p-4 text-center">
               <p className="text-xs text-text-muted">{t("landing.stats.weeklyRedemptions")}</p>
               <p className="mt-1 font-mono text-2xl text-gold-accent">
-                <AnimatedNumber value={stats.weeklyRedemptions} />
+                <LandingStatValue value={stats.weeklyRedemptions} />
               </p>
             </div>
             <div className="rounded-xl border border-subtle bg-bg-elevated p-4 text-center">
               <p className="text-xs text-text-muted">{t("landing.stats.sparkVolume")}</p>
               <p className="mt-1 font-mono text-2xl text-gold-accent">
-                <AnimatedNumber value={stats.sparkVolume} />
+                <LandingStatValue value={stats.sparkVolume} />
               </p>
             </div>
           </div>

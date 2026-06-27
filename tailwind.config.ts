@@ -16,7 +16,9 @@ const config: Config = {
         void: "var(--void)",
         surface: {
           DEFAULT: "var(--surface)",
-          2: "var(--surface-2)",
+          0: "var(--surface-0, var(--bg-base))",
+          1: "var(--surface-1, var(--bg-surface))",
+          2: "var(--surface-2, var(--bg-elevated))",
         },
         gold: {
           accent: "var(--gold-accent)",

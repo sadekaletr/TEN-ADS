@@ -6,14 +6,16 @@ import { Icon } from "@/components/ui/Icon";
 import { Eyebrow } from "@/components/ui/Typography";
 import { LandingAurora } from "@/components/landing/LandingAurora";
 import { LandingSparkParticles } from "@/components/landing/LandingSparkParticles";
+import { LandingStatValue } from "@/components/landing/LandingStatValue";
 import { useLocale } from "@/lib/i18n";
 import { trackLandingEvent } from "@/lib/analytics/landing-events";
 import { getLandingExperiment } from "@/lib/landing/experiment";
+import { isPublicStatEmpty } from "@/lib/landing/public-stat-display";
 import { homeHash } from "@/lib/nav-links";
 import { TOKENS } from "@/styles/tokens";
-import { AnimatedNumber } from "@/components/ui/AnimatedNumber";
 import { fadeUp, scaleIn } from "@/lib/motion/variants";
 import { transition } from "@/lib/motion/tokens";
+import { cn } from "@/lib/utils";
 
 type HeroStats = {
   activeCampaigns: number;
@@ -30,7 +32,7 @@ function heroKey(experiment: ReturnType<typeof getLandingExperiment>, field: str
 function ProductMock() {
   const { t } = useLocale();
   return (
-    <div className="landing-demo-frame relative w-full max-w-lg overflow-hidden rounded-2xl border border-strong bg-bg-surface shadow-elevated">
+    <div className="landing-demo-frame relative z-0 w-full max-w-lg overflow-hidden rounded-2xl border border-strong bg-bg-surface shadow-elevated">
       <div className="flex items-center gap-2 border-b border-subtle px-4 py-3">
         <span className="h-2.5 w-2.5 rounded-full bg-danger/80" />
         <span className="h-2.5 w-2.5 rounded-full bg-warning/80" />
@@ -59,33 +61,41 @@ function ProductMock() {
   );
 }
 
+type ChipSpec = {
+  id: string;
+  label: string;
+  value: number;
+  position: string;
+  showFrom?: "md" | "xl";
+};
+
 function FloatingChip({
   label,
   value,
-  className,
+  position,
   animate,
 }: {
   label: string;
   value: number;
-  className?: string;
+  position: string;
   animate: boolean;
 }) {
   const chip = (
-    <div
-      className={`rounded-xl border border-strong bg-bg-surface/95 px-3 py-2 shadow-card backdrop-blur-md ${className ?? ""}`}
-    >
-      <p className="text-xs text-text-tertiary">{label}</p>
+    <div className="max-w-[11rem] rounded-xl border border-strong bg-bg-surface/95 px-3 py-2 shadow-card backdrop-blur-md">
+      <p className="truncate text-xs text-text-tertiary">{label}</p>
       <p className="font-mono text-sm font-bold text-gold-accent">
-        <AnimatedNumber value={value} />
+        <LandingStatValue value={value} />
       </p>
     </div>
   );
 
-  if (!animate) return chip;
+  if (!animate) {
+    return <div className={cn("pointer-events-none absolute z-20", position)}>{chip}</div>;
+  }
 
   return (
     <motion.div
-      className="absolute z-10"
+      className={cn("pointer-events-none absolute z-20", position)}
       animate={{ y: [0, -6, 0] }}
       transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
     >
@@ -100,6 +110,32 @@ export function LandingHeroImmersive({ stats }: { stats: HeroStats }) {
   const experiment = getLandingExperiment();
   const motionOn = !reducedMotion;
 
+  const chips: ChipSpec[] = (
+    [
+      {
+        id: "campaigns",
+        label: t("landing.stats.activeCampaigns"),
+        value: stats.activeCampaigns,
+        position: "start-0 top-4 md:-start-4 md:top-6",
+        showFrom: "md" as const,
+      },
+      {
+        id: "redemptions",
+        label: t("landing.stats.weeklyRedemptions"),
+        value: stats.weeklyRedemptions,
+        position: "end-0 bottom-8 md:-end-4 md:bottom-12",
+        showFrom: "md" as const,
+      },
+      {
+        id: "spark",
+        label: t("landing.stats.sparkVolume"),
+        value: stats.sparkVolume,
+        position: "end-2 top-2 xl:end-0 xl:-top-2",
+        showFrom: "xl" as const,
+      },
+    ] as ChipSpec[]
+  ).filter((c) => !isPublicStatEmpty(c.value) || c.id !== "spark");
+
   const reveal = (delay = 0) =>
     motionOn
       ? {
@@ -110,12 +146,16 @@ export function LandingHeroImmersive({ stats }: { stats: HeroStats }) {
       : {};
 
   return (
-    <section className="relative min-h-[100dvh] overflow-hidden px-4 pb-20 pt-6 sm:px-6">
+    <section className="relative min-h-[100dvh] overflow-hidden px-4 pb-16 pt-6 sm:px-6">
       <div className="pointer-events-none absolute inset-0">
         <LandingAurora />
         <LandingSparkParticles />
       </div>
       <div className="hero-spotlight pointer-events-none absolute inset-0" aria-hidden />
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-bg-base"
+        aria-hidden
+      />
       <div
         className="pointer-events-none absolute inset-0 opacity-80"
         style={{ background: TOKENS.gradient.heroGlow }}
@@ -176,19 +216,13 @@ export function LandingHeroImmersive({ stats }: { stats: HeroStats }) {
               {t(heroKey(experiment, "ctaSponsor"))}
             </Button>
             <Button
-              href={experiment === "variant_b" ? "/c/SPARK-HERO-H1" : homeHash("product-film")}
+              href={homeHash("product-film")}
               size="lg"
               variant="ghost"
               className="min-h-12 w-full sm:w-auto"
-              icon={<Icon name="play" size={20} />}
-              onClick={() =>
-                trackLandingEvent("landing_demo_click", {
-                  section: "hero",
-                  experiment,
-                })
-              }
+              icon={<Icon name="spark" size={20} />}
             >
-              {t(heroKey(experiment, "ctaDemo"))}
+              {t("landing.hero.ctaHowItWorks")}
             </Button>
           </motion.div>
           <motion.p className="mt-6 text-xs text-text-tertiary" {...reveal(0.24)}>
@@ -197,31 +231,29 @@ export function LandingHeroImmersive({ stats }: { stats: HeroStats }) {
         </div>
 
         <motion.div
-          className="relative flex justify-center lg:justify-end"
+          className="relative mx-auto w-full max-w-lg lg:mx-0 lg:justify-self-end"
           initial={motionOn ? scaleIn.initial : false}
           animate={scaleIn.animate}
           transition={{ ...transition.slow, delay: 0.1 }}
         >
           <div className="landing-hero-glow absolute inset-0 -z-10 scale-110 rounded-full blur-3xl" />
-          <FloatingChip
-            label={t("landing.stats.activeCampaigns")}
-            value={stats.activeCampaigns}
-            className="-start-2 top-8 hidden md:block"
-            animate={motionOn}
-          />
-          <FloatingChip
-            label={t("landing.stats.weeklyRedemptions")}
-            value={stats.weeklyRedemptions}
-            className="-end-2 bottom-16 hidden md:block"
-            animate={motionOn}
-          />
-          <FloatingChip
-            label={t("landing.stats.sparkVolume")}
-            value={stats.sparkVolume}
-            className="end-4 top-0 hidden lg:block"
-            animate={motionOn}
-          />
-          <ProductMock />
+          <div className="relative min-h-[320px] md:min-h-[360px]">
+            {chips.map((chip) => (
+              <FloatingChip
+                key={chip.id}
+                label={chip.label}
+                value={chip.value}
+                position={cn(
+                  chip.position,
+                  chip.showFrom === "xl" ? "hidden xl:block" : "hidden md:block"
+                )}
+                animate={motionOn}
+              />
+            ))}
+            <div className="relative z-10 flex justify-center pt-6 md:pt-10">
+              <ProductMock />
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

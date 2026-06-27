@@ -1,10 +1,11 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 import { AnimatedCircuitCard } from "@/components/motion/AnimatedCircuitCard";
 import { CircuitWake } from "@/components/motion/CircuitWake";
 import { MagneticCore } from "@/components/motion/MagneticCore";
@@ -20,11 +21,19 @@ import { useLocale } from "@/lib/i18n";
 export default function LoginPage() {
   const { t } = useLocale();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const planIntent = searchParams.get("plan");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (planIntent) {
+      sessionStorage.setItem("tenegta_plan_intent", planIntent);
+    }
+  }, [planIntent]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -44,7 +53,12 @@ export default function LoginPage() {
 
     setLoading(false);
     if (result?.error) {
-      setError(t("auth.loginSubtitle"));
+      const id = identifier.toLowerCase();
+      if (id === "admin@tenegta.com") {
+        setError(t("auth.wrongPortalAdmin"));
+      } else {
+        setError(t("auth.loginSubtitle"));
+      }
       return;
     }
     router.push("/dashboard");
@@ -62,15 +76,7 @@ export default function LoginPage() {
         <PageEnter
           title={
             <>
-              <Image
-                src="/brand/tenegta-logo.svg"
-                alt="TENEGTA"
-                width={180}
-                height={45}
-                className="mb-6 opacity-90"
-                style={{ height: "auto" }}
-                priority
-              />
+              <BrandLogo variant="logo" size="auth" priority className="mb-6 opacity-95" />
               <h1 className="font-brand text-2xl font-bold text-gold-1">
                 {t("common.brand")}
               </h1>
@@ -79,6 +85,11 @@ export default function LoginPage() {
           }
         >
           <AnimatedCircuitCard className="mt-8 w-full">
+            {planIntent && (
+              <p className="mb-4 rounded-lg border border-gold-4/30 bg-gold-2/10 px-3 py-2 text-center text-xs text-gold-1">
+                {t("auth.planIntent").replace("{plan}", planIntent)}
+              </p>
+            )}
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <Label htmlFor="email">{t("auth.email")}</Label>

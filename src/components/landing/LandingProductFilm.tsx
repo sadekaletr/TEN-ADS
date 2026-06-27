@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/Button";
 import { useLocale } from "@/lib/i18n";
 import { LandingScrollReveal } from "@/components/landing/LandingScrollReveal";
 import { trackLandingEvent } from "@/lib/analytics/landing-events";
+import { BRAND_LOGO_PATH } from "@/lib/brand";
 
 const STEPS = ["step1", "step2", "step3"] as const;
 
@@ -47,7 +48,7 @@ export function LandingProductFilm({ videoUrl }: LandingProductFilmProps) {
                   controls
                   playsInline
                   className="h-full w-full object-cover"
-                  poster="/brand/tenegta-logo.svg"
+                  poster={BRAND_LOGO_PATH}
                 />
               )}
             </div>

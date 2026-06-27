@@ -44,6 +44,49 @@ export async function toggleVerified(creatorId: string) {
   revalidatePath("/admin");
 }
 
+export async function setCreatorPlanTier(creatorId: string, tier: "STARTER" | "GROWTH" | "SCALE") {
+  const session = await getAdminSession();
+  if (!session) throw new Error("Unauthorized");
+
+  const creator = await prisma.creator.findFirst({
+    where: { id: creatorId, ...notDeleted },
+  });
+  if (!creator) throw new Error("NOT_FOUND");
+
+  let foundingPartnerNo = creator.foundingPartnerNo;
+  if (tier === "SCALE" && foundingPartnerNo == null) {
+    const count = await prisma.creator.count({
+      where: { foundingPartnerNo: { not: null } },
+    });
+    if (count < 100) {
+      foundingPartnerNo = count + 1;
+    }
+  }
+
+  await prisma.creator.update({
+    where: { id: creatorId },
+    data: {
+      planTier: tier,
+      planGrantedAt: new Date(),
+      foundingPartnerNo,
+    },
+  });
+
+  await logAudit({
+    actorId: session.user.id,
+    actorType: "admin",
+    action: "creator.plan_tier_set",
+    entityType: "Creator",
+    entityId: creatorId,
+    before: { planTier: creator.planTier, foundingPartnerNo: creator.foundingPartnerNo },
+    after: { planTier: tier, foundingPartnerNo },
+  });
+
+  revalidatePath("/admin");
+  revalidatePath(`/admin/creators/${creatorId}`);
+  revalidatePath("/creators");
+}
+
 export async function toggleSponsorVerified(sponsorId: string) {
   const session = await getAdminSession();
   if (!session) throw new Error("Unauthorized");

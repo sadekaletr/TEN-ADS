@@ -1,6 +1,7 @@
 import { notDeleted } from "@/lib/db";
 import { prisma } from "@/lib/prisma";
 import type { CreatorCardData } from "@/lib/creators/getFeaturedCreators";
+import { displayVerified } from "@/lib/plans/entitlements";
 
 export type ListingForEnrich = {
   bio: string | null;
@@ -15,6 +16,8 @@ export type ListingForEnrich = {
     handle: string;
     avatarUrl: string | null;
     verified: boolean;
+    planTier: "STARTER" | "GROWTH" | "SCALE";
+    foundingPartnerNo: number | null;
     trustScore?: number | null;
     createdAt: Date;
     campaigns: { city: string | null }[];
@@ -167,7 +170,9 @@ function mapListingToCard(
     coverImageUrl: listing.coverImageUrl,
     city: listing.creator.campaigns[0]?.city ?? null,
     categories: listing.categories,
-    verified: listing.creator.verified,
+    verified: displayVerified(listing.creator),
+    planTier: listing.creator.planTier,
+    foundingPartnerNo: listing.creator.foundingPartnerNo,
     sparkScore,
     trustScore: trust.score,
     campaignsCount: trust.campaignsCount,

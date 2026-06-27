@@ -31,7 +31,7 @@ export function LandingBentoGrid() {
       <div className="mt-10 grid auto-rows-[minmax(140px,auto)] gap-4 md:grid-cols-4">
         {CELLS.map((cell, i) => (
           <LandingScrollReveal key={cell.key} delay={i * 0.06} className={cell.span}>
-            <div className={`bento-cell h-full ${cell.span}`}>
+            <div className={`bento-cell shadow-surface h-full ${cell.span}`}>
               <Icon name={cell.icon} size={28} className="text-gold-rich" />
               <h3 className="mt-4 font-brand text-lg text-text-primary">
                 {t(`landing.bento.${cell.key}Title`)}

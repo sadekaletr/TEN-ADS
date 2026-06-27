@@ -59,6 +59,10 @@ const syne = localFont({
 export const metadata: Metadata = {
   title: "TENEGTA Spark",
   description: "منصة إعلانات بالكوبون لصناع المحتوى",
+  icons: {
+    icon: "/brand/tenegta-icon.png",
+    apple: "/brand/tenegta-icon.png",
+  },
 };
 
 export default async function RootLayout({

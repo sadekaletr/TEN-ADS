@@ -7,7 +7,8 @@ describe("top-up packages", () => {
     for (const pack of TOP_UP_PACKAGES) {
       expect(isValidTopUpAmount(pack)).toBe(true);
     }
-    expect(isValidTopUpAmount(10)).toBe(false);
+    expect(isValidTopUpAmount(10)).toBe(true);
+    expect(isValidTopUpAmount(15)).toBe(false);
     expect(isValidTopUpAmount(0)).toBe(false);
   });
 });

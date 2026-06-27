@@ -2,7 +2,12 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { CreatorDashboardHero } from "@/components/dashboard/CreatorDashboardHero";
+import { CreatorRankCard } from "@/components/dashboard/CreatorRankCard";
+import { DailyMissionCards } from "@/components/dashboard/DailyMissionCards";
+import { AchievementGrid } from "@/components/experience/AchievementGrid";
 import { LiveSparkFlow } from "@/components/dashboard/LiveSparkFlow";
+import type { GamificationContext } from "@/lib/gamification/derive";
 import { CreatorProgressBar } from "@/components/dashboard/CreatorProgressBar";
 import { InsightsCard } from "@/components/dashboard/InsightsCard";
 import { SparkRecommendation } from "@/components/dashboard/SparkRecommendation";
@@ -40,11 +45,13 @@ type CampaignRow = {
 
 interface BusinessDashboardProps {
   creatorId: string;
+  creatorName: string;
   creatorHandle: string;
   walletBalance: number;
   sparkUnit: number;
   sparkScore: number;
   completedCampaigns: number;
+  gamification: GamificationContext;
   analytics: {
     funnel: { views: number; codeSubmits: number; redemptions: number };
     activeCampaigns: number;
@@ -65,10 +72,12 @@ const CAMPAIGN_STATUS_BADGE: Record<string, StatusBadgeVariant> = {
 
 export function BusinessDashboard({
   creatorId,
+  creatorName,
   creatorHandle,
   walletBalance,
   sparkScore,
   completedCampaigns,
+  gamification,
   analytics,
   insights,
   campaigns,
@@ -92,19 +101,22 @@ export function BusinessDashboard({
 
   return (
     <div className="space-y-8">
-      <PageHeader
-        title={t("dashboard.home.title")}
-        description={t("dashboard.home.description")}
-        action={
-          <Button
-            href={`/${creatorHandle.replace(/^@/, "")}/pitch`}
-            variant="secondary"
-            size="sm"
-          >
-            عرض Pitch
-          </Button>
-        }
+      <CreatorDashboardHero
+        creatorName={creatorName}
+        walletBalance={walletBalance}
+        monthlySparkValue={gamification.monthlySparkValue}
+        activeCampaigns={analytics.activeCampaigns}
+        conversionRate={convPct}
       />
+
+      <div className="grid gap-6 lg:grid-cols-3">
+        <CreatorRankCard rank={gamification.rank} sparkScore={sparkScore} />
+        <div className="lg:col-span-2">
+          <DailyMissionCards missions={gamification.dailyMissions} />
+        </div>
+      </div>
+
+      <AchievementGrid achievements={gamification.achievements} />
 
       <CommandKPICluster
         primary={{

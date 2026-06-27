@@ -4,6 +4,8 @@ import { useState } from "react";
 import { MarketplaceFilters } from "@/components/marketplace/MarketplaceFilters";
 import { MarketplaceListingCard } from "@/components/marketplace/MarketplaceListingCard";
 import { MarketplaceDiscoverCampaigns } from "@/components/marketplace/MarketplaceDiscoverCampaigns";
+import { MarketplaceRecommended } from "@/components/marketplace/MarketplaceRecommended";
+import { PageHero } from "@/components/experience/PageHero";
 import { EmptyState } from "@/components/ui/EmptyState";
 import { EmptySearchIllustration } from "@/components/illustrations/EmptyIllustrations";
 import { Tabs } from "@/components/ui/Tabs";
@@ -45,6 +47,13 @@ export function MarketplacePageClient({
 
   return (
     <>
+      <PageHero
+        className="mb-8"
+        eyebrow="Marketplace 2.0"
+        title={t("marketplace.title")}
+        subtitle={t("marketplace.subtitle")}
+      />
+
       <Tabs
         className="mb-8"
         tabs={[
@@ -64,6 +73,7 @@ export function MarketplacePageClient({
             initialCategory={searchParams.category}
             initialMinTrust={searchParams.minTrust}
           />
+          <MarketplaceRecommended creators={creators} />
           {creators.length === 0 ? (
             <EmptyState
               variant="premium"
@@ -88,9 +98,13 @@ export function MarketplacePageClient({
                 {creators.length} صانع — مرتّبون حسب الثقة والنشاط
               </p>
               <h2 className="sr-only">نتائج البحث عن صناع المحتوى</h2>
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                {creators.map((creator) => (
-                  <MarketplaceListingCard key={creator.id} creator={creator} />
+              <div className="grid gap-8 lg:grid-cols-2">
+                {creators.map((creator, i) => (
+                  <MarketplaceListingCard
+                    key={creator.id}
+                    creator={creator}
+                    variant={i < 2 ? "hero" : "default"}
+                  />
                 ))}
               </div>
             </>

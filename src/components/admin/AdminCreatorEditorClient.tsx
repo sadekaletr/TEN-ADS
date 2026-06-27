@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import {
+  setCreatorPlanTier,
   grantIntelligenceSubscription,
   revokeIntelligenceSubscription,
   recomputeSparkAdmin,
@@ -35,6 +36,9 @@ type CreatorDetail = {
   email: string | null;
   avatarUrl: string | null;
   verified: boolean;
+  planTier: "STARTER" | "GROWTH" | "SCALE";
+  planGrantedAt: string | null;
+  foundingPartnerNo: number | null;
   isPartner: boolean;
   partnerDiscountCode: string | null;
   walletBalance: number;
@@ -71,6 +75,7 @@ export function AdminCreatorEditorClient({ creator }: { creator: CreatorDetail }
   const [newPassword, setNewPassword] = useState("");
   const [avatarUrl, setAvatarUrl] = useState(creator.avatarUrl ?? "");
   const [verified, setVerified] = useState(creator.verified);
+  const [planTier, setPlanTier] = useState(creator.planTier);
   const [isPartner, setIsPartner] = useState(creator.isPartner);
   const [partnerDiscountCode, setPartnerDiscountCode] = useState(
     creator.partnerDiscountCode ?? ""
@@ -102,6 +107,8 @@ export function AdminCreatorEditorClient({ creator }: { creator: CreatorDetail }
     city: null,
     categories,
     verified,
+    planTier,
+    foundingPartnerNo: creator.foundingPartnerNo,
     sparkScore: creator.performance.sparkScore,
     trustScore: creator.performance.trustScore,
     campaignsCount: creator.performance.campaignsCount,
@@ -305,6 +312,47 @@ export function AdminCreatorEditorClient({ creator }: { creator: CreatorDetail }
                 />
                 موثّق
               </label>
+              <div>
+                <Label>باقة العضوية</Label>
+                <Select
+                  value={planTier}
+                  onChange={(e) => setPlanTier(e.target.value as typeof planTier)}
+                >
+                  <option value="STARTER">Starter</option>
+                  <option value="GROWTH">Growth</option>
+                  <option value="SCALE">Scale</option>
+                </Select>
+                {creator.foundingPartnerNo != null && (
+                  <p className="mt-1 text-xs text-gold-2">
+                    شريك مؤسس #{creator.foundingPartnerNo}
+                  </p>
+                )}
+                {creator.planGrantedAt && (
+                  <p className="mt-0.5 text-xs text-dim">
+                    آخر تعيين: {new Date(creator.planGrantedAt).toLocaleDateString("ar-SY")}
+                  </p>
+                )}
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="secondary"
+                  className="mt-2"
+                  disabled={loading || planTier === creator.planTier}
+                  onClick={async () => {
+                    setLoading(true);
+                    try {
+                      await setCreatorPlanTier(creator.id, planTier);
+                      setToast({ msg: "تم تحديث الباقة", variant: "success" });
+                    } catch {
+                      setToast({ msg: "فشل تحديث الباقة", variant: "error" });
+                    } finally {
+                      setLoading(false);
+                    }
+                  }}
+                >
+                  حفظ الباقة
+                </Button>
+              </div>
               <label className="flex items-center gap-2 text-sm text-dim">
                 <input
                   type="checkbox"

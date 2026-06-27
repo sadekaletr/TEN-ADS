@@ -22,6 +22,7 @@
     "submit": "إرسال"
   },
   "theme": {
+    "label": "المظهر",
     "switchToLight": "وضع فاتح",
     "switchToDark": "وضع داكن"
   },
@@ -30,10 +31,12 @@
     "demo": "التجربة",
     "faq": "الأسئلة",
     "pricing": "الباقات",
-    "productFilm": "كيف يعمل",
+    "productFilm": "فيلم المنتج",
     "marketplace": "السوق",
     "creators": "الصناع",
     "discover": "اكتشف العروض",
+    "more": "المزيد",
+    "explore": "استكشف",
     "dashboard": "لوحة التحكم",
     "campaigns": "حملاتي",
     "collabRequests": "طلبات التعاون",
@@ -56,6 +59,8 @@
         "redemptions": "استرداد هذا الأسبوع",
         "prize": "جائزة فورية للمتابع"
       },
+      "beFirst": "كن الأول",
+      "ctaHowItWorks": "كيف يعمل؟",
       "control": {
         "eyebrow": "منصة الحملات بالكوبون لصناع المحتوى",
         "title": "حوّل متابعينك إلى",
@@ -140,6 +145,33 @@
       "cta": "استلم جائزتك الآن",
       "watchCta": "شاهد كيف يعمل"
     },
+    "demo": {
+      "title": "جرّب المنصة — بدون تسجيل",
+      "subtitle": "ثلاث خطوات تفاعلية: أنشئ حملة، شارك الكود، وشاهد الكشف",
+      "tabs": {
+        "create": "أنشئ حملة",
+        "share": "شارك الكود",
+        "reveal": "شاهد الكشف"
+      },
+      "create": {
+        "label": "صف حملتك بجملة واحدة",
+        "placeholder": "مثال: 20 وجبة برجر مجانية من مطعمي في دمشق",
+        "cta": "اقترح لي",
+        "resultLabel": "اقتراح فوري",
+        "prize": "الجائزة",
+        "quantity": "الكمية"
+      },
+      "share": {
+        "creatorScreen": "شاشة الصانع — جاهز للنشر",
+        "followerScreen": "شاشة المتابع — امسح QR",
+        "storyText": "🎁 جائزة حصرية! امسح الكود واستلمها الآن عبر TENEGTA Spark",
+        "next": "انتقل للمتابع",
+        "hint": "الكود ينتقل من الصانع إلى المتابع — QR حقيقي يعمل على المنصة"
+      },
+      "reveal": {
+        "cta": "اضغط لتجربة الكشف"
+      }
+    },
     "sponsorBenefits": {
       "title": "للرعاة",
       "subtitle": "حوّل التسويق بالمؤثرين إلى زيارات فعلية",
@@ -223,16 +255,63 @@
     "stats": {
       "headline": "صناع محتوى يثقون بـ TENEGTA Spark",
       "activeCampaigns": "حملة نشطة على المنصة",
-      "sparkVolume": "سبارك تم تداولها",
+      "sparkVolume": "Spark تم تداولها",
       "weeklyRedemptions": "استرداد هذا الأسبوع"
     },
     "logos": {
       "title": "شركاء وعلامات يعملون معنا"
     },
     "pricing": {
-      "title": "اختر مستوى حملتك",
-      "subtitle": "ثلاث باقات واضحة — لا أرقام تقنية مبهمة",
-      "cta": "ابدأ بهذه الباقة"
+      "title": "باقات Spark — ابدأ بما يناسبك",
+      "subtitle": "رصيد Spark موحّد للمنصة — شحن سريع وشفاف",
+      "featuredBadge": "الأكثر طلباً",
+      "cta": "ابدأ بهذه الباقة",
+      "toggle": {
+        "monthly": "شهري",
+        "yearly": "سنوي",
+        "saveLabel": "وفر 20%",
+        "note": "الأسعار نفسها — التبديل للمعاينة فقط"
+      },
+      "trust": {
+        "secure": "تحويل آمن",
+        "transparent": "أسعار شفافة",
+        "noFees": "بدون رسوم مخفية"
+      },
+      "plans": {
+        "starter": {
+          "title": "Starter",
+          "subtitle": "للتجربة والانطلاق",
+          "cta": "ابدأ بـ 5 Spark",
+          "features": {
+            "campaigns": "حوالي 5 حملات أساسية",
+            "redeem": "استرداد فوري للمتابعين",
+            "dashboard": "لوحة تحكم أساسية",
+            "export": "نسخة احتياطية للفائزين (CSV/JSON)"
+          }
+        },
+        "growth": {
+          "title": "Growth",
+          "subtitle": "للنمو المستمر",
+          "cta": "ابدأ بـ 10 Spark",
+          "features": {
+            "verified": "شارة موثّق فورية",
+            "pitch": "بوابة Pitch للرعاة",
+            "collab": "حتى شريكين Co-Campaign",
+            "report": "تقرير شهري بالبريد"
+          }
+        },
+        "scale": {
+          "title": "Scale",
+          "subtitle": "للفرق والوكالات",
+          "cta": "ابدأ بـ 50 Spark",
+          "features": {
+            "priority": "دعم أولوية + SLA",
+            "analytics": "تحليلات منافسين مجهولة",
+            "ab": "A/B لنص الحملة",
+            "founding": "شارة شريك مؤسس (أول 100)"
+          }
+        }
+      }
     },
     "howItWorks": {
       "title": "لماذا TENEGTA؟",
@@ -338,6 +417,11 @@
       "topup": {
         "stepperLabel": "خطوات شحن المحفظة",
         "stepProgress": "خطوة {current} من {total}",
+        "selected": "محدّدة",
+        "select": "اختر هذه الباقة",
+        "approxSyp": "تقريباً",
+        "draftBanner": "حملة «{title}» جاهزة — تحتاج فقط {spark} سبارك",
+        "draftCta": "اشحن الآن وأطلق فوراً",
         "step": {
           "package": "الباقة",
           "transfer": "التحويل",
@@ -381,6 +465,7 @@
     "login": "تسجيل الدخول",
     "loginTitle": "تسجيل دخول صانع المحتوى",
     "loginSubtitle": "بيانات الدخول غير صحيحة — تحقق وحاول مرة أخرى",
+    "wrongPortalAdmin": "هذا حساب إدارة — استخدم /admin/login مع admin@tenegta.com",
     "loginIdentifierHint": "أدخل البريد أو الهاتف — يكفي أحدهما",
     "sponsorLoginTitle": "تسجيل دخول الراعي",
     "sponsorLoginSubtitle": "إدارة حملاتك ومحفظتك",
@@ -394,7 +479,17 @@
     "signIn": "دخول",
     "forgotPassword": "نسيت كلمة المرور؟",
     "signInGoogle": "الدخول عبر Google",
-    "demoHint": "تجريبي: creator@tenegta.com / demo1234"
+    "demoHint": "تجريبي: creator@tenegta.com / demo1234",
+    "planIntent": "طلبت باقة {plan} — سيتم تفعيلها من الإدارة بعد التسجيل"
+  },
+  "pitch": {
+    "upgrade": {
+      "eyebrow": "Growth+",
+      "title": "بوابة Pitch متاحة لباقة Growth وما فوق",
+      "body": "عرض تقديمي حي لرعاتك — حمّل بياناتك الحقيقية وشارك رابطاً واحداً",
+      "cta": "انضم كصانع",
+      "pricing": "عرض الباقات"
+    }
   },
   "redeem": {
     "title": "استلام الجائزة",

@@ -25,6 +25,8 @@ import { DataTable } from "@/components/ui/DataTable";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { StepProgressRail } from "@/components/ui/StepProgressRail";
 import { FilterPill, FilterPillGroup } from "@/components/ui/FilterPill";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
+import { LandingPricingPlans } from "@/components/landing/LandingPricingPlans";
 import {
   DashboardLoadingSkeleton,
   TopUpLoadingSkeleton,
@@ -45,6 +47,8 @@ const DEMO_CREATOR: CreatorCardData = {
   city: "دمشق",
   categories: ["fashion", "lifestyle"],
   verified: true,
+  planTier: "GROWTH",
+  foundingPartnerNo: null,
   sparkScore: 742,
   trustScore: 88,
   campaignsCount: 4,
@@ -104,12 +108,96 @@ export function GlobalUi40PreviewPanel() {
     <section className="space-y-8">
       <div>
         <h2 className={`${TOKENS.type.sectionTitle} text-gold-accent`}>
-          Global UI 4.0 — PR-1 + PR-2 + PR-3 Governance
+          Global UI 4.0 — Identity Strike + PR-1/2/3
         </h2>
         <p className="mt-2 text-sm text-text-secondary">
-          Public · Dashboard · Wallet · ROI · Admin · Redeem · Marketplace
+          Light identity · Navbar · Pricing 5/10/50 · Public · Dashboard · Wallet · Admin
         </p>
+        <div className="mt-4 flex items-center gap-3">
+          <ThemeToggle />
+          <span className="text-xs text-text-tertiary">Toggle light mode to verify surface depth</span>
+        </div>
       </div>
+
+      <Section
+        title="Light identity system"
+        description="surface-0 / surface-1 / surface-2 hierarchy · mesh page background · elevated shadows"
+      >
+        <div className="grid gap-4 sm:grid-cols-3">
+          <div className="rounded-xl border border-subtle bg-surface-0 p-4 shadow-surface">
+            <p className="text-xs font-medium text-text-tertiary">surface-0</p>
+            <p className="mt-1 text-sm text-text-primary">Page base</p>
+          </div>
+          <div className="rounded-xl border border-subtle bg-surface-1 p-4 shadow-surface">
+            <p className="text-xs font-medium text-text-tertiary">surface-1</p>
+            <p className="mt-1 text-sm text-text-primary">Cards · bands</p>
+          </div>
+          <div className="rounded-xl border border-strong bg-surface-2 p-4 shadow-elevated">
+            <p className="text-xs font-medium text-text-tertiary">surface-2</p>
+            <p className="mt-1 text-sm text-text-primary">Nav · elevated panels</p>
+          </div>
+        </div>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {["gold-accent", "gold-rich", "text-primary", "text-secondary"].map((token) => (
+            <span
+              key={token}
+              className="inline-flex items-center gap-2 rounded-lg border border-subtle px-3 py-2 text-xs text-text-secondary"
+            >
+              <span
+                className={`h-4 w-4 rounded-full border border-subtle ${
+                  token.startsWith("text") ? `bg-${token}` : `bg-${token}`
+                }`}
+                style={{
+                  background:
+                    token === "text-primary"
+                      ? "var(--text-primary)"
+                      : token === "text-secondary"
+                        ? "var(--text-secondary)"
+                        : `var(--${token})`,
+                }}
+              />
+              {token}
+            </span>
+          ))}
+        </div>
+      </Section>
+
+      <Section
+        title="Navbar states (static mock)"
+        description="Default · scrolled (compact + shadow) · mobile sheet structure"
+      >
+        <div className="space-y-3">
+          <div className="rounded-xl border border-subtle bg-[var(--nav-bg)] px-4 py-4 backdrop-blur-xl">
+            <div className="flex items-center justify-between">
+              <span className="font-brand text-sm text-text-primary">Logo</span>
+              <span className="hidden text-xs text-text-secondary sm:inline">Center links</span>
+              <span className="text-xs text-gold-accent">CTAs</span>
+            </div>
+          </div>
+          <div className="rounded-xl border border-strong bg-[var(--nav-bg)] px-4 py-2 shadow-elevated backdrop-blur-xl">
+            <div className="flex items-center justify-between">
+              <span className="scale-95 font-brand text-sm text-text-primary">Logo · shrunk</span>
+              <span className="text-xs text-text-secondary">scroll &gt; 24px</span>
+            </div>
+          </div>
+          <div className="rounded-xl border border-strong bg-surface-2 p-4 shadow-elevated">
+            <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary">Mobile sheet</p>
+            <ul className="mt-2 space-y-1 text-sm text-text-primary">
+              <li className="rounded-lg bg-gold-rich/10 px-3 py-2 text-gold-accent">Discover (highlight)</li>
+              <li className="px-3 py-2">Pricing · FAQ</li>
+            </ul>
+            <div className="mt-3 flex gap-2">
+              <Button fullWidth className="min-h-12">
+                Start now
+              </Button>
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      <Section title="Pricing 5 / 10 / 50" description="Landing spark bundles · Growth featured · trust row">
+        <LandingPricingPlans />
+      </Section>
 
       <Section
         title="Hero CTA hierarchy"
@@ -353,7 +441,8 @@ export function GlobalUi40PreviewPanel() {
         description={`instant ${duration.instant}s · fast ${duration.fast}s · normal ${duration.normal}s · slow ${duration.slow}s · cinematic ${duration.cinematic}s`}
       >
         <p className="text-xs text-text-tertiary">
-          Easing: cubic-bezier({easeGold.join(", ")}) — transform + opacity only
+          Nav shrink: py-4 → py-2 at scroll &gt; 24px · logo scale 0.95 · card hover translateY(-2px) · disabled when
+          prefers-reduced-motion
         </p>
         <div className="grid gap-4 sm:grid-cols-3">
           <motion.div

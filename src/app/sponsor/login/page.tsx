@@ -1,9 +1,9 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 import { CircuitCard } from "@/components/ui/CircuitCard";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -45,13 +45,7 @@ export default function SponsorLoginPage() {
       <div className="absolute end-6 top-6">
         <LocaleSwitcher />
       </div>
-      <Image
-        src="/brand/tenegta-logo.svg"
-        alt="TENEGTA"
-        width={180}
-        height={45}
-        className="mb-6 opacity-90"
-      />
+      <BrandLogo variant="logo" size="auth" priority className="mb-6 opacity-95" />
       <CircuitCard className="w-full">
         <h1 className="mb-4 text-center text-lg text-gold-1">{t("auth.sponsorLoginTitle")}</h1>
         <p className="mb-4 text-center text-sm text-dim">{t("auth.sponsorLoginSubtitle")}</p>

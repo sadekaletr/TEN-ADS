@@ -3,7 +3,7 @@ import { sparkToSyp } from "@/lib/spark";
 import { sparkPackageUsd } from "@/lib/spark-pricing";
 import { tierCostPerRedemption } from "@/lib/campaign-tiers";
 
-export const TOP_UP_PACKAGE_AMOUNTS = [5, 15, 30] as const;
+export const TOP_UP_PACKAGE_AMOUNTS = [5, 10, 50] as const;
 
 export type TopUpPackAmount = (typeof TOP_UP_PACKAGE_AMOUNTS)[number];
 
@@ -46,7 +46,7 @@ export function buildTopUpPackages(
   }
 
   return TOP_UP_PACKAGE_AMOUNTS.map((amount, index) => {
-    const featured = amount === 15;
+    const featured = amount === 10;
     const basic = basicCampaigns(amount);
     const pro = proCampaigns(amount);
     const resultTexts = [

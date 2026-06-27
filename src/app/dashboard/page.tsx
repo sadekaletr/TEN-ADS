@@ -14,6 +14,9 @@ import {
 } from "@/lib/intelligence/spark-score";
 import { getSparkUnit } from "@/lib/spark";
 import { BusinessDashboard } from "@/components/dashboard/BusinessDashboard";
+import { PrioritySupportCard } from "@/components/dashboard/PrioritySupportCard";
+import { hasPrioritySupport } from "@/lib/plans/entitlements";
+import { getCreatorGamification } from "@/lib/gamification/queries";
 import { redirect } from "next/navigation";
 
 export default async function DashboardPage() {
@@ -28,7 +31,7 @@ export default async function DashboardPage() {
     sparkScore = await computeSparkScore(creator.id);
   }
 
-  const [analytics, insights, campaigns, sparkUnit, completedCampaigns, sparkRecommendation, recommendedSponsors, bestTemplate] = await Promise.all([
+  const [analytics, insights, campaigns, sparkUnit, completedCampaigns, sparkRecommendation, recommendedSponsors, bestTemplate, gamification] = await Promise.all([
     getCreatorAnalytics(session.user.id),
     getCreatorInsights(session.user.id),
     prisma.campaign.findMany({
@@ -47,16 +50,25 @@ export default async function DashboardPage() {
     getCampaignRecommendations(session.user.id),
     getRecommendedSponsorsForCreator(session.user.id),
     getBestCampaignTemplate(session.user.id),
+    getCreatorGamification(session.user.id, sparkScore?.score ?? 0),
   ]);
 
   return (
-    <BusinessDashboard
+    <>
+      {hasPrioritySupport(creator) && (
+        <div className="mx-auto mb-6 max-w-6xl px-4">
+          <PrioritySupportCard />
+        </div>
+      )}
+      <BusinessDashboard
       creatorId={session.user.id}
+      creatorName={creator.name}
       creatorHandle={creator.handle}
       walletBalance={creator.walletBalance}
       sparkUnit={sparkUnit}
       sparkScore={sparkScore?.score ?? 0}
       completedCampaigns={completedCampaigns}
+      gamification={gamification}
       analytics={{
         funnel: analytics.funnel,
         activeCampaigns: analytics.activeCampaigns,
@@ -67,5 +79,6 @@ export default async function DashboardPage() {
       recommendedSponsors={recommendedSponsors}
       bestTemplate={bestTemplate}
     />
+    </>
   );
 }

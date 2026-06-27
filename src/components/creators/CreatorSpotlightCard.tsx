@@ -15,6 +15,7 @@ import { isCreatorNew } from "@/lib/creators/creator-utils";
 import type { CreatorCardData } from "@/lib/creators/getFeaturedCreators";
 import { CreatorStatChips } from "@/components/creators/CreatorStatChips";
 import { VerifiedBadge } from "@/components/ui/VerifiedBadge";
+import { FoundingPartnerBadge } from "@/components/ui/FoundingPartnerBadge";
 import { StatusPillPro } from "@/components/ui/StatusPillPro";
 import { percent } from "@/lib/format";
 
@@ -134,6 +135,9 @@ export function CreatorSpotlightCard({
               {displayName}
             </h3>
             {creator.verified && <VerifiedBadge />}
+            {creator.foundingPartnerNo != null && (
+              <FoundingPartnerBadge number={creator.foundingPartnerNo} />
+            )}
           </div>
           <p className="font-mono text-xs text-gold-3">@{cleanHandle}</p>
           {creator.city && <p className="mt-0.5 text-xs text-text-secondary">{creator.city}</p>}

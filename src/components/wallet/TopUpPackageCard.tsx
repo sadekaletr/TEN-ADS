@@ -8,6 +8,8 @@ import { AnimatedNumber } from "@/components/ui/AnimatedNumber";
 import { formatCurrency, formatNumber } from "@/lib/format";
 import { formatUsd } from "@/lib/spark-pricing";
 import { cn } from "@/lib/utils";
+import { getPricingPlanBySpark } from "@/lib/landing/pricing-plans";
+import { useLocale } from "@/lib/i18n";
 import type { TopUpPackage } from "@/lib/wallet/topup-packages";
 
 interface TopUpPackageCardProps {
@@ -17,6 +19,10 @@ interface TopUpPackageCardProps {
 }
 
 export function TopUpPackageCard({ pkg, selected, onSelect }: TopUpPackageCardProps) {
+  const { t } = useLocale();
+  const plan = getPricingPlanBySpark(pkg.amount);
+  const planKey = plan ? `landing.pricing.plans.${plan.id}` : null;
+
   return (
     <button
       type="button"
@@ -38,13 +44,18 @@ export function TopUpPackageCard({ pkg, selected, onSelect }: TopUpPackageCardPr
         {pkg.featured && (
           <span className="absolute start-4 top-4 z-20 inline-flex items-center gap-1 rounded-full bg-gold-2 px-2.5 py-0.5 text-xs font-semibold text-void">
             <Icon name="star" size={12} weight="fill" />
-            الأكثر طلباً
+            {t("landing.pricing.featuredBadge")}
           </span>
         )}
         <div className="flex flex-col items-center text-center">
-          <span className="inline-flex items-center gap-1 rounded-full border border-strong bg-bg-elevated px-2.5 py-1 text-[10px] text-text-secondary">
+          {planKey && (
+            <p className="text-xs font-medium uppercase tracking-wider text-text-tertiary">
+              {t(`${planKey}.title`)}
+            </p>
+          )}
+          <span className="mt-2 inline-flex items-center gap-1 rounded-full border border-strong bg-bg-elevated px-2.5 py-1 text-[10px] text-text-secondary">
             <Icon name="lock" size={12} className="text-gold-accent" />
-            تحويل آمن
+            {t("landing.pricing.trust.secure")}
           </span>
           <div className="mt-4">
             <SparkIcon size={36} />
@@ -65,7 +76,7 @@ export function TopUpPackageCard({ pkg, selected, onSelect }: TopUpPackageCardPr
             </span>
           </div>
           <p className="mt-1 font-mono text-xs tabular-nums text-text-tertiary">
-            {formatCurrency(pkg.priceSYP)} تقريباً
+            {formatCurrency(pkg.priceSYP)} {t("dashboard.wallet.topup.approxSyp")}
           </p>
           <span
             className={cn(
@@ -75,7 +86,7 @@ export function TopUpPackageCard({ pkg, selected, onSelect }: TopUpPackageCardPr
                 : "bg-bg-elevated text-text-primary group-hover:bg-gold-rich/10"
             )}
           >
-            {selected ? "محدّدة" : "اختر هذه الباقة"}
+            {selected ? t("dashboard.wallet.topup.selected") : t("dashboard.wallet.topup.select")}
           </span>
         </div>
       </GlassCard>
@@ -90,12 +101,14 @@ export function DraftCampaignBanner({
   title: string;
   sparkNeeded: number;
 }) {
+  const { t } = useLocale();
+
   return (
     <GlassCard className="border-gold-2/30 bg-gold-rich/5">
       <p className="text-sm text-text-primary">
-        حملة «{title}» جاهزة — تحتاج فقط{" "}
-        <AnimatedNumber value={sparkNeeded} className="font-mono font-semibold tabular-nums text-gold-accent" />{" "}
-        سبارك
+        {t("dashboard.wallet.topup.draftBanner")
+          .replace("{title}", title)
+          .replace("{spark}", formatNumber(sparkNeeded))}
       </p>
       <Button
         href={`/dashboard/wallet/topup?need=${sparkNeeded}`}
@@ -104,7 +117,7 @@ export function DraftCampaignBanner({
         className="mt-3 min-h-10"
         icon={<Icon name="wallet" size={14} />}
       >
-        اشحن الآن وأطلق فوراً
+        {t("dashboard.wallet.topup.draftCta")}
       </Button>
     </GlassCard>
   );
